@@ -86,7 +86,7 @@
             box-sizing: border-box;
         }
 
-        /* INTERFAZ DE JUEGO (Diferente a la de inicio) */
+        /* INTERFAZ DE JUEGO */
         .game-interface {
             background: rgba(5, 8, 15, 0.85);
             border-left: 2px solid #3b4252;
@@ -101,7 +101,7 @@
         h1 { 
             color: #ffffff; 
             margin: 0 0 5px 0; 
-            font-size: 36px; 
+            font-size: 34px; 
             font-weight: 300;
             letter-spacing: 3px;
             text-shadow: 0 2px 8px rgba(0,0,0,0.9);
@@ -115,14 +115,14 @@
         }
         p { color: #d8dee9; font-size: 15px; line-height: 1.6; text-transform: none; }
 
-        .menu-list { display: flex; flex-direction: column; gap: 16px; }
+        .menu-list { display: flex; flex-direction: column; gap: 14px; }
 
         /* Botones de Texto Interactivos */
         .btn-menu {
             background: none;
             border: none;
             color: #4c566a;
-            font-size: 19px;
+            font-size: 18px;
             font-weight: 400;
             text-align: left;
             padding: 5px 0;
@@ -137,39 +137,12 @@
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
         }
 
-        /* Entrada de texto */
-        input[type="text"] {
-            padding: 14px;
-            width: 100%;
-            max-width: 380px;
-            border: 1px solid #4c566a;
-            background: #2e3440;
-            color: #eceff4;
-            font-size: 15px;
-            border-radius: 4px;
-            margin-top: 15px;
-            box-sizing: border-box;
-            transition: border-color 0.2s;
-        }
-        input[type="text"]:focus { border-color: #88c0d0; outline: none; }
-
         .quiz-box { 
-            background: rgba(46, 52, 64, 0.5); 
+            background: rgba(46, 52, 64, 0.4); 
             padding: 20px; 
             border-radius: 4px; 
             margin: 20px 0; 
             border: 1px solid #3b4252;
-        }
-
-        /* Nueva Imagen Específica del Conflicto Familiar */
-        .fase-img {
-            width: 100%;
-            max-width: 380px;
-            height: 220px;
-            object-fit: cover;
-            border-radius: 4px;
-            border: 1px solid #4c566a;
-            margin-top: 15px;
         }
 
         /* Estilo Modales Laterales */
@@ -216,7 +189,7 @@
 
 <div class="container">
     
-    <!-- PANTALLA PRINCIPAL CINEMÁTICA (ESTILO RE3 ORIGINAL) -->
+    <!-- PANTALLA PRINCIPAL CINEMÁTICA -->
     <div id="pantalla-menu">
         <h1>PATRONES DE CRIANZA</h1>
         <div class="subtitle">BATALLA DE GAMIFICACIÓN / 5TO SECUNDARIA</div>
@@ -233,36 +206,9 @@
     <!-- CAMBIO DE ENTORNO: INTERFAZ DE MONITOREO TÁCTICO PARA EL JUEGO -->
     <div id="zona-juego" class="game-interface hidden">
         
-        <!-- FASE 1: ACERTIJO GRÁFICO REAL -->
-        <div id="pantalla-fase1" class="hidden">
-            <div style="font-size: 11px; color:#81a1c1; letter-spacing:1px; margin-bottom:5px;">REGISTRO VISUAL / FASE 01</div>
-            <p style="margin-top:0;">Determina el patrón de conducta según el registro analógico:</p>
-            
-            <!-- Imagen específica: Conflicto severo/regaño autoritario -->
-            <img class="fase-img" src="https://images.unsplash.com/photo-1621252179027-94459d278660?auto=format&fit=crop&q=80&w=600" alt="Conducta Familiar">
-            
-            <input type="text" id="input-fase1" placeholder="Ingresa el patrón de crianza...">
-            <br>
-            <button class="btn-menu" style="color:#bf616a; font-size:16px; margin-top:15px;" onclick="verificarFase1()">[ CONFIRMAR REGISTRO ]</button>
-        </div>
-
-        <!-- FASE 2 -->
-        <div id="pantalla-fase2" class="hidden">
-            <div style="font-size: 11px; color:#81a1c1; letter-spacing:1px; margin-bottom:5px;">REGISTRO TEÓRICO / FASE 02</div>
-            <p style="margin-top:0;">Ingresa el patrón clínico de la siguiente transmisión:</p>
-            <div class="quiz-box">
-                <p style="color: #ffffff; margin: 0; font-size: 14px;">
-                    "Padres altamente afectuosos que evitan establecer límites o normas. Ceden de manera inmediata ante las demandas de los hijos."
-                </p>
-            </div>
-            <input type="text" id="input-fase2" placeholder="Ingresa el patrón de crianza...">
-            <br>
-            <button class="btn-menu" style="color:#bf616a; font-size:16px; margin-top:15px;" onclick="verificarFase2()">[ CONFIRMAR REGISTRO ]</button>
-        </div>
-
-        <!-- FASES 3, 4 Y 5 -->
-        <div id="pantalla-casos" class="hidden">
-            <div style="font-size: 11px; color:#81a1c1; letter-spacing:1px; margin-bottom:5px;">EVALUACIÓN CLÍNICA / FASE 0<span id="num-fase">3</span></div>
+        <!-- PANEL DE CONTROL UNIFICADO PARA TODAS LAS FASES -->
+        <div id="pantalla-casos">
+            <div style="font-size: 11px; color:#81a1c1; letter-spacing:1px; margin-bottom:5px;">EVALUACIÓN CLÍNICA / FASE 0<span id="num-fase">1</span></div>
             <p style="margin-top:0;" id="texto-pregunta"></p>
             
             <div id="opciones-zona" class="menu-list" style="margin-top:20px;"></div>
@@ -274,7 +220,7 @@
             <p>Los parámetros estructurales han sido ordenados con éxito.</p>
             
             <div class="quiz-box">
-                <span style="display:block; margin: 4px 0; font-size:13px;">• Rediseño asimétrico de simulación.</span>
+                <span style="display:block; margin: 4px 0; font-size:13px;">• Formato dinámico vertical de 5 opciones implementado.</span>
                 <span style="display:block; margin: 4px 0; font-size:13px;">• Diagnóstico de conductas completado.</span>
             </div>
             <button class="btn-menu" style="color:#81a1c1;" onclick="location.reload()">[ REINICIAR SISTEMA ]</button>
@@ -289,7 +235,7 @@
         <span class="close-btn" onclick="cerrarModal('modal-instrucciones')">&times;</span>
         <h2 style="color: #ffffff; margin-top: 0; font-weight: 300;">MANUAL</h2>
         <p>Analiza de forma secuencial los 5 sectores familiares expuestos del lado izquierdo del monitor.</p>
-        <p>Utiliza respuestas precisas escritas para los datos conceptuales y selecciones de un toque para los análisis de campo.</p>
+        <p>Evalúa las descripciones y selecciona una de las 5 opciones tácticas del menú vertical para avanzar.</p>
     </div>
 </div>
 
@@ -359,23 +305,36 @@
         }
     }, 8000);
 
+    // Banco de Preguntas unificado (5 fases, 5 opciones cada una)
     const preguntasCasos = [
         {
-            faseNum: 3,
-            caso: "Los padres de Carlos no le imponen horarios, permiten que actúe sin supervisión y no existen repercusiones cuando se quiebran las directrices del hogar.",
-            opciones: ["Patrón Autoritario", "Patrón Permisivo", "Patrón Democrático / Asertivo", "Patrón Negligente"],
+            faseNum: 1,
+            caso: "Un padre de familia le grita fuertemente a su hijo exigiéndole obediencia inmediata, sin permitirle explicar lo sucedido y amenazándolo con un castigo severo si vuelve a cuestionar sus órdenes.",
+            opciones: ["Patrón Democrático", "Patrón Autoritario", "Patrón Permisivo", "Patrón Negligente", "Patrón Sobreprotector"],
             correcta: 1
         },
         {
+            faseNum: 2,
+            caso: "Una madre se muestra sumamente afectuosa y cercana con sus hijos, pero evita establecer cualquier tipo de norma o límite en el hogar, cediendo de manera inmediata ante todos sus caprichos.",
+            opciones: ["Patrón Autoritario", "Patrón Negligente", "Patrón Permisivo", "Patrón Asertivo", "Patrón Equilibrado"],
+            correcta: 2
+        },
+        {
+            faseNum: 3,
+            caso: "Los padres de Carlos no le imponen horarios, permiten que actúe sin supervisión fuera de casa y no existen repercusiones ni diálogos cuando se quiebran las directrices básicas de convivencia.",
+            opciones: ["Patrón Autoritario", "Patrón Democrático", "Patrón Desapegado", "Patrón Permisivo", "Patrón Negligente"],
+            correcta: 3
+        },
+        {
             faseNum: 4,
-            caso: "En el entorno de Ana, los límites se estructuran bajo consenso. Existe un canal de escucha abierto y un alto nivel de soporte emocional afectivo.",
-            opciones: ["Patrón Negligente", "Patrón Autoritario", "Patrón Democrático / Asertivo", "Patrón Permisivo"],
+            caso: "En el entorno de Ana, los límites y responsabilidades se estructuran bajo el consenso mutuo. Existe un canal de escucha activo, resolución conjunta de problemas y un fuerte soporte emocional afectivo.",
+            opciones: ["Patrón Negligente", "Patrón Autoritario", "Patrón Democrático / Asertivo", "Patrón Sobreprotector", "Patrón Permisivo"],
             correcta: 2
         },
         {
             faseNum: 5,
-            caso: "Los tutores de Luis muestran desinterés sistemático por su evolución académica y sus estados emocionales, delegando por completo sus responsabilidades.",
-            opciones: ["Patrón Negligente", "Patrón Autoritario", "Patrón Permisivo", "Patrón Democrático / Asertivo"],
+            caso: "Los tutores de Luis muestran un desinterés sistemático por su evolución académica, alimentación y estados emocionales, ausentándose del hogar y delegando por completo sus responsabilidades básicas de cuidado.",
+            opciones: ["Patrón Negligente", "Patrón Autoritario", "Patrón Permisivo", "Patrón Asertivo", "Patrón Riguroso"],
             correcta: 0
         }
     ];
@@ -385,39 +344,11 @@
     function iniciarJuego() {
         document.getElementById('pantalla-menu').classList.add('hidden');
         document.getElementById('zona-juego').classList.remove('hidden');
-        document.getElementById('pantalla-fase1').classList.remove('hidden');
-    }
-
-    function siguienteFase(actualId, siguienteId) {
-        document.getElementById(actualId).classList.add('hidden');
-        document.getElementById(siguienteId).classList.remove('hidden');
-        if(siguienteId === 'pantalla-casos') { cargarCaso(); }
+        cargarCaso();
     }
 
     function abrirModal(id) { document.getElementById(id).style.display = "block"; }
     function cerrarModal(id) { document.getElementById(id).style.display = "none"; }
-
-    function verificarFase1() {
-        let resp = document.getElementById('input-fase1').value.toLowerCase().trim();
-        if(resp.includes('autoritario') || resp.includes('autoritaria')) {
-            reproducirEfecto('confirmar');
-            siguienteFase('pantalla-fase1', 'pantalla-fase2');
-        } else {
-            reproducirEfecto('error');
-            alert("Acceso Restringido: Patrón de conducta no correspondiente.");
-        }
-    }
-
-    function verificarFase2() {
-        let resp = document.getElementById('input-fase2').value.toLowerCase().trim();
-        if(resp.includes('permisivo') || resp.includes('permisiva')) {
-            reproducirEfecto('confirmar');
-            siguienteFase('pantalla-fase2', 'pantalla-casos');
-        } else {
-            reproducirEfecto('error');
-            alert("Acceso Restringido: Parámetro conceptual erróneo.");
-        }
-    }
 
     function cargarCaso() {
         if(indiceCasoActual >= preguntasCasos.length) {
@@ -436,8 +367,7 @@
         casoActual.opciones.forEach((opcion, indice) => {
             let boton = document.createElement('button');
             boton.className = "btn-menu";
-            boton.style.fontSize = "16px";
-            boton.innerText = "• " + opcion;
+            boton.innerHTML = "• " + opcion;
             boton.onclick = function() { evaluarRespuesta(indice); };
             zonaOpciones.appendChild(boton);
         });
@@ -451,7 +381,7 @@
             cargarCaso();
         } else {
             reproducirEfecto('error');
-            alert("Inconsistencia en el análisis clínico.");
+            alert("Inconsistencia en el análisis clínico del patrón.");
         }
     }
 </script>
