@@ -5,76 +5,131 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RETO: PATRONES DE CRIANZA</title>
     <style>
+        /* Estilo Base Tipo Videojuego */
         body {
-            background-color: #f4f6f9;
-            color: #333;
+            background-color: #0d1117;
+            color: #00f0ff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             text-align: center;
             padding: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .container {
             max-width: 650px;
             margin: auto;
-            border: 1px solid #e0e0e0;
+            border: 3px solid #00f0ff;
             padding: 40px 30px;
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            background-color: #161b22;
+            border-radius: 16px;
+            box-shadow: 0 0 20px #00f0ff, inset 0 0 15px rgba(0, 240, 255, 0.2);
             position: relative;
+            overflow: hidden;
         }
-        h1 { color: #2b6cb0; margin-bottom: 20px; font-size: 28px; }
-        p { color: #4a5568; font-size: 16px; line-height: 1.6; }
+        h1 { 
+            color: #ff007f; 
+            margin-bottom: 10px; 
+            font-size: 32px; 
+            text-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f;
+            font-weight: 900;
+        }
+        p { color: #8b949e; font-size: 14px; text-transform: none; }
         
+        /* --- ARTE DIGITAL GENERADO POR IA (CSS) --- */
+        .game-art {
+            width: 120px;
+            height: 120px;
+            margin: 20px auto;
+            background: radial-gradient(circle, #ff007f 10%, #00f0ff 80%);
+            border-radius: 50%;
+            box-shadow: 0 0 30px #ff007f, 0 0 10px #00f0ff;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+        .game-art::before {
+            content: "👁️";
+            font-size: 50px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            filter: drop-shadow(0 0 10px #fff);
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); box-shadow: 0 0 30px #ff007f; }
+            50% { transform: translateY(-10px); box-shadow: 0 0 45px #00f0ff; }
+            100% { transform: translateY(0px); box-shadow: 0 0 30px #ff007f; }
+        }
+        /* ------------------------------------------- */
+
+        /* Botones Estilo Arcade/Gamer */
         .btn {
-            background-color: #3182ce;
+            background: linear-gradient(135deg, #00f0ff, #7000ff);
             color: white;
-            padding: 14px 30px;
-            border: none;
+            padding: 16px 30px;
+            border: 2px solid #fff;
             font-weight: bold;
             font-size: 16px;
             cursor: pointer;
-            margin: 10px 0;
-            border-radius: 6px;
-            transition: background 0.2s, transform 0.1s;
+            margin: 12px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 0 #3d008a, 0 0 10px rgba(0, 240, 255, 0.5);
+            transition: all 0.1s ease;
             width: 100%;
             display: block;
         }
-        .btn:hover { background-color: #2b6cb0; }
-        .btn:active { transform: scale(0.98); }
-        .btn-green { background-color: #38a169; }
-        .btn-green:hover { background-color: #2f855a; }
-        .btn-gray { background-color: #718096; }
-        .btn-gray:hover { background-color: #4a5568; }
+        .btn:hover { 
+            background: linear-gradient(135deg, #ff007f, #7000ff);
+            box-shadow: 0 4px 0 #aa0055, 0 0 20px #ff007f;
+            transform: translateY(-2px);
+        }
+        .btn:active { 
+            transform: translateY(4px); 
+            box-shadow: 0 0px 0 #3d008a; 
+        }
+        .btn-gray { background: #30363d; box-shadow: 0 4px 0 #21262d; border-color: #8b949e; }
+        .btn-gray:hover { background: #484f58; box-shadow: 0 4px 0 #30363d, 0 0 10px #fff; }
         
         .hidden { display: none; }
         
         input[type="text"] {
             padding: 12px;
             width: 90%;
-            border: 2px solid #cbd5e0;
-            background: #fff;
-            color: #333;
+            border: 2px solid #00f0ff;
+            background: #0d1117;
+            color: #fff;
             font-size: 16px;
             text-align: center;
             border-radius: 6px;
             margin-top: 15px;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
         }
-        input[type="text"]:focus { border-color: #3182ce; outline: none; }
+        input[type="text"]:focus { border-color: #ff007f; box-shadow: 0 0 15px #ff007f; outline: none; }
         
-        .quiz-box { background: #f7fafc; padding: 25px; border-radius: 8px; margin: 25px 0; border: 1px solid #e2e8f0; }
-        
+        .quiz-box { 
+            background: #21262d; 
+            padding: 25px; 
+            border-radius: 8px; 
+            margin: 25px 0; 
+            border: 2px solid #ff007f; 
+            box-shadow: inset 0 0 15px rgba(255, 0, 127, 0.1);
+        }
         .opcion-btn {
-            background-color: #fff;
-            color: #4a5568;
-            border: 2px solid #e2e8f0;
+            background: #30363d;
+            color: #c9d1d9;
+            border: 2px solid #30363d;
             padding: 14px;
             text-align: left;
             font-size: 15px;
-            font-weight: 500;
+            font-weight: bold;
+            box-shadow: 0 4px 0 #21262d;
+            text-transform: none;
         }
-        .opcion-btn:hover { background-color: #ebf8ff; border-color: #3182ce; color: #2b6cb0; }
-        .resultados { background: #edf2f7; padding: 20px; border-radius: 8px; text-align: left; margin-top: 20px; }
+        .opcion-btn:hover { background: #00f0ff; color: #0d1117; border-color: #fff; box-shadow: 0 4px 0 #0099aa; }
+        
+        .resultados { background: #21262d; padding: 20px; border-radius: 8px; text-align: left; margin-top: 20px; border: 1px solid #00f0ff; text-transform: none; }
 
+        /* Modales Neon */
         .modal {
             display: none;
             position: fixed;
@@ -83,29 +138,23 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0,0,0,0.8);
         }
         .modal-content {
-            background-color: #ffffff;
+            background-color: #161b22;
             margin: 15% auto;
             padding: 30px;
-            border-radius: 10px;
+            border-radius: 12px;
             max-width: 500px;
             text-align: left;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            border: 2px solid #00f0ff;
+            box-shadow: 0 0 25px #00f0ff;
             position: relative;
+            text-transform: none;
+            color: #c9d1d9;
         }
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 24px;
-            font-weight: bold;
-            color: #aaa;
-            cursor: pointer;
-        }
-        .close-btn:hover { color: #333; }
-        .fase-badge { background-color: #edf2f7; color: #4a5568; padding: 4px 10px; border-radius: 20px; font-size: 14px; font-weight: bold; }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 24px; font-weight: bold; color: #ff007f; cursor: pointer; }
+        .fase-badge { background-color: #ff007f; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; box-shadow: 0 0 8px #ff007f; }
     </style>
 </head>
 <body>
@@ -113,95 +162,96 @@
 <div class="container">
     
     <div id="pantalla-menu">
-        <h1>Desafío Educativo:<br>Patrones de Crianza</h1>
-        <p style="margin-bottom: 30px;">Selecciona una opción para continuar</p>
+        <h1>PATRONES DE CRIANZA</h1>
+        <p style="color: #00f0ff; font-weight: bold;">[ PRESS START TO PLAY ]</p>
         
-        <button class="btn btn-green" onclick="siguientePantalla('pantalla-menu', 'pantalla-fase1')">🚀 INICIAR ESCAPE ROOM (5 FASES)</button>
-        <button class="btn" onclick="abrirModal('modal-instrucciones')">📖 ¿CÓMO JUGAR?</button>
-        <button class="btn btn-gray" onclick="abrirModal('modal-creditos')">👥 CRÉDITOS</button>
+        <div class="game-art"></div>
+        
+        <button class="btn" onclick="siguientePantalla('pantalla-menu', 'pantalla-fase1')">🎮 ARCADE MODE (5 FASES)</button>
+        <button class="btn btn-gray" onclick="abrirModal('modal-instrucciones')">📖 HOW TO PLAY</button>
+        <button class="btn btn-gray" onclick="abrirModal('modal-creditos')">👥 CREDITS</button>
     </div>
 
     <div id="pantalla-fase1" class="hidden">
-        <span class="fase-badge">Fase 1 de 5</span>
-        <h1>Descubre el Patrón A</h1>
-        <p>Escribe el estilo de crianza correspondiente a la descripción:</p>
+        <span class="fase-badge">STAGE 1 / 5</span>
+        <h1 style="font-size: 24px; margin-top: 15px;">Descubre el Patrón A</h1>
+        <p style="text-transform:none; color:#fff;">Escribe el estilo de crianza correspondiente a la descripción:</p>
         <div class="quiz-box">
-            <p style="font-size: 18px; font-weight: 600; color: #2d3748; margin: 0;">
+            <p style="font-size: 17px; font-weight: 600; color: #fff; margin: 0; text-transform:none;">
                 "Padres que imponen reglas estrictas, exigen obediencia absoluta, utilizan el castigo y casi no muestran afecto ni diálogo."
             </p>
         </div>
-        <input type="text" id="input-fase1" placeholder="Escribe tu respuesta aquí...">
-        <button class="btn" onclick="verificarFase1()">VERIFICAR RESPUESTA</button>
+        <input type="text" id="input-fase1" placeholder="RESPUESTA...">
+        <button class="btn" onclick="verificarFase1()">ENVIAR DATOS</button>
     </div>
 
     <div id="pantalla-fase2" class="hidden">
-        <span class="fase-badge">Fase 2 de 5</span>
-        <h1>Descubre el Patrón B</h1>
-        <p>Escribe el estilo de crianza correspondiente a la descripción:</p>
+        <span class="fase-badge">STAGE 2 / 5</span>
+        <h1 style="font-size: 24px; margin-top: 15px;">Descubre el Patrón B</h1>
+        <p style="text-transform:none; color:#fff;">Escribe el estilo de crianza correspondiente a la descripción:</p>
         <div class="quiz-box">
-            <p style="font-size: 18px; font-weight: 600; color: #2d3748; margin: 0;">
+            <p style="font-size: 17px; font-weight: 600; color: #fff; margin: 0; text-transform:none;">
                 "Padres muy afectuosos que evitan poner límites o normas claras. Ceden fácilmente a todos los deseos y demandas de sus hijos."
             </p>
         </div>
-        <input type="text" id="input-fase2" placeholder="Escribe tu respuesta aquí...">
-        <button class="btn" onclick="verificarFase2()">VERIFICAR RESPUESTA</button>
+        <input type="text" id="input-fase2" placeholder="RESPUESTA...">
+        <button class="btn" onclick="verificarFase2()">ENVIAR DATOS</button>
     </div>
 
     <div id="pantalla-casos" class="hidden">
-        <span class="fase-badge">Fase <span id="num-fase">3</span> de 5</span>
-        <h1>Análisis de Casos Reales</h1>
-        <p>Selecciona el tipo de patrón de crianza que corresponde al ejemplo familiar.</p>
+        <span class="fase-badge">STAGE <span id="num-fase">3</span> / 5</span>
+        <h1 style="font-size: 24px; margin-top: 15px;">Análisis de Casos</h1>
+        <p style="text-transform:none; color:#fff;">Selecciona la opción correcta según la situación familiar descrita.</p>
         
         <div class="quiz-box" id="quiz-zona">
-            <p id="texto-pregunta" style="color: #2d3748; font-size: 17px; font-weight: 500; margin-bottom: 20px;"></p>
+            <p id="texto-pregunta" style="color: #fff; font-size: 16px; font-weight: 500; margin-bottom: 20px; text-transform:none; text-align:left;"></p>
             <div id="opciones-zona"></div>
         </div>
     </div>
 
     <div id="pantalla-final" class="hidden">
-        <h1 style="color: #38a169;">¡Juego Completado! 🎉</h1>
-        <p style="font-size: 18px;">Han superado con éxito las 5 fases sobre los Patrones de Crianza.</p>
+        <h1 style="color: #00f0ff; text-shadow: 0 0 15px #00f0ff;">✨ STAGE CLEAR! 🎉</h1>
+        <p style="font-size: 18px; color: #fff;">¡Felicidades! Han completado con éxito las 5 fases del desafío.</p>
         
         <div class="resultados">
-            <p style="font-weight: bold; color: #2b6cb0; text-align: center; margin-top: 0; font-size: 18px;">Resumen de Parámetros</p>
+            <p style="font-weight: bold; color: #ff007f; text-align: center; margin-top: 0; font-size: 18px;">Métricas del Sistema</p>
             <ul>
-                <li><strong>Claridad:</strong> 5 fases estructuradas y directas sin texto de relleno.</li>
-                <li><strong>Evaluación:</strong> Combinación de conceptos directos y análisis de casos reales.</li>
-                <li><strong>Innovación/IA:</strong> Validación dinámica de respuestas en tiempo real.</li>
+                <li><strong>Claridad:</strong> Interfaz Arcade interactiva de carga inmediata.</li>
+                <li><strong>Evaluación:</strong> Diagnóstico conceptual y resolución de casos de estudio.</li>
+                <li><strong>Innovación/IA:</strong> Validación lógica algorítmica integrada.</li>
             </ul>
         </div>
-        <button class="btn btn-green" onclick="location.reload()" style="margin-top: 20px;">VOLVER AL MENÚ</button>
+        <button class="btn" onclick="location.reload()" style="margin-top: 20px;">RESTART GAME</button>
     </div>
 </div>
 
 <div id="modal-instrucciones" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="cerrarModal('modal-instrucciones')">&times;</span>
-        <h2 style="color: #3182ce; margin-top: 0;">📖 Instrucciones de Juego</h2>
-        <p>El juego cuenta con <strong>5 fases rápidas</strong>:</p>
+        <h2 style="color: #00f0ff; margin-top: 0; text-transform: uppercase;">📖 Reglas del Juego</h2>
+        <p>Deben completar las <strong>5 fases consecutivas</strong> sin cometer errores para limpiar el nivel:</p>
         <ul>
-            <li><strong>Fases 1 y 2:</strong> Lee la definición teórica y escribe el nombre del patrón de crianza correcto.</li>
-            <li><strong>Fases 3, 4 y 5:</strong> Analiza las situaciones familiares de la vida real y elige la opción correcta entre las 4 alternativas.</li>
+            <li><strong>Fases 1 y 2:</strong> Escriban en la caja de texto el nombre técnico del patrón descrito.</li>
+            <li><strong>Fases 3, 4 y 5:</strong> Seleccionen la opción correcta entre las 4 alternativas basadas en casos reales.</li>
         </ul>
-        <p style="font-weight: 500; color: #2d3748;">¡Completen las 5 fases para ganar la batalla académica!</p>
+        <p style="font-weight: bold; color: #ff007f;">¡El trabajo coordinado asegura la victoria académica!</p>
     </div>
 </div>
 
 <div id="modal-creditos" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="cerrarModal('modal-creditos')">&times;</span>
-        <h2 style="color: #4a5568; margin-top: 0;">👥 Créditos del Proyecto</h2>
-        <p>Este Escape Room Educativo ha sido diseñado como una herramienta interactiva para la Batalla de Gamificación.</p>
-        <p><strong>Diseño y Contenido Original por:</strong></p>
-        <p style="font-size: 18px; font-weight: bold; color: #2b6cb0; text-align: center; background: #ebf8ff; padding: 10px; border-radius: 6px;">
+        <h2 style="color: #8b949e; margin-top: 0; text-transform: uppercase;">👥 Equipo de Desarrollo</h2>
+        <p>Desarrollado de forma exclusiva como herramienta interactiva para la Batalla de Gamificación de 5to de Secundaria.</p>
+        <p><strong>Diseño de Contenido y Dirección por:</strong></p>
+        <p style="font-size: 18px; font-weight: bold; color: #00f0ff; text-align: center; background: #0d1117; padding: 12px; border-radius: 8px; border: 1px dashed #00f0ff;">
             Lucia Carolina Barcenas Rodriguez
         </p>
-        <p style="font-size: 13px; color: #718096; text-align: center; margin-top: 20px;">© 2026 - Todos los derechos reservados.</p>
+        <p style="font-size: 11px; color: #8b949e; text-align: center; margin-top: 25px;">© 2026 - DIGITAL RETO SYSTEMS.</p>
     </div>
 </div>
 
 <script>
-    // Banco de preguntas para las fases 3, 4 y 5
     const preguntasCasos = [
         {
             faseNum: 3,
@@ -240,29 +290,26 @@
         if (event.target.classList.contains('modal')) { event.target.style.display = "none"; }
     }
 
-    // Lógica Fase 1
     function verificarFase1() {
         let resp = document.getElementById('input-fase1').value.toLowerCase().trim();
         if(resp.includes('autoritario') || resp.includes('autoritaria')) {
-            alert("¡Correcto! Completada la Fase 1.");
+            alert("🎯 ¡FASE 1 COMPLETADA!");
             siguientePantalla('pantalla-fase1', 'pantalla-fase2');
         } else {
-            alert("Incorrecto. Revisa las características e intenta de nuevo.");
+            alert("❌ Respuesta incorrecta. Vuelve a intentarlo.");
         }
     }
 
-    // Lógica Fase 2
     function verificarFase2() {
         let resp = document.getElementById('input-fase2').value.toLowerCase().trim();
         if(resp.includes('permisivo') || resp.includes('permisiva')) {
-            alert("¡Correcto! Completada la Fase 2. Pasamos a los casos prácticos.");
+            alert("🎯 ¡FASE 2 COMPLETADA! Entrando a los niveles de casos.");
             siguientePantalla('pantalla-fase2', 'pantalla-casos');
         } else {
-            alert("Incorrecto. Recuerda qué pasa cuando hay mucho afecto pero cero límites.");
+            alert("❌ Respuesta incorrecta. Revisa el concepto.");
         }
     }
 
-    // Lógica Fases 3, 4 y 5
     function cargarCaso() {
         if(indiceCasoActual >= preguntasCasos.length) {
             siguientePantalla('pantalla-casos', 'pantalla-final');
@@ -288,11 +335,11 @@
     function evaluarRespuesta(indiceSeleccionado) {
         let casoActual = preguntasCasos[indiceCasoActual];
         if(indiceSeleccionado === casoActual.correcta) {
-            alert("¡Correcto! Fase " + casoActual.faseNum + " superada.");
+            alert("🎯 ¡FASE " + casoActual.faseNum + " SUPERADA!");
             indiceCasoActual++;
             cargarCaso();
         } else {
-            alert("Incorrecto. Vuelvan a analizar los comportamientos de la familia.");
+            alert("❌ Respuesta incorrecta. Analicen el caso nuevamente.");
         }
     }
 </script>
