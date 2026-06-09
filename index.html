@@ -14,111 +14,123 @@
             padding: 0;
             height: 100vh;
             display: flex;
+            justify-content: center;
             align-items: center;
             overflow: hidden;
             transition: background-color 0.1s ease;
         }
 
-        /* --- AMBIENTACIÓN: TORMENTA CINEASTA --- */
+        /* --- AMBIENTACIÓN: TORMENTA MEJORADA --- */
         .background-ambience {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, #05080f 0%, #0b0e14 60%, #020406 100%);
+            background: linear-gradient(to bottom, #04060a 0%, #090d14 60%, #010204 100%);
             z-index: 1;
             pointer-events: none;
         }
         
-        /* Lluvia de fondo */
+        /* Capa de lluvia 01: Fondo rápido */
         .background-ambience::before {
             content: "";
             position: absolute;
             width: 100%;
             height: 100%;
-            background-image: linear-gradient(105deg, transparent 45%, rgba(255,255,255,0.06) 48%, transparent 52%);
-            background-size: 60px 300px;
-            animation: rain-fast 0.4s linear infinite;
+            background-image: linear-gradient(108deg, transparent 45%, rgba(255,255,255,0.07) 48%, transparent 52%);
+            background-size: 70px 320px;
+            animation: rain-fast 0.35s linear infinite;
         }
 
-        /* Lluvia frontal */
+        /* Capa de lluvia 02: Frente denso */
         .background-ambience::after {
             content: "";
             position: absolute;
             width: 100%;
             height: 100%;
-            background-image: linear-gradient(103deg, transparent 40%, rgba(255,255,255,0.1) 44%, transparent 48%);
-            background-size: 120px 400px;
-            animation: rain-dense 0.6s linear infinite;
+            background-image: linear-gradient(104deg, transparent 40%, rgba(255,255,255,0.12) 44%, transparent 48%);
+            background-size: 130px 420px;
+            animation: rain-dense 0.55s linear infinite;
         }
 
         @keyframes rain-fast {
             0% { background-position: 0px 0px; }
-            100% { background-position: -60px 300px; }
+            100% { background-position: -70px 320px; }
         }
         @keyframes rain-dense {
             0% { background-position: 0px 0px; }
-            100% { background-position: -90px 400px; }
+            100% { background-position: -100px 420px; }
         }
 
-        /* Efecto de Relámpago en el fondo */
+        /* Destellos de Relámpago */
         @keyframes lightning-flash {
-            0% { background-color: transparent; }
-            92% { background-color: transparent; }
-            94% { background-color: rgba(255, 255, 255, 0.25); }
-            96% { background-color: transparent; }
-            98% { background-color: rgba(255, 255, 255, 0.15); }
-            100% { background-color: transparent; }
+            0%, 93%, 95%, 100% { background-color: transparent; }
+            94% { background-color: rgba(230, 242, 255, 0.22); }
+            96% { background-color: rgba(230, 242, 255, 0.12); }
         }
         .lightning-active {
-            animation: lightning-flash 7s infinite;
+            animation: lightning-flash 6s infinite;
         }
 
-        /* --- CONTENEDORES DE INTERFAZ --- */
-        .container {
+        /* --- CONTENEDORES DINÁMICOS --- */
+        .wrapper-layout {
             width: 100%;
-            max-width: 550px;
-            padding-left: 60px;
-            padding-right: 20px;
+            height: 100%;
+            display: flex;
             z-index: 2;
-            text-align: left;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        /* PANTALLA DE INICIO (Alineada a la izquierda estilo RE3) */
+        .menu-left-layout {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 70px;
             box-sizing: border-box;
         }
 
-        /* INTERFAZ DE JUEGO */
-        .game-interface {
-            background: rgba(5, 8, 15, 0.85);
-            border-left: 2px solid #3b4252;
-            padding: 30px;
-            border-radius: 0 8px 8px 0;
-            backdrop-filter: blur(8px);
-            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-            max-width: 480px;
-            transition: all 0.2s ease;
+        /* INTERFAZ DE JUEGO (Totalmente Centrada en Pantalla) */
+        .game-center-layout {
+            width: 100%;
+            max-width: 520px;
+            margin: auto;
+            background: rgba(6, 10, 18, 0.88);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid #4c566a;
+            padding: 40px;
+            border-radius: 6px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+            transition: all 0.2s ease-in-out;
+            box-sizing: border-box;
         }
 
-        /* Animación de error en la interfaz (Vibración) */
+        /* Animación de choque/vibración por error */
         .interface-error {
-            border-left-color: #bf616a !important;
+            border-top-color: #bf616a !important;
             animation: shake 0.3s ease-in-out;
-            background: rgba(35, 15, 20, 0.9) !important;
+            background: rgba(28, 12, 16, 0.92) !important;
         }
 
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-6px); }
-            40%, 80% { transform: translateX(6px); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
         }
 
-        /* Tipografías e Identidad de Menú */
+        /* Tipografías de Comando */
         h1 { 
             color: #ffffff; 
-            margin: 0 0 5px 0; 
-            font-size: 34px; 
+            margin: 0 0 6px 0; 
+            font-size: 36px; 
             font-weight: 300;
             letter-spacing: 3px;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.9);
         }
         .subtitle {
             color: #4c566a;
@@ -127,19 +139,19 @@
             margin-bottom: 50px;
             text-transform: uppercase;
         }
-        p { color: #d8dee9; font-size: 15px; line-height: 1.6; text-transform: none; }
+        p { color: #d8dee9; font-size: 15.5px; line-height: 1.6; margin-bottom: 25px; }
 
-        .menu-list { display: flex; flex-direction: column; gap: 14px; }
+        .menu-list { display: flex; flex-direction: column; gap: 16px; }
 
-        /* Botones de Texto Interactivos */
+        /* Botones de Texto Reactivos */
         .btn-menu {
             background: none;
             border: none;
             color: #4c566a;
-            font-size: 18px;
+            font-size: 19px;
             font-weight: 400;
             text-align: left;
-            padding: 5px 0;
+            padding: 4px 0;
             cursor: pointer;
             letter-spacing: 1px;
             transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -159,7 +171,7 @@
             border: 1px solid #3b4252;
         }
 
-        /* Sistema de Feedback Integrado en Pantalla */
+        /* Banner de retroalimentación en pantalla */
         .feedback-banner {
             margin-top: 20px;
             padding: 12px;
@@ -170,13 +182,13 @@
             display: none;
         }
         .feedback-error {
-            background: rgba(191, 97, 106, 0.2);
+            background: rgba(191, 97, 106, 0.15);
             border: 1px solid #bf616a;
             color: #bf616a;
             display: block;
         }
 
-        /* Estilo Modales Laterales */
+        /* Modales Laterales */
         .modal {
             display: none;
             position: fixed;
@@ -201,27 +213,45 @@
         .close-btn { float: right; font-size: 26px; color: #4c566a; cursor: pointer; }
         .close-btn:hover { color: #fff; }
         
+        /* Navegación y descriptivos de esquinas */
         .footer-desc {
             position: absolute;
             bottom: 35px;
-            left: 60px;
+            left: 70px;
             color: #434c5e;
             font-size: 13px;
             letter-spacing: 0.5px;
-            z-index: 2;
         }
-        .hidden { display: none; }
+
+        .btn-abort {
+            position: absolute;
+            bottom: 35px;
+            right: 40px;
+            background: none;
+            border: none;
+            color: #4c566a;
+            font-size: 12px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: color 0.2s;
+            text-transform: uppercase;
+            z-index: 10;
+        }
+        .btn-abort:hover {
+            color: #bf616a;
+            text-shadow: 0 0 6px rgba(191, 97, 106, 0.4);
+        }
+
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-<!-- EFECTOS AMBIENTALES Y RELÁMPAGOS -->
 <div class="background-ambience lightning-active"></div>
 
-<div class="container">
+<div class="wrapper-layout">
     
-    <!-- PANTALLA PRINCIPAL CINEMÁTICA -->
-    <div id="pantalla-menu">
+    <div id="pantalla-menu" class="menu-left-layout">
         <h1>PATRONES DE CRIANZA</h1>
         <div class="subtitle">BATALLA DE GAMIFICACIÓN / 5TO SECUNDARIA</div>
         
@@ -234,50 +264,47 @@
         <div class="footer-desc">Analiza los casos de supervivencia del entorno familiar.</div>
     </div>
 
-    <!-- INTERFAZ DE JUEGO UNIFICADA Y AUTÓNOMA -->
-    <div id="zona-juego" class="game-interface hidden">
-        
+    <div id="zona-juego" class="game-center-layout hidden">
         <div id="pantalla-casos">
-            <div style="font-size: 11px; color:#81a1c1; letter-spacing:1px; margin-bottom:5px;">EVALUACIÓN CLÍNICA / FASE 0<span id="num-fase">1</span></div>
-            <p style="margin-top:0;" id="texto-pregunta"></p>
+            <div style="font-size: 11px; color:#81a1c1; letter-spacing:1.5px; margin-bottom:8px; font-weight: bold;">EVALUACIÓN CLÍNICA / FASE 0<span id="num-fase">1</span></div>
+            <p id="texto-pregunta"></p>
             
-            <div id="opciones-zona" class="menu-list" style="margin-top:20px;"></div>
+            <div id="opciones-zona" class="menu-list"></div>
             
-            <!-- Banner de error nativo integrado (reemplaza los alerts) -->
             <div id="game-feedback" class="feedback-banner"></div>
         </div>
 
-        <!-- PANTALLA FINAL -->
         <div id="pantalla-final" class="hidden">
-            <h1 style="font-size:28px; color:#a3be8c;">SECTOR COMPLETADO</h1>
-            <p>Los parámetros estructurales han sido ordenados con éxito.</p>
+            <h1 style="font-size:26px; color:#a3be8c; letter-spacing: 1px;">SISTEMA CONCLUIDO</h1>
+            <p>Los cuadrantes de análisis familiar se han procesado de forma óptima.</p>
             
             <div class="quiz-box">
-                <span style="display:block; margin: 4px 0; font-size:13px;">• Sistema autónomo libre de alertas del navegador.</span>
-                <span style="display:block; margin: 4px 0; font-size:13px;">• Diagnóstico de conductas completado de forma nativa.</span>
+                <span style="display:block; margin: 5px 0; font-size:13px;">• Formato dinámico centralizado desplegado.</span>
+                <span style="display:block; margin: 5px 0; font-size:13px;">• Registro de 5 matrices completas.</span>
             </div>
-            <button class="btn-menu" style="color:#81a1c1;" onclick="location.reload()">[ REINICIAR SISTEMA ]</button>
+            <button class="btn-menu" style="color:#81a1c1;" onclick="regresarAlMenu()">[ REINICIAR SISTEMA ]</button>
         </div>
-
     </div>
+
+    <button id="abort-trigger" class="btn-abort hidden" onclick="reproducirEfecto('error'); regresarAlMenu();">× Abortar Simulación</button>
+
 </div>
 
-<!-- MODALES LATERALES -->
 <div id="modal-instrucciones" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="cerrarModal('modal-instrucciones')">&times;</span>
-        <h2 style="color: #ffffff; margin-top: 0; font-weight: 300;">MANUAL</h2>
-        <p>Analiza de forma secuencial los 5 sectores familiares expuestos del lado izquierdo del monitor.</p>
-        <p>Evalúa las descripciones y selecciona una de las 5 opciones tácticas del menú vertical para avanzar.</p>
+        <h2 style="color: #ffffff; margin-top: 0; font-weight: 300; letter-spacing: 1px;">MANUAL</h2>
+        <p>Analiza de forma secuencial los 5 sectores familiares expuestos en el monitor central.</p>
+        <p>Evalúa con precisión las descripciones situacionales y selecciona una de las 5 opciones tácticas del menú vertical para progresar.</p>
     </div>
 </div>
 
 <div id="modal-creditos" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="cerrarModal('modal-creditos')">&times;</span>
-        <h2 style="color: #ffffff; margin-top: 0; font-weight: 300;">CRÉDITOS</h2>
+        <h2 style="color: #ffffff; margin-top: 0; font-weight: 300; letter-spacing: 1px;">CRÉDITOS</h2>
         <p>Desarrollo y lógica interactiva gamificada:</p>
-        <div style="font-size: 18px; color: #fff; padding: 15px 0; border-top: 1px solid #3b4252; border-bottom: 1px solid #3b4252; margin: 15px 0;">
+        <div style="font-size: 18px; color: #fff; padding: 15px 0; border-top: 1px solid #3b4252; border-bottom: 1px solid #3b4252; margin: 15px 0; letter-spacing: 0.5px;">
             Lucia Carolina Barcenas Rodriguez
         </div>
         <p style="font-size: 11px; color: #4c566a;">© 2026 - SIMULACIÓN EDUCATIVA.</p>
@@ -285,7 +312,7 @@
 </div>
 
 <script>
-    // Sintetizador de Sonidos Nativos (Web Audio API)
+    // Sintetizador de Audio Nativo por Frecuencias (Web Audio API)
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     function reproducirEfecto(tipo) {
@@ -298,47 +325,47 @@
 
         if (tipo === 'seleccionar') {
             osc.type = 'sine';
-            osc.frequency.setValueAtTime(180, audioCtx.currentTime);
-            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+            osc.frequency.setValueAtTime(170, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
             osc.start();
-            osc.stop(audioCtx.currentTime + 0.1);
+            osc.stop(audioCtx.currentTime + 0.08);
         } else if (tipo === 'confirmar') {
             osc.type = 'square';
-            osc.frequency.setValueAtTime(220, audioCtx.currentTime);
-            osc.frequency.setValueAtTime(440, audioCtx.currentTime + 0.08);
-            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+            osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+            osc.frequency.setValueAtTime(400, audioCtx.currentTime + 0.07);
+            gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.18);
             osc.start();
-            osc.stop(audioCtx.currentTime + 0.2);
+            osc.stop(audioCtx.currentTime + 0.18);
         } else if (tipo === 'error') {
             osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(120, audioCtx.currentTime);
-            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+            osc.frequency.setValueAtTime(110, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
             osc.start();
-            osc.stop(audioCtx.currentTime + 0.3);
+            osc.stop(audioCtx.currentTime + 0.25);
         }
     }
 
-    // Intervalo aleatorio para truenos de fondo
+    // Sistema Atmosférico Automatizado (Frecuencias Bajas para Truenos)
     setInterval(() => {
-        if(Math.random() > 0.6) {
+        if(Math.random() > 0.65) {
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             osc.type = 'triangle';
-            osc.frequency.setValueAtTime(40, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(10, audioCtx.currentTime + 1.5);
+            osc.frequency.setValueAtTime(38, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(8, audioCtx.currentTime + 1.6);
             osc.connect(gain);
             gain.connect(audioCtx.destination);
-            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.8);
+            gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.9);
             osc.start();
-            osc.stop(audioCtx.currentTime + 1.8);
+            osc.stop(audioCtx.currentTime + 1.9);
         }
-    }, 8000);
+    }, 9000);
 
-    // Banco de Preguntas unificado (5 fases, 5 opciones cada una)
+    // Repositorio Estructurado de Casos Clínicos
     const preguntasCasos = [
         {
             faseNum: 1,
@@ -377,14 +404,23 @@
     function iniciarJuego() {
         document.getElementById('pantalla-menu').classList.add('hidden');
         document.getElementById('zona-juego').classList.remove('hidden');
+        document.getElementById('abort-trigger').classList.remove('hidden');
         cargarCaso();
+    }
+
+    function regresarAlMenu() {
+        indiceCasoActual = 0;
+        document.getElementById('zona-juego').classList.add('hidden');
+        document.getElementById('abort-trigger').classList.add('hidden');
+        document.getElementById('pantalla-final').classList.add('hidden');
+        document.getElementById('pantalla-casos').classList.remove('hidden');
+        document.getElementById('pantalla-menu').classList.remove('hidden');
     }
 
     function abrirModal(id) { document.getElementById(id).style.display = "block"; }
     function cerrarModal(id) { document.getElementById(id).style.display = "none"; }
 
     function cargarCaso() {
-        // Limpiar avisos previos
         let feedback = document.getElementById('game-feedback');
         feedback.className = "feedback-banner";
         feedback.innerText = "";
@@ -424,13 +460,11 @@
         } else {
             reproducirEfecto('error');
             
-            // Efecto visual de sacudida y color de error en pantalla
             interfaz.classList.remove('interface-error');
-            void interfaz.offsetWidth; // Forzar reinicio de animación CSS
+            void interfaz.offsetWidth; // Forzar reflow para reiniciar animación CSS
             interfaz.classList.add('interface-error');
             
-            // Mostrar texto de error integrado en la interfaz
-            feedback.innerText = "❌ ADVERTENCIA: Diagnóstico clínico incorrecto. Intente de nuevo.";
+            feedback.innerText = "❌ ADVERTENCIA: Inconsistencia diagnóstica. Intente de nuevo.";
             feedback.classList.add('feedback-error');
         }
     }
