@@ -1,82 +1,615 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>PATRONES DE CRIANZA</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 <style>
-    /* --- MEJORAS VISUALES: SUAVIZADO Y ELEGANCIA --- */
-    :root {
-        --glass-bg: rgba(255, 255, 255, 0.05);
-        --glass-border: rgba(255, 255, 255, 0.1);
-        --accent-soft: rgba(177, 70, 255, 0.2);
-    }
 
-    .panel-grunge {
-        background: rgba(15, 5, 25, 0.8); /* Fondo más profundo */
-        backdrop-filter: blur(25px);
-        border: 1px solid var(--glass-border);
-        box-shadow: 0 10px 40px rgba(0,0,0,0.5), inset 0 0 1px rgba(255,255,255,0.1);
-        padding: 40px;
-        border-radius: 32px; /* Más redondeado para un look más moderno */
-    }
+/* =========================
+VARIABLES
+========================= */
 
-    /* Mejora de botones para ser menos agresivos */
-    .btn-grunge {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        transition: all 0.3s ease;
-    }
+:root{
+    --bg-base:#0b0214;
+    --bg-panel:rgba(26,1,41,0.65);
+    --border-heavy:#3A025B;
+    --primary:#520380;
+    --primary-glow:#b146ff;
+    --text-main:#FFFFFF;
+    --text-accent:#DFB6B2;
+    --shadow-glow:rgba(177,70,255,0.45);
+    --card-bg:rgba(255,255,255,0.03);
+    --glass-shine:rgba(255,255,255,0.08);
+}
 
-    .btn-grunge:hover {
-        background: var(--primary);
-        box-shadow: 0 0 20px var(--shadow-glow);
-    }
+/* =========================
+BODY
+========================= */
 
-    /* Contenedor del Santuario más limpio */
-    .mascot-stats-grid {
-        gap: 15px;
-        margin: 25px 0;
-    }
+body{
+    background:var(--bg-base);
+    color:white;
+    font-family:'Plus Jakarta Sans',sans-serif;
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100vh;
+    overflow:hidden;
+    overflow-x:hidden;
 
-    .stat-card {
-        background: rgba(0,0,0,0.2);
-        border: none;
-        border-radius: 16px;
-    }
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-    /* Estilo para el nuevo acceso al juego */
-    .game-entry-portal {
-        margin-top: 20px;
-        padding: 20px;
-        border-radius: 20px;
-        background: linear-gradient(135deg, rgba(82, 3, 128, 0.3), transparent);
-        text-align: center;
-        border: 1px dashed var(--primary-glow);
-        cursor: pointer;
-        transition: transform 0.2s;
-    }
-    .game-entry-portal:hover { transform: scale(1.02); border-style: solid; }
+    touch-action:manipulation;
+
+    padding-top:env(safe-area-inset-top);
+    padding-bottom:env(safe-area-inset-bottom);
+}
+
+/* =========================
+FONDO
+========================= */
+
+.bg-orb{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(90px);
+    opacity:0.2;
+    z-index:0;
+}
+
+.orb-1{
+    width:250px;
+    height:250px;
+    background:var(--primary-glow);
+    top:10%;
+    left:10%;
+}
+
+.orb-2{
+    width:220px;
+    height:220px;
+    background:var(--primary);
+    bottom:10%;
+    right:10%;
+}
+
+/* =========================
+PANEL
+========================= */
+
+.wrapper-layout{
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:10px;
+    box-sizing:border-box;
+    z-index:2;
+}
+
+.panel-grunge{
+    width:100%;
+    max-width:360px;
+    max-height:95vh;
+
+    overflow-y:auto;
+
+    background:var(--bg-panel);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid var(--glass-shine);
+
+    border-radius:22px;
+
+    padding:22px 18px;
+
+    box-sizing:border-box;
+
+    box-shadow:
+    0 24px 60px rgba(0,0,0,0.45),
+    0 0 35px var(--shadow-glow);
+}
+
+/* =========================
+PERSONAJE
+========================= */
+
+.character-container{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.vio-orbit-zone{
+    width:75px;
+    height:75px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.vio-svg-body{
+    width:55px;
+    height:55px;
+
+    filter:drop-shadow(0 0 12px var(--primary));
+}
+
+.main-core{
+    fill:var(--primary);
+}
+
+.eyes{
+    fill:white;
+}
+
+.vio-shadow{
+    width:35px;
+    height:5px;
+    background:rgba(0,0,0,0.4);
+    border-radius:50%;
+    margin-top:8px;
+}
+
+/* =========================
+TEXTOS
+========================= */
+
+.title-game{
+    text-align:center;
+    font-family:'Orbitron',sans-serif;
+    font-size:28px;
+    line-height:1.1;
+    margin-bottom:20px;
+}
+
+.section-header{
+    text-align:center;
+    font-size:13px;
+    background:white;
+    color:black;
+    padding:5px 14px;
+    border-radius:6px;
+    margin-bottom:20px;
+}
+
+.desc-text{
+    font-size:13px;
+    color:var(--text-accent);
+    text-align:center;
+}
+
+/* =========================
+BOTONES
+========================= */
+
+.menu-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.btn-grunge{
+    background:linear-gradient(
+    135deg,
+    var(--primary),
+    rgba(26,1,41,0.4)
+    );
+
+    border:1px solid var(--border-heavy);
+
+    color:white;
+
+    font-family:'Rajdhani',sans-serif;
+
+    font-size:18px;
+    font-weight:700;
+
+    padding:12px 16px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    width:100%;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    transition:0.2s;
+}
+
+.btn-grunge:hover{
+    transform:translateY(-2px);
+}
+
+.btn-grunge i{
+    color:var(--primary-glow);
+}
+
+/* =========================
+MAPA
+========================= */
+
+.levels-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+}
+
+.level-box{
+    height:46px;
+
+    background:rgba(255,255,255,0.03);
+
+    border:2px solid var(--border-heavy);
+
+    border-radius:10px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    cursor:pointer;
+}
+
+/* =========================
+MODO RITMO
+========================= */
+
+.osu-playfield{
+    width:100%;
+    height:320px;
+
+    background:rgba(0,0,0,0.4);
+
+    border:2px solid var(--border-heavy);
+
+    border-radius:12px;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.osu-target-node{
+    position:absolute;
+
+    width:55px;
+    height:55px;
+
+    border-radius:50%;
+
+    background:radial-gradient(
+    circle,
+    var(--primary-glow),
+    var(--primary)
+    );
+
+    border:3px solid white;
+
+    transform:translate(-50%,-50%);
+
+    cursor:pointer;
+}
+
+/* =========================
+BOTON VOLVER
+========================= */
+
+.btn-back-menu{
+    margin-top:15px;
+
+    width:100%;
+
+    background:none;
+
+    border:none;
+
+    color:var(--primary-glow);
+
+    font-size:12px;
+
+    cursor:pointer;
+}
+
+/* =========================
+HIDDEN
+========================= */
+
+.hidden{
+    display:none !important;
+}
+
+/* =========================
+SCROLL
+========================= */
+
+.panel-grunge::-webkit-scrollbar{
+    width:4px;
+}
+
+.panel-grunge::-webkit-scrollbar-thumb{
+    background:var(--primary-glow);
+    border-radius:10px;
+}
+
 </style>
+</head>
 
-<!-- MÓDULO: SANTUARIO (Actualizado) -->
-<div id="m-mascot" class="panel-grunge">
-    <div class="system-tag">VIO_SANTUARIO</div>
-    <h2 class="section-header">SANTUARIO</h2>
-    
-    <div class="character-container">
-        <!-- Vio animado -->
-        <div class="vio-orbit-zone">
-            <svg id="vio-sanctuary" class="vio-svg-body happy" viewBox="0 0 100 100" onclick="acariciarMascota()">
-                <!-- Path y ojos igual que tenías -->
-            </svg>
-        </div>
-    </div>
+<body>
 
-    <div class="mascot-stats-grid">
-        <!-- Stats de Vio -->
-    </div>
+<div class="bg-orb orb-1"></div>
+<div class="bg-orb orb-2"></div>
 
-    <!-- Integración directa del acceso al juego -->
-    <div class="game-entry-portal" onclick="startOsuGameMode()">
-        <i class="fa-solid fa-gamepad" style="font-size: 24px; color: var(--primary-glow);"></i>
-        <div style="font-family: 'Orbitron'; margin-top: 8px;">ENTRENAMIENTO RÍTMICO</div>
-        <p style="font-size: 10px; color: var(--text-accent);">Interactúa con Vio para ganar energía</p>
-    </div>
+<div class="wrapper-layout">
 
-    <button class="btn-back-menu" onclick="changeModule('m-mascot', 'm-main-menu')">VOLVER</button>
+<!-- MENU -->
+
+<div id="m-main-menu" class="panel-grunge">
+
+<div class="character-container">
+
+<div class="vio-orbit-zone">
+
+<svg class="vio-svg-body" viewBox="0 0 100 100">
+
+<path class="main-core"
+d="M50,15 C25,15 15,35 15,60 C15,78 30,85 50,85 C70,85 85,78 85,60 C85,35 75,15 50,15 Z"/>
+
+<circle class="eyes" cx="38" cy="50" r="5"/>
+<circle class="eyes" cx="62" cy="50" r="5"/>
+
+</svg>
+
 </div>
+
+<div class="vio-shadow"></div>
+
+</div>
+
+<h1 class="title-game">
+PATRONES<br>
+<span style="color:var(--primary-glow);">
+DE CRIANZA
+</span>
+</h1>
+
+<div class="menu-list">
+
+<button class="btn-grunge"
+onclick="changeModule('m-main-menu','m-levels')">
+
+<span>Modo Historia</span>
+
+<i class="fa-solid fa-compass"></i>
+
+</button>
+
+<button class="btn-grunge"
+onclick="changeModule('m-main-menu','m-game-osu')">
+
+<span>Modo Ritmo</span>
+
+<i class="fa-solid fa-bolt"></i>
+
+</button>
+
+<button class="btn-grunge"
+onclick="changeModule('m-main-menu','m-settings')">
+
+<span>Ajustes</span>
+
+<i class="fa-solid fa-gear"></i>
+
+</button>
+
+</div>
+
+</div>
+
+<!-- MAPA -->
+
+<div id="m-levels"
+class="panel-grunge hidden">
+
+<h2 class="section-header">
+MAPA NODAL
+</h2>
+
+<div class="levels-grid">
+
+<div class="level-box">1</div>
+<div class="level-box">2</div>
+<div class="level-box">3</div>
+<div class="level-box">4</div>
+
+<div class="level-box">5</div>
+<div class="level-box">6</div>
+<div class="level-box">7</div>
+<div class="level-box">8</div>
+
+</div>
+
+<button class="btn-back-menu"
+onclick="changeModule('m-levels','m-main-menu')">
+
+✖ VOLVER
+
+</button>
+
+</div>
+
+<!-- MODO RITMO -->
+
+<div id="m-game-osu"
+class="panel-grunge hidden">
+
+<h2 class="section-header">
+MODO RITMO
+</h2>
+
+<p class="desc-text">
+Toca los círculos rápidamente
+</p>
+
+<div class="osu-playfield"
+id="osu-field">
+</div>
+
+<button class="btn-grunge"
+onclick="spawnTarget()">
+
+INICIAR
+
+</button>
+
+<button class="btn-back-menu"
+onclick="changeModule('m-game-osu','m-main-menu')">
+
+✖ VOLVER
+
+</button>
+
+</div>
+
+<!-- AJUSTES -->
+
+<div id="m-settings"
+class="panel-grunge hidden">
+
+<h2 class="section-header">
+AJUSTES
+</h2>
+
+<p class="desc-text">
+Juego optimizado para móviles verticales
+</p>
+
+<button class="btn-grunge"
+onclick="changeTheme('#520380')">
+
+Tema Místico
+
+</button>
+
+<button class="btn-grunge"
+onclick="changeTheme('#00E676')">
+
+Tema Cyber
+
+</button>
+
+<button class="btn-grunge"
+onclick="changeTheme('#FF1744')">
+
+Tema Crimson
+
+</button>
+
+<button class="btn-back-menu"
+onclick="changeModule('m-settings','m-main-menu')">
+
+✖ VOLVER
+
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+/* =========================
+CAMBIAR MODULOS
+========================= */
+
+function changeModule(hide,show){
+
+document.getElementById(hide)
+.classList.add('hidden');
+
+document.getElementById(show)
+.classList.remove('hidden');
+
+}
+
+/* =========================
+CAMBIAR TEMA
+========================= */
+
+function changeTheme(color){
+
+document.documentElement
+.style
+.setProperty('--primary',color);
+
+document.documentElement
+.style
+.setProperty('--primary-glow',color);
+
+}
+
+/* =========================
+MODO RITMO
+========================= */
+
+function spawnTarget(){
+
+const field=document.getElementById('osu-field');
+
+const target=document.createElement('div');
+
+target.className='osu-target-node';
+
+target.style.left=
+Math.random()*90+'%';
+
+target.style.top=
+Math.random()*90+'%';
+
+target.onclick=function(){
+
+target.remove();
+
+spawnTarget();
+
+};
+
+field.appendChild(target);
+
+setTimeout(()=>{
+
+if(target.parentNode){
+
+target.remove();
+
+spawnTarget();
+
+}
+
+},1500);
+
+}
+
+</script>
+
+</body>
+</html>
