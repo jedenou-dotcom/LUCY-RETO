@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RETO: PATRONES DE CRIANZA</title>
     <style>
-        /* --- ESTILO BASE (Paleta exacta de image_28bd9e.png) --- */
+        /* --- ESTILO BASE (Paleta de image_28bd9e.png) --- */
         body {
             background-color: #11001C; /* Dark Purple */
             color: #FFFFFF;
@@ -20,7 +20,15 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* --- CONTENEDORES ESTILO GRUNGE CON ANIMACIÓN DE ENTRADA --- */
+        /* --- FILTRO CRT / INTERFERENCIA GRUNGE DISCRETA --- */
+        body::before {
+            content: " ";
+            display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 10; background-size: 100% 4px, 6px 100%; pointer-events: none;
+        }
+
+        /* --- CONTENEDORES CON ANIMACIÓN DE ENTRADA SUAVE --- */
         .wrapper-layout {
             width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 2; padding: 20px; box-sizing: border-box; position: relative;
         }
@@ -29,114 +37,120 @@
             width: 100%; max-width: 420px;
             background: #1A0129; 
             border: 3px solid #3A025B; 
-            box-shadow: 0 0 0 4px #11001C, 0 15px 35px rgba(0,0,0,0.9);
-            padding: 35px 20px; border-radius: 4px; box-sizing: border-box; position: relative;
-            
-            /* Animación de entrada fluida */
-            animation: fadeInScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+            box-shadow: 0 0 0 4px #11001C, 0 15px 40px rgba(0,0,0,0.9);
+            padding: 35px 20px; border-radius: 6px; box-sizing: border-box; position: relative;
+            animation: fadeInScale 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.2) both;
         }
         .panel-grunge::after {
             content: ''; position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px; border: 1px dashed rgba(82, 3, 128, 0.4); pointer-events: none;
         }
 
-        /* --- DISEÑO DEL PERSONAJE "VIO" (Espíritu Guía Familiar) --- */
+        /* --- PERSONAJE VIO CON PARTÍCULAS MÁSTICAS ORBITALES --- */
         .character-container {
-            display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; position: relative;
+            display: flex; flex-direction: column; align-items: center; margin-bottom: 25px; position: relative;
+        }
+        .vio-orbit-zone {
+            position: relative; width: 90px; height: 90px; display: flex; justify-content: center; align-items: center;
         }
         .vio-spirit {
             width: 65px; height: 65px;
-            background: radial-gradient(circle, #520380 30%, #3A025B 80%);
+            background: radial-gradient(circle at 35% 35%, #6c06a8 0%, #520380 40%, #1A0129 100%);
             border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-            box-shadow: 0 0 20px #520380, inset 0 -5px 15px rgba(0,0,0,0.4);
-            position: relative;
+            box-shadow: 0 0 25px #520380, inset 0 -6px 12px rgba(0,0,0,0.5);
             display: flex; justify-content: center; align-items: center;
-            animation: floatSpirit 3s ease-in-out infinite;
-            transition: all 0.3s ease;
+            animation: floatSpirit 2.6s ease-in-out infinite;
+            transition: all 0.3s ease; z-index: 3;
         }
-        /* Ojos de Vio */
-        .vio-eyes {
-            display: flex; gap: 12px; transition: transform 0.2s;
+        .vio-eyes { display: flex; gap: 14px; transition: transform 0.2s; }
+        .vio-eye { width: 9px; height: 9px; background: #FFFFFF; border-radius: 50%; position: relative; animation: blinkEyes 3.5s infinite; }
+        
+        /* Partículas flotantes */
+        .vio-particle {
+            position: absolute; width: 6px; height: 6px; background: #DFB6B2; border-radius: 50%; opacity: 0.7;
+            box-shadow: 0 0 8px #FFFFFF; pointer-events: none;
         }
-        .vio-eye {
-            width: 10px; height: 10px; background: #FFFFFF; border-radius: 50%;
-            position: relative; animation: blinkEyes 4s infinite;
-        }
-        /* Sombra flotante inferior */
-        .vio-shadow {
-            width: 40px; height: 6px; background: rgba(0, 0, 0, 0.4); border-radius: 50%;
-            margin-top: 12px; animation: shadowPulse 3s ease-in-out infinite;
-        }
-        /* Expresiones dinámicas de Vio */
-        .vio-spirit.happy { background: radial-gradient(circle, #a200ff 30%, #520380 80%); box-shadow: 0 0 30px #a200ff; }
-        .vio-spirit.happy .vio-eye { height: 5px; border-radius: 10px 10px 0 0; }
-        .vio-spirit.sad { background: radial-gradient(circle, #5b1a1a 30%, #220135 80%); box-shadow: 0 0 15px #bf616a; }
-        .vio-spirit.sad .vio-eyes { transform: translateY(3px); }
-        .vio-spirit.sad .vio-eye { height: 4px; opacity: 0.7; }
+        .p1 { animation: orbitParticle1 4s linear infinite; }
+        .p2 { animation: orbitParticle2 3.5s linear infinite; }
 
-        /* --- NUEVAS ANIMACIONES CSS (KEYFRAMES) --- */
+        .vio-shadow {
+            width: 45px; height: 5px; background: rgba(0, 0, 0, 0.5); border-radius: 50%;
+            margin-top: 8px; animation: shadowPulse 2.6s ease-in-out infinite;
+        }
+
+        /* Expresiones reactivas de Vio */
+        .vio-spirit.happy { background: radial-gradient(circle, #b146ff 0%, #520380 60%); box-shadow: 0 0 35px #b146ff; }
+        .vio-spirit.happy .vio-eye { height: 4px; border-radius: 12px 12px 0 0; transform: scaleY(1.2); }
+        .vio-spirit.sad { background: radial-gradient(circle, #731f1f 0%, #220135 100%); box-shadow: 0 0 20px #bf616a; }
+        .vio-spirit.sad .vio-eye { height: 3px; opacity: 0.8; transform: translateY(2px); }
+
+        /* --- ANIMACIONES CSS AVANZADAS --- */
         @keyframes fadeInScale {
-            from { opacity: 0; transform: scale(0.92) translateY(10px); }
+            from { opacity: 0; transform: scale(0.94) translateY(12px); }
             to { opacity: 1; transform: scale(1) translateY(0); }
         }
         @keyframes floatSpirit {
             0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-12px) rotate(3deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
         }
         @keyframes shadowPulse {
-            0%, 100% { transform: scale(1); opacity: 0.4; }
-            50% { transform: scale(0.7); opacity: 0.15; }
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(0.75); opacity: 0.2; }
         }
         @keyframes blinkEyes {
-            0%, 95%, 100% { transform: scaleY(1); }
+            0%, 94%, 100% { transform: scaleY(1); }
             97% { transform: scaleY(0.1); }
         }
+        @keyframes orbitParticle1 {
+            0% { transform: rotate(0deg) translateX(40px) rotate(0deg); opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { transform: rotate(360deg) translateX(40px) rotate(-360deg); opacity: 1; }
+        }
+        @keyframes orbitParticle2 {
+            0% { transform: rotate(180deg) translateX(35px) rotate(-180deg); opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { transform: rotate(540deg) translateX(35px) rotate(-540deg); opacity: 0.4; }
+        }
         .interface-error { animation: shake 0.3s ease-in-out; border-color: #bf616a !important; }
-        @keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-5px); } 40%, 80% { transform: translateX(5px); } }
 
-        /* --- TIPOGRAFÍAS --- */
+        /* --- METADATOS Y DISEÑO TEXTUAL --- */
         h1.title-game { font-size: 42px; color: #FFFFFF; margin: 0 0 20px 0; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; line-height: 0.95; text-align: center; }
-        h2.section-header { font-size: 22px; color: #11001C; background: #FFFFFF; margin: -50px auto 25px auto; padding: 5px 15px; width: fit-content; text-transform: uppercase; letter-spacing: 2px; border: 2px solid #3A025B; font-family: sans-serif; font-weight: bold; }
-        h3.victory-title { font-size: 26px; color: #FFFFFF; text-align: center; text-transform: uppercase; margin: 10px 0; }
-        p.desc-text { font-family: sans-serif; color: #DFB6B2; font-size: 14.5px; line-height: 1.5; margin-bottom: 20px; font-weight: 300; }
+        h2.section-header { font-size: 20px; color: #11001C; background: #FFFFFF; margin: -50px auto 25px auto; padding: 5px 15px; width: fit-content; text-transform: uppercase; letter-spacing: 2px; border: 2px solid #3A025B; font-weight: bold; }
+        p.desc-text { font-family: sans-serif; color: #DFB6B2; font-size: 14px; line-height: 1.5; margin-bottom: 20px; font-weight: 300; }
+        .meta-progress-text { font-family: sans-serif; font-size: 11px; text-transform: uppercase; color: #DFB6B2; opacity: 0.8; letter-spacing: 1px; text-align: center; margin-bottom: 12px; font-weight: bold;}
 
-        /* --- BOTONES DE ACCIÓN INTERACTIVOS --- */
+        /* --- BOTONES E INDICADORES DE OPCIONES CON MICRO-INTERACCIONES --- */
         .menu-list { display: flex; flex-direction: column; gap: 12px; width: 100%; }
         .btn-grunge {
-            background: #520380; color: #FFFFFF; border: none; font-family: 'Impact', sans-serif; font-size: 22px; padding: 12px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; width: 100%; text-align: center; transition: all 0.2s ease; clip-path: polygon(1% 2%, 99% 0%, 100% 96%, 0% 100%);
+            background: #520380; color: #FFFFFF; border: none; font-family: 'Impact', sans-serif; font-size: 22px; padding: 12px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; width: 100%; text-align: center; transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); clip-path: polygon(1% 2%, 99% 0%, 100% 96%, 0% 100%); position: relative;
         }
-        .btn-grunge:hover { background: #6c06a8; transform: translateY(-2px); }
-        .btn-grunge:active { background: #3A025B; transform: scale(0.98) translateY(0); }
-        .btn-grunge.secondary { background: #220135; border: 2px solid #520380; font-size: 18px; }
+        .btn-grunge:hover { background: #63059c; transform: scale(1.02); box-shadow: 0 0 15px rgba(82, 3, 128, 0.6); }
+        .btn-grunge:active { background: #3A025B; transform: scale(0.98); }
+        .btn-grunge.secondary { background: #1A0129; border: 2px solid #3A025B; font-size: 16px; font-family: sans-serif; font-weight: bold; text-align: left; padding-left: 20px; letter-spacing: 0.5px; text-transform: none; clip-path: none; border-radius: 4px; }
+        .btn-grunge.secondary:hover { border-color: #520380; background: #220135; }
 
         /* --- SELECCIÓN DE NIVELES --- */
         .levels-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
         .level-box {
-            background: transparent; border: 2px solid #520380; color: #FFFFFF; font-size: 20px; height: 65px; display: flex; justify-content: center; align-items: center; cursor: pointer; font-family: 'Impact', sans-serif; transition: all 0.2s; position: relative;
+            background: transparent; border: 2px solid #3A025B; color: #FFFFFF; font-size: 20px; height: 60px; display: flex; justify-content: center; align-items: center; cursor: pointer; font-family: 'Impact', sans-serif; transition: all 0.2s; position: relative; border-radius: 4px;
         }
-        .level-box.locked { background: rgba(26, 1, 41, 0.6); border-color: #220135; color: rgba(255,255,255,0.2); cursor: not-allowed; }
-        .level-box.locked::before { content: "🔒"; font-size: 14px; }
-        .level-box.completed { background: #520380; border-color: #FFFFFF; color: #FFFFFF; animation: pulseGlow 2s infinite; }
-        .level-box.completed::after { content: "✔"; position: absolute; bottom: 2px; right: 4px; font-size: 11px; }
-        .level-box:not(.locked):hover { background: rgba(82, 3, 128, 0.3); }
-
-        @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 5px #520380; } 50% { box-shadow: 0 0 15px #520380; } }
+        .level-box.locked { background: rgba(17, 0, 28, 0.7); border-color: #220135; color: rgba(255,255,255,0.15); cursor: not-allowed; }
+        .level-box.locked::before { content: "🔒"; font-size: 13px; }
+        .level-box.completed { background: #520380; border-color: #FFFFFF; color: #FFFFFF; box-shadow: 0 0 8px rgba(82, 3, 128, 0.7); }
+        .level-box.completed::after { content: "✔"; position: absolute; bottom: 2px; right: 4px; font-size: 10px; }
+        .level-box:not(.locked):hover { border-color: #520380; background: rgba(82, 3, 128, 0.25); transform: translateY(-2px); }
 
         /* --- SOPAS DE LETRAS --- */
         .wordsearch-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 15px auto; max-width: 240px; }
-        .letter-cell { background: #220135; border: 2px solid #3A025B; color: #FFFFFF; font-size: 20px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; user-select: none; transition: background 0.15s; }
-        .letter-cell.selected { background: #520380; color: #FFFFFF; border-color: #FFFFFF; transform: scale(1.05); }
+        .letter-cell { background: #220135; border: 2px solid #3A025B; color: #FFFFFF; font-size: 20px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; user-select: none; border-radius: 4px; transition: all 0.1s ease; }
+        .letter-cell.selected { background: linear-gradient(135deg, #520380, #3A025B); color: #FFFFFF; border-color: #FFFFFF; transform: scale(1.06); box-shadow: 0 0 10px rgba(255,255,255,0.2); }
 
-        /* --- COMPONENTES DE AJUSTES --- */
-        .setting-row { display: flex; align-items: center; margin-bottom: 25px; font-family: sans-serif; font-weight: bold; font-size: 14px; }
-        .setting-label { width: 70px; color: #DFB6B2; text-transform: uppercase; }
-        .slider-container { flex-grow: 1; height: 14px; background: #220135; border: 1px solid #3A025B; position: relative; cursor: pointer; }
-        .slider-bar { height: 100%; background: #520380; width: 60%; pointer-events: none; }
-        .slider-handle { position: absolute; top: -3px; width: 14px; height: 20px; background: #FFFFFF; border: 1px solid #11001C; transform: translateX(-50%); pointer-events: none; }
-
-        .timer-container { width: 100%; background: #220135; height: 8px; margin-bottom: 15px; border: 1px solid #3A025B; }
-        .timer-bar { width: 100%; height: 100%; background: #520380; transition: width 1s linear; }
-        .feedback-banner { font-family: sans-serif; margin-bottom: 15px; padding: 10px; font-size: 12px; font-weight: bold; display: none; text-align: center; border: 1px solid #bf616a; color: #ff8888; background: rgba(191, 97, 106, 0.15); animation: shake 0.3s; }
-        .btn-back-menu { font-family: sans-serif; font-size: 11px; text-transform: uppercase; color: #520380; background: none; border: none; font-weight: bold; margin-top: 25px; display: block; text-align: center; width: 100%; letter-spacing: 1px; cursor: pointer; }
+        /* --- COMPONENTES AUXILIARES --- */
+        .timer-container { width: 100%; background: #220135; height: 6px; margin-bottom: 20px; border-radius: 3px; overflow: hidden; }
+        .timer-bar { width: 100%; height: 100%; background: linear-gradient(90deg, #520380, #b146ff); transition: width 1s linear; }
+        .feedback-banner { font-family: sans-serif; margin-bottom: 15px; padding: 10px; font-size: 12px; font-weight: bold; display: none; text-align: center; border: 1px solid #bf616a; color: #ff8888; background: rgba(191, 97, 106, 0.15); border-radius: 4px; }
+        .btn-back-menu { font-family: sans-serif; font-size: 11px; text-transform: uppercase; color: #520380; background: none; border: none; font-weight: bold; margin-top: 25px; display: block; text-align: center; width: 100%; letter-spacing: 1px; cursor: pointer; transition: color 0.2s; }
+        .btn-back-menu:hover { color: #DFB6B2; }
         
         .hidden { display: none !important; }
     </style>
@@ -145,12 +159,14 @@
 
 <div class="wrapper-layout">
     
-    <!-- MÓDULO 1: MENÚ PRINCIPAL -->
     <div id="m-main-menu" class="panel-grunge">
-        <!-- Presentación del personaje Vio -->
         <div class="character-container">
-            <div id="vio-menu" class="vio-spirit">
-                <div class="vio-eyes"><div class="vio-eye"></div><div class="vio-eye"></div></div>
+            <div class="vio-orbit-zone">
+                <div class="vio-particle p1"></div>
+                <div class="vio-particle p2"></div>
+                <div id="vio-menu" class="vio-spirit">
+                    <div class="vio-eyes"><div class="vio-eye"></div><div class="vio-eye"></div></div>
+                </div>
             </div>
             <div class="vio-shadow"></div>
         </div>
@@ -160,37 +176,34 @@
             <button class="btn-grunge" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-levels'); refreshLevelsInterface();">Iniciar Juego</button>
             <button class="btn-grunge" style="background:#3A025B;" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-howtoplay');">Cómo Jugar</button>
             <button class="btn-grunge" style="background:#220135;" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-credits');">Créditos</button>
-            <button class="btn-grunge" style="background:#11001C; border: 2px solid #3A025B; font-size:16px; padding:8px;" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-settings');">Ajustes ⚙️</button>
+            <button class="btn-grunge" style="background:#11001C; border: 2px solid #3A025B; font-size:15px; padding:8px;" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-settings');">Ajustes ⚙️</button>
         </div>
     </div>
 
-    <!-- MÓDULO 2: SELECCIÓN DE NIVELES -->
     <div id="m-levels" class="panel-grunge hidden">
         <h2 class="section-header">NIVELES</h2>
+        <div class="meta-progress-text" id="global-progress-lbl">Progreso Global: 0%</div>
         <div class="levels-grid" id="grid-selector-niveles"></div>
         <button class="btn-back-menu" onclick="changeModule('m-levels', 'm-main-menu')">✖ VOLVER AL MENÚ</button>
     </div>
 
-    <!-- MÓDULO 3: CÓMO JUGAR -->
     <div id="m-howtoplay" class="panel-grunge hidden">
         <h2 class="section-header">MANUAL</h2>
-        <p class="desc-text">¡Hola! Soy <b>Vio</b>, tu guía. Analiza los entornos interactivos familiares. Tu meta es estabilizar las distorsiones conductuales respondiendo asertivamente.</p>
-        <p class="desc-text" style="color: #520380; font-weight: bold;">Usa el mapa táctico para moverte por las matrices y sopas de letras.</p>
-        <button class="btn-back-menu" onclick="changeModule('m-howtoplay', 'm-main-menu')">✖ ENTENDIDO</button>
+        <p class="desc-text">¡Hola! Soy <b>Vio</b>. Estaré acompañándote a través de los cuadrantes analíticos familiares. Tu meta es detectar malas conductas y aplicar métodos asertivos.</p>
+        <p class="desc-text" style="color: #DFB6B2; font-weight: bold; font-size: 13px; border-left: 3px solid #520380; padding-left: 10px;">Pon mucha atención cuando te toque resolver las matrices verticales de sopa de letras.</p>
+        <button class="btn-grunge" style="font-size: 18px; padding: 8px;" onclick="changeModule('m-howtoplay', 'm-main-menu')">ENTENDIDO</button>
     </div>
 
-    <!-- MÓDULO 4: CRÉDITOS -->
     <div id="m-credits" class="panel-grunge hidden">
         <h2 class="section-header">CREDITS</h2>
-        <p class="desc-text" style="text-align:center; font-size:16px;">Estructuración Modular Dinámica:</p>
-        <div style="font-size:22px; color:#FFFFFF; text-align:center; margin:15px 0; border-top:1px solid #520380; border-bottom:1px solid #520380; padding:10px 0;">
+        <p class="desc-text" style="text-align:center; font-size:15px;">Estructuración y Microdetalles Visuales:</p>
+        <div style="font-size:20px; color:#FFFFFF; text-align:center; margin:15px 0; border-top:1px solid #3A025B; border-bottom:1px solid #3A025B; padding:12px 0; letter-spacing: 1px;">
             Lucia Carolina Barcenas Rodriguez
         </div>
-        <p class="desc-text" style="text-align:center; font-size:11px; opacity:0.5;">© 2026 - MODELADO ANIMADO VIOLETA.</p>
+        <p class="desc-text" style="text-align:center; font-size:11px; opacity:0.5;">© 2026 - SISTEMA DE CRIANZA ASÈRTIVA MODULAR.</p>
         <button class="btn-back-menu" onclick="changeModule('m-credits', 'm-main-menu')">✖ VOLVER</button>
     </div>
 
-    <!-- MÓDULO 5: AJUSTES -->
     <div id="m-settings" class="panel-grunge hidden">
         <h2 class="section-header">AJUSTES</h2>
         <div class="setting-row">
@@ -207,70 +220,72 @@
                 <div id="handle-sfx" class="slider-handle" style="left: 80%;"></div>
             </div>
         </div>
-        <button class="btn-grunge secondary" style="margin-top:10px;" onclick="changeModule('m-settings', 'm-main-menu')">GUARDAR</button>
+        <button class="btn-grunge" style="font-size:18px; padding: 10px;" onclick="changeModule('m-settings', 'm-main-menu')">GUARDAR CONFIGURACIÓN</button>
     </div>
 
-    <!-- MÓDULO 6: MOTOR DE JUEGO PRINCIPAL -->
-    <div id="m-gameplay" class="panel-grunge">
-        <!-- Vio integrado en la parte superior del gameplay -->
-        <div class="character-container" style="margin-bottom: 10px;">
-            <div id="vio-gameplay" class="vio-spirit">
-                <div class="vio-eyes"><div class="vio-eye"></div><div class="vio-eye"></div></div>
+    <div id="m-gameplay" class="panel-grunge hidden">
+        <div class="character-container" style="margin-bottom: 12px;">
+            <div class="vio-orbit-zone" style="width:75px; height:75px;">
+                <div id="vio-gameplay" class="vio-spirit">
+                    <div class="vio-eyes"><div class="vio-eye"></div><div class="vio-eye"></div></div>
+                </div>
             </div>
         </div>
 
         <div id="game-feedback" class="feedback-banner"></div>
 
-        <!-- MODO: QUIZ KAHOOT -->
         <div id="mech-kahoot" class="hidden">
             <div class="timer-container"><div id="kahoot-bar" class="timer-bar"></div></div>
-            <p class="desc-text" id="kahoot-text"></p>
+            <p class="desc-text" id="kahoot-text" style="font-weight: bold; color: #FFFFFF;"></p>
             <div class="menu-list" id="kahoot-options"></div>
         </div>
 
-        <!-- MODO: SOPAS DE LETRAS -->
         <div id="mech-sopa" class="hidden">
-            <p class="desc-text" id="sopa-instruccion" style="text-align:center; font-weight: bold;"></p>
+            <p class="desc-text" id="sopa-instruccion" style="text-align:center; font-weight: bold; color: #FFFFFF;"></p>
             <div class="wordsearch-grid" id="grid-letras"></div>
-            <button class="btn-grunge" style="font-size:16px;" onclick="verificarSopa()">COMPROBAR PALABRA</button>
+            <button class="btn-grunge" style="font-size:16px; padding: 10px;" onclick="verificarSopa()">VALIDAR SELECCIÓN</button>
         </div>
 
-        <!-- MODO: BINARIO -->
         <div id="mech-binary" class="hidden">
-            <p class="desc-text" id="binary-text"></p>
+            <p class="desc-text" id="binary-text" style="font-weight: bold; color: #FFFFFF;"></p>
             <div style="display:flex; gap:10px;">
-                <button class="btn-grunge" style="background:#3A025B;" onclick="evaluarRespuestaDirecta(true)">VERDADERO</button>
-                <button class="btn-grunge" style="background:#220135;" onclick="evaluarRespuestaDirecta(false)">FALSO</button>
+                <button class="btn-grunge" style="background:#520380; font-size:18px;" onclick="evaluarRespuestaDirecta(true)">✔ VERDADERO</button>
+                <button class="btn-grunge" style="background:#220135; font-size:18px; border: 1px solid #3A025B;" onclick="evaluarRespuestaDirecta(false)">✖ FALSO</button>
             </div>
         </div>
 
-        <button class="btn-back-menu" style="color:#bf616a;" onclick="abortarJuego()">❌ ABORTAR MAPA</button>
+        <button class="btn-back-menu" style="color:#bf616a;" onclick="abortarJuego()">❌ DESCONECTARSE DEL MAPA</button>
     </div>
 
-    <!-- MÓDULO 7: PANTALLA INTERMEDIA DE NIVEL TERMINADO -->
     <div id="m-level-clear" class="panel-grunge hidden">
         <div class="character-container">
-            <div class="vio-spirit happy">
-                <div class="vio-eyes"><div class="vio-eye"></div><div class="vio-eye"></div></div>
+            <div class="vio-orbit-zone">
+                <div class="vio-particle p1"></div>
+                <div class="vio-spirit happy">
+                    <div class="vio-eyes"><div class="vio-eye"></div><div class="vio-eye"></div></div>
+                </div>
             </div>
         </div>
         <h2 class="section-header" style="background:#520380; color:#FFFFFF;">ÉXITO</h2>
-        <h3 class="victory-title" style="color:#DFB6B2;">¡ESTABILIZADO!</h3>
+        <h3 class="victory-title" style="color:#DFB6B2;">¡NÚCLEO SANO!</h3>
         <p class="desc-text" id="clear-level-summary" style="text-align:center;"></p>
-        <button class="btn-grunge" onclick="procederSiguienteNivel()">SIGUIENTE NIVEL ➔</button>
+        <button class="btn-grunge" onclick="procederSiguienteNivel()">SIGUIENTE ENTORNO ➔</button>
     </div>
 
-    <!-- MÓDULO 8: PANTALLA FIN DEL JUEGO -->
     <div id="m-game-over" class="panel-grunge hidden">
         <div class="character-container">
-            <div class="vio-spirit happy" style="transform: scale(1.2); animation: floatSpirit 1.5s ease-in-out infinite;">
-                <div class="vio-eyes"><div class="vio-eye"></div><div class="vio-eye"></div></div>
+            <div class="vio-orbit-zone" style="transform: scale(1.25);">
+                <div class="vio-particle p1"></div>
+                <div class="vio-particle p2"></div>
+                <div class="vio-spirit happy">
+                    <div class="vio-eyes"><div class="vio-eye"></div><div class="vio-eye"></div></div>
+                </div>
             </div>
         </div>
         <h2 class="section-header" style="background:#FFFFFF; color:#11001C;">COMPLETO</h2>
-        <h3 class="victory-title">¡VICTORIA TOTAL!</h3>
-        <p class="desc-text" style="text-align:center;">¡Increíble! Vio y tú han sanado y equilibrado las pautas de crianza en todos los hogares.</p>
-        <button class="btn-grunge" onclick="reiniciarTodoAlMenu()">VOLVER AL INICIO</button>
+        <h3 class="victory-title">¡VICTORIA ABSOLUTA!</h3>
+        <p class="desc-text" style="text-align:center;">Felicidades. Has completado exitosamente la calibración conductual de los 10 cuadrantes críticos familiares.</p>
+        <button class="btn-grunge" onclick="reiniciarTodoAlMenu()">VOLVER AL PANEL PRINCIPAL</button>
     </div>
 
 </div>
@@ -286,22 +301,17 @@
     };
 
     const dbNiveles = {
-        1: { mech: 'kahoot', text: "Un padre le grita fuertemente a su hijo exigiéndole obediencia inmediata y ciega sin derecho a réplica. ¿Qué patrón es?", opt: ["Permisivo", "Autoritario", "Negligente"], ans: 1 },
+        1: { mech: 'kahoot', text: "Un padre le grita fuertemente a su hijo exigiéndole obediencia inmediata y ciega sin derecho a réplica. ¿Qué patrón es?", opt: ["Estilo Permisivo", "Estilo Autoritario", "Estilo Negligente"], ans: 1 },
         2: { mech: 'sopa', palabra: 'AMOR', letras: ['A','X','B','Z','M','P','Q','W','O','R','S','Y','R','K','L','M'], targets: [0,4,8,12] }, 
         3: { mech: 'binary', text: "El patrón desapegado o negligente se destaca por un alto nivel de control estricto y castigos físicos constantes.", ans: false },
         4: { mech: 'sopa', palabra: 'GUIA', letras: ['G','K','J','F','U','W','P','N','I','O','L','M','A','E','S','T'], targets: [0,4,8,12] },
         5: { mech: 'binary', text: "El patrón Democrático equilibra de manera óptima las muestras de afecto mutuo con límites claros y dialogados.", ans: true },
-        6: { mech: 'kahoot', text: "Los tutores muestran desinterés sistemático por la salud, educación y alimentación de los menores. ¿Qué es?", opt: ["Negligente", "Sobreprotector", "Permisivo"], ans: 0 },
+        6: { mech: 'kahoot', text: "Los tutores muestran desinterés sistemático por la salud, educación y alimentación de los menores. ¿Qué es?", opt: ["Estilo Negligente", "Estilo Sobreprotector", "Estilo Permisivo"], ans: 0 },
         7: { mech: 'sopa', palabra: 'LAZO', letras: ['L','V','N','Q','A','Z','S','W','Z','X','D','E','O','R','F','V'], targets: [0,4,8,12] },
-        8: { mech: 'kahoot', text: "El hijo tiene derecho a opinar sobre las normas del hogar bajo un esquema de respeto y asertividad mutua. ¿Qué es?", opt: ["Autoritario", "Democrático", "Negligente"], ans: 1 },
+        8: { mech: 'kahoot', text: "El hijo tiene derecho a opinar sobre las normas del hogar bajo un esquema de respeto y asertividad mutua. ¿Qué es?", opt: ["Estilo Autoritario", "Estilo Democrático", "Estilo Negligente"], ans: 1 },
         9: { mech: 'binary', text: "El diálogo y el soporte emocional activo son herramientas ajenas al estilo de crianza autoritario.", ans: true },
-        10: { mech: 'kahoot', text: "Estilo que genera baja autoestima, sumisión o conductas agresivas severas por el exceso de castigo coercitivo:", opt: ["Democrático", "Permisivo", "Autoritario"], ans: 2 }
+        10: { mech: 'kahoot', text: "Estilo que genera baja autoestima, sumisión o conductas agresivas severas por el exceso de castigo coercitivo:", opt: ["Estilo Democrático", "Estilo Permisivo", "Estilo Autoritario"], ans: 2 }
     };
-
-    // Forzar ocultamiento inicial correcto del motor de juego para mostrar menú primero
-    document.addEventListener("DOMContentLoaded", () => {
-        document.getElementById('m-gameplay').classList.add('hidden');
-    });
 
     function initAudioEngine() {
         if (!audioCtx) {
@@ -319,10 +329,10 @@
         
         setInterval(() => {
             if(mainOsc && audioCtx) {
-                let frq = 100 + Math.random() * 25;
-                mainOsc.frequency.exponentialRampToValueAtTime(frq, audioCtx.currentTime + 1.8);
+                let frq = 105 + Math.random() * 20;
+                mainOsc.frequency.exponentialRampToValueAtTime(frq, audioCtx.currentTime + 1.5);
             }
-        }, 3000);
+        }, 2800);
 
         mainGain.gain.setValueAtTime(volMusic * 0.12, audioCtx.currentTime);
         mainOsc.connect(mainGain);
@@ -334,14 +344,19 @@
         reproducirEfecto('seleccionar');
         document.getElementById(fromId).classList.add('hidden');
         document.getElementById(toId).classList.remove('hidden');
-        
-        // Resetear humor de Vio al cambiar pantallas
-        document.getElementById('vio-gameplay').className = "vio-spirit";
+        document.getElementById('vio-gameplay').className = "violet-spirit"; 
+    }
+
+    function calculateProgress() {
+        let completadosCount = Object.values(nivelesCompletados).filter(Boolean).length;
+        return Math.round((completadosCount / 10) * 100);
     }
 
     function refreshLevelsInterface() {
+        document.getElementById('global-progress-lbl').innerText = `Progreso Global: ${calculateProgress()}%`;
         let contenedor = document.getElementById('grid-selector-niveles');
         contenedor.innerHTML = "";
+        
         for (let i = 1; i <= 10; i++) {
             let box = document.createElement('div');
             box.innerText = i;
@@ -379,18 +394,18 @@
         osc.connect(gain); gain.connect(audioCtx.destination);
 
         if (tipo === 'seleccionar') {
-            osc.type = 'sine'; osc.frequency.setValueAtTime(190, audioCtx.currentTime);
-            gain.gain.setValueAtTime(0.08 * volSfx, audioCtx.currentTime);
-            osc.start(); osc.stop(audioCtx.currentTime + 0.08);
+            osc.type = 'sine'; osc.frequency.setValueAtTime(210, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.07 * volSfx, audioCtx.currentTime);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.07);
         } else if (tipo === 'confirmar') {
-            osc.type = 'triangle'; osc.frequency.setValueAtTime(300, audioCtx.currentTime);
-            osc.frequency.setValueAtTime(600, audioCtx.currentTime + 0.08);
-            gain.gain.setValueAtTime(0.1 * volSfx, audioCtx.currentTime);
-            osc.start(); osc.stop(audioCtx.currentTime + 0.25);
+            osc.type = 'triangle'; osc.frequency.setValueAtTime(320, audioCtx.currentTime);
+            osc.frequency.setValueAtTime(640, audioCtx.currentTime + 0.07);
+            gain.gain.setValueAtTime(0.09 * volSfx, audioCtx.currentTime);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.22);
         } else if (tipo === 'error') {
-            osc.type = 'sawtooth'; osc.frequency.setValueAtTime(85, audioCtx.currentTime);
-            gain.gain.setValueAtTime(0.15 * volSfx, audioCtx.currentTime);
-            osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+            osc.type = 'sawtooth'; osc.frequency.setValueAtTime(80, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.14 * volSfx, audioCtx.currentTime);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.28);
         }
     }
 
@@ -407,7 +422,7 @@
         document.getElementById('mech-kahoot').classList.add('hidden');
         document.getElementById('mech-sopa').classList.add('hidden');
         document.getElementById('mech-binary').classList.add('hidden');
-        document.getElementById('vio-gameplay').className = "vio-spirit"; // Rostro neutral
+        document.getElementById('vio-gameplay').className = "vio-spirit"; 
         clearInterval(intervaloKahoot);
 
         let data = dbNiveles[currentLevel];
@@ -418,14 +433,14 @@
             let optZone = document.getElementById('kahoot-options'); optZone.innerHTML = "";
             data.opt.forEach((o, i) => {
                 let btn = document.createElement('button'); btn.className = "btn-grunge secondary";
-                btn.innerText = "• " + o;
+                btn.innerText = `[${i + 1}]  ` + o;
                 btn.onclick = () => { if(i === data.ans) triggClearScreen(); else failAction(); };
                 optZone.appendChild(btn);
             });
             runKahootTimer();
         } else if(data.mech === 'sopa') {
             document.getElementById('mech-sopa').classList.remove('hidden');
-            document.getElementById('sopa-instruccion').innerHTML = `Vio dice: ¡Busca <b>"${data.palabra}"</b> en vertical!`;
+            document.getElementById('sopa-instruccion').innerHTML = `Vio sugiere armar en vertical:<br><span style="color:#b146ff; font-size:18px;">"${data.palabra}"</span>`;
             buildSopaGrid(data);
         } else if(data.mech === 'binary') {
             document.getElementById('mech-binary').classList.remove('hidden');
@@ -474,7 +489,7 @@
         nivelesCompletados[currentLevel] = true;
         
         document.getElementById('m-gameplay').classList.add('hidden');
-        document.getElementById('clear-level-summary').innerText = `¡Espectacular! Resolviste el Nivel ${currentLevel}. Vio está muy feliz de ver progresar este núcleo familiar.`;
+        document.getElementById('clear-level-summary').innerText = `¡Excelente! El Nivel ${currentLevel} ha quedado estabilizado. Las dinámicas de este entorno vuelven a ser armónicas y sanas.`;
         document.getElementById('m-level-clear').classList.remove('hidden');
     }
 
@@ -494,13 +509,12 @@
         let playPanel = document.getElementById('m-gameplay');
         let feed = document.getElementById('game-feedback');
         
-        // Vio se pone triste y el panel tiembla
-        document.getElementById('vio-gameplay').className = "vio-spirit sad";
+        document.getElementById('violet-gameplay' ? 'violet-gameplay' : 'vio-gameplay').className = "vio-spirit sad";
         playPanel.classList.remove('interface-error');
         void playPanel.offsetWidth;
         playPanel.classList.add('interface-error');
         
-        feed.innerText = "❌ ERROR EN EL ENFOQUE DE CRIANZA. ¡INTÉNTALO OTRA VEZ!";
+        feed.innerText = "❌ DIAGNÓSTICO INCORRECTO. EVALÚA NUEVAMENTE LA SITUACIÓN.";
         feed.style.display = "block";
         if(dbNiveles[currentLevel].mech === 'kahoot') loadLevelStructure();
     }
