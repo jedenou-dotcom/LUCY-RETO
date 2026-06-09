@@ -31,7 +31,7 @@
             pointer-events: none;
         }
         
-        /* Lluvia de fondo (Gotas finas y rápidas) */
+        /* Lluvia de fondo */
         .background-ambience::before {
             content: "";
             position: absolute;
@@ -42,7 +42,7 @@
             animation: rain-fast 0.4s linear infinite;
         }
 
-        /* Lluvia frontal (Gotas densas con perspectiva) */
+        /* Lluvia frontal */
         .background-ambience::after {
             content: "";
             position: absolute;
@@ -95,6 +95,20 @@
             backdrop-filter: blur(8px);
             box-shadow: -10px 0 30px rgba(0,0,0,0.5);
             max-width: 480px;
+            transition: all 0.2s ease;
+        }
+
+        /* Animación de error en la interfaz (Vibración) */
+        .interface-error {
+            border-left-color: #bf616a !important;
+            animation: shake 0.3s ease-in-out;
+            background: rgba(35, 15, 20, 0.9) !important;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
         }
 
         /* Tipografías e Identidad de Menú */
@@ -143,6 +157,23 @@
             border-radius: 4px; 
             margin: 20px 0; 
             border: 1px solid #3b4252;
+        }
+
+        /* Sistema de Feedback Integrado en Pantalla */
+        .feedback-banner {
+            margin-top: 20px;
+            padding: 12px;
+            font-size: 13px;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: none;
+        }
+        .feedback-error {
+            background: rgba(191, 97, 106, 0.2);
+            border: 1px solid #bf616a;
+            color: #bf616a;
+            display: block;
         }
 
         /* Estilo Modales Laterales */
@@ -203,15 +234,17 @@
         <div class="footer-desc">Analiza los casos de supervivencia del entorno familiar.</div>
     </div>
 
-    <!-- CAMBIO DE ENTORNO: INTERFAZ DE MONITOREO TÁCTICO PARA EL JUEGO -->
+    <!-- INTERFAZ DE JUEGO UNIFICADA Y AUTÓNOMA -->
     <div id="zona-juego" class="game-interface hidden">
         
-        <!-- PANEL DE CONTROL UNIFICADO PARA TODAS LAS FASES -->
         <div id="pantalla-casos">
             <div style="font-size: 11px; color:#81a1c1; letter-spacing:1px; margin-bottom:5px;">EVALUACIÓN CLÍNICA / FASE 0<span id="num-fase">1</span></div>
             <p style="margin-top:0;" id="texto-pregunta"></p>
             
             <div id="opciones-zona" class="menu-list" style="margin-top:20px;"></div>
+            
+            <!-- Banner de error nativo integrado (reemplaza los alerts) -->
+            <div id="game-feedback" class="feedback-banner"></div>
         </div>
 
         <!-- PANTALLA FINAL -->
@@ -220,8 +253,8 @@
             <p>Los parámetros estructurales han sido ordenados con éxito.</p>
             
             <div class="quiz-box">
-                <span style="display:block; margin: 4px 0; font-size:13px;">• Formato dinámico vertical de 5 opciones implementado.</span>
-                <span style="display:block; margin: 4px 0; font-size:13px;">• Diagnóstico de conductas completado.</span>
+                <span style="display:block; margin: 4px 0; font-size:13px;">• Sistema autónomo libre de alertas del navegador.</span>
+                <span style="display:block; margin: 4px 0; font-size:13px;">• Diagnóstico de conductas completado de forma nativa.</span>
             </div>
             <button class="btn-menu" style="color:#81a1c1;" onclick="location.reload()">[ REINICIAR SISTEMA ]</button>
         </div>
@@ -315,7 +348,7 @@
         },
         {
             faseNum: 2,
-            caso: "Una madre se muestra sumamente afectuosa y cercana con sus hijos, pero evita establecer cualquier tipo de norma o límite en el hogar, cediendo de manera inmediata ante todos sus caprichos.",
+            caso: "Una madre se muestra sumamente afectuosa y cercana con sus hijos, pero evita establecer cualquier tipo de norma o límite en el hogar, ceding de manera inmediata ante todos sus caprichos.",
             opciones: ["Patrón Autoritario", "Patrón Negligente", "Patrón Permisivo", "Patrón Asertivo", "Patrón Equilibrado"],
             correcta: 2
         },
@@ -351,6 +384,11 @@
     function cerrarModal(id) { document.getElementById(id).style.display = "none"; }
 
     function cargarCaso() {
+        // Limpiar avisos previos
+        let feedback = document.getElementById('game-feedback');
+        feedback.className = "feedback-banner";
+        feedback.innerText = "";
+
         if(indiceCasoActual >= preguntasCasos.length) {
             document.getElementById('pantalla-casos').classList.add('hidden');
             document.getElementById('pantalla-final').classList.remove('hidden');
@@ -375,13 +413,25 @@
 
     function evaluarRespuesta(indiceSeleccionado) {
         let casoActual = preguntasCasos[indiceCasoActual];
+        let interfaz = document.getElementById('zona-juego');
+        let feedback = document.getElementById('game-feedback');
+
         if(indiceSeleccionado === casoActual.correcta) {
             reproducirEfecto('confirmar');
+            interfaz.classList.remove('interface-error');
             indiceCasoActual++;
             cargarCaso();
         } else {
             reproducirEfecto('error');
-            alert("Inconsistencia en el análisis clínico del patrón.");
+            
+            // Efecto visual de sacudida y color de error en pantalla
+            interfaz.classList.remove('interface-error');
+            void interfaz.offsetWidth; // Forzar reinicio de animación CSS
+            interfaz.classList.add('interface-error');
+            
+            // Mostrar texto de error integrado en la interfaz
+            feedback.innerText = "❌ ADVERTENCIA: Diagnóstico clínico incorrecto. Intente de nuevo.";
+            feedback.classList.add('feedback-error');
         }
     }
 </script>
