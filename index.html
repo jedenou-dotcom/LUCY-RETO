@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RETO: PATRONES DE CRIANZA</title>
     <style>
-        /* Estilo General Atmosférico - Inspirado en Resident Evil 3 */
+        /* Estilo Base Atmosférico */
         body {
-            background-color: #030508;
+            background-color: #020406;
             color: #babcbf;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -16,57 +16,69 @@
             display: flex;
             align-items: center;
             overflow: hidden;
+            transition: background-color 0.1s ease;
         }
 
-        /* --- EFECTO DE LLUVIA MEJORADO (MUTLI-CAPA 3D) --- */
+        /* --- AMBIENTACIÓN: TORMENTA CINEASTA --- */
         .background-ambience {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, #070b12 10%, #0f1420 50%, #030508 100%);
+            background: linear-gradient(to bottom, #05080f 0%, #0b0e14 60%, #020406 100%);
             z-index: 1;
+            pointer-events: none;
         }
         
-        /* Capa 1: Lluvia rápida y delgada de fondo */
+        /* Lluvia de fondo (Gotas finas y rápidas) */
         .background-ambience::before {
             content: "";
             position: absolute;
             width: 100%;
             height: 100%;
-            background-image: linear-gradient(105deg, transparent 45%, rgba(255,255,255,0.08) 48%, transparent 52%);
-            background-size: 80px 300px;
-            animation: rain-back 0.5s linear infinite;
+            background-image: linear-gradient(105deg, transparent 45%, rgba(255,255,255,0.06) 48%, transparent 52%);
+            background-size: 60px 300px;
+            animation: rain-fast 0.4s linear infinite;
         }
 
-        /* Capa 2: Lluvia más pesada y cercana al frente */
+        /* Lluvia frontal (Gotas densas con perspectiva) */
         .background-ambience::after {
             content: "";
             position: absolute;
             width: 100%;
             height: 100%;
-            background-image: linear-gradient(102deg, transparent 40%, rgba(255,255,255,0.12) 45%, transparent 50%);
-            background-size: 150px 400px;
-            animation: rain-front 0.7s linear infinite;
-            filter: blur(0.5px);
+            background-image: linear-gradient(103deg, transparent 40%, rgba(255,255,255,0.1) 44%, transparent 48%);
+            background-size: 120px 400px;
+            animation: rain-dense 0.6s linear infinite;
         }
 
-        @keyframes rain-back {
+        @keyframes rain-fast {
             0% { background-position: 0px 0px; }
-            100% { background-position: -50px 300px; }
+            100% { background-position: -60px 300px; }
         }
-
-        @keyframes rain-front {
+        @keyframes rain-dense {
             0% { background-position: 0px 0px; }
-            100% { background-position: -80px 400px; }
+            100% { background-position: -90px 400px; }
         }
-        /* ------------------------------------------------- */
 
-        /* Todo el Contenedor Absolutamente Alineado a la Izquierda */
+        /* Efecto de Relámpago en el fondo */
+        @keyframes lightning-flash {
+            0% { background-color: transparent; }
+            92% { background-color: transparent; }
+            94% { background-color: rgba(255, 255, 255, 0.25); }
+            96% { background-color: transparent; }
+            98% { background-color: rgba(255, 255, 255, 0.15); }
+            100% { background-color: transparent; }
+        }
+        .lightning-active {
+            animation: lightning-flash 7s infinite;
+        }
+
+        /* --- CONTENEDORES DE INTERFAZ --- */
         .container {
             width: 100%;
-            max-width: 500px; /* Tamaño de columna ideal para lectura vertical */
+            max-width: 550px;
             padding-left: 60px;
             padding-right: 20px;
             z-index: 2;
@@ -74,108 +86,93 @@
             box-sizing: border-box;
         }
 
-        /* Títulos e Identidad Visual Estilo RE3 */
+        /* INTERFAZ DE JUEGO (Diferente a la de inicio) */
+        .game-interface {
+            background: rgba(5, 8, 15, 0.85);
+            border-left: 2px solid #3b4252;
+            padding: 30px;
+            border-radius: 0 8px 8px 0;
+            backdrop-filter: blur(8px);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+            max-width: 480px;
+        }
+
+        /* Tipografías e Identidad de Menú */
         h1 { 
             color: #ffffff; 
             margin: 0 0 5px 0; 
-            font-size: 34px; 
+            font-size: 36px; 
             font-weight: 300;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-shadow: 0 2px 8px rgba(0,0,0,0.9);
         }
         .subtitle {
-            color: #717680;
-            font-size: 12px;
+            color: #4c566a;
+            font-size: 11px;
             letter-spacing: 2px;
-            margin-bottom: 45px;
+            margin-bottom: 50px;
             text-transform: uppercase;
         }
-        p { 
-            color: #a0a5b0; 
-            font-size: 15px; 
-            line-height: 1.6; 
-            text-transform: none;
-        }
+        p { color: #d8dee9; font-size: 15px; line-height: 1.6; text-transform: none; }
 
-        /* Lista Vertical del Menú */
-        .menu-list {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
+        .menu-list { display: flex; flex-direction: column; gap: 16px; }
 
-        /* Botones de Texto Limpios y Reactivos */
+        /* Botones de Texto Interactivos */
         .btn-menu {
             background: none;
             border: none;
-            color: #888d96;
+            color: #4c566a;
             font-size: 19px;
             font-weight: 400;
             text-align: left;
-            padding: 6px 0;
+            padding: 5px 0;
             cursor: pointer;
             letter-spacing: 1px;
-            transition: all 0.2s ease;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             width: fit-content;
         }
-        /* Al posicionarse sobre él, se desplaza a la derecha y brilla */
         .btn-menu:hover {
             color: #ffffff;
-            padding-left: 12px;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            padding-left: 14px;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
         }
 
-        /* Cajas de Interacción y Respuestas fijos a la Izquierda */
-        .btn-action {
-            background-color: rgba(255, 255, 255, 0.08);
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 12px 28px;
-            font-size: 14px;
-            cursor: pointer;
-            border-radius: 4px;
-            margin-top: 15px;
-            letter-spacing: 1px;
-            transition: background 0.2s;
-            width: fit-content;
-        }
-        .btn-action:hover { background-color: rgba(255, 255, 255, 0.18); }
-
-        .hidden { display: none; }
-
+        /* Entrada de texto */
         input[type="text"] {
             padding: 14px;
             width: 100%;
             max-width: 380px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            background: rgba(0, 0, 0, 0.7);
-            color: #fff;
+            border: 1px solid #4c566a;
+            background: #2e3440;
+            color: #eceff4;
             font-size: 15px;
             border-radius: 4px;
             margin-top: 15px;
             box-sizing: border-box;
+            transition: border-color 0.2s;
         }
-        input[type="text"]:focus { border-color: #ffffff; outline: none; }
+        input[type="text"]:focus { border-color: #88c0d0; outline: none; }
 
         .quiz-box { 
-            background: rgba(10, 15, 26, 0.75); 
+            background: rgba(46, 52, 64, 0.5); 
             padding: 20px; 
             border-radius: 4px; 
             margin: 20px 0; 
-            border-left: 3px solid rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(5px);
-            max-width: 420px;
+            border: 1px solid #3b4252;
         }
+
+        /* Nueva Imagen Específica del Conflicto Familiar */
         .fase-img {
             width: 100%;
             max-width: 380px;
-            height: auto;
+            height: 220px;
+            object-fit: cover;
             border-radius: 4px;
-            border: 1px solid rgba(255,255,255,0.15);
+            border: 1px solid #4c566a;
             margin-top: 15px;
         }
 
-        /* Modales Laterales Estilo Menú Desplegable */
+        /* Estilo Modales Laterales */
         .modal {
             display: none;
             position: fixed;
@@ -185,154 +182,199 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0,0,0,0.8);
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(5px);
         }
         .modal-content {
-            background-color: #080c12;
+            background-color: #0b0e14;
             height: 100vh;
             width: 100%;
-            max-width: 450px; /* Abre como barra lateral izquierda */
-            padding: 50px 40px;
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 450px;
+            padding: 60px 40px;
+            border-right: 1px solid #2e3440;
             box-sizing: border-box;
-            color: #cbd5e1;
-            text-align: left;
+            color: #d8dee9;
         }
-        .close-btn { float: right; font-size: 26px; color: #64748b; cursor: pointer; }
+        .close-btn { float: right; font-size: 26px; color: #4c566a; cursor: pointer; }
         .close-btn:hover { color: #fff; }
-        .badge { font-size: 11px; color: #64748b; letter-spacing: 2px; display: block; margin-bottom: 5px; }
         
-        /* Texto Descriptivo Inferior Fijo */
         .footer-desc {
             position: absolute;
             bottom: 35px;
             left: 60px;
-            color: #525866;
+            color: #434c5e;
             font-size: 13px;
             letter-spacing: 0.5px;
             z-index: 2;
-            pointer-events: none;
         }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-<!-- CAPAS DE AMBIENTACIÓN -->
-<div class="background-ambience"></div>
+<!-- EFECTOS AMBIENTALES Y RELÁMPAGOS -->
+<div class="background-ambience lightning-active"></div>
 
 <div class="container">
     
-    <!-- PANTALLA PRINCIPAL ASIMÉTRICA IZQUIERDA -->
+    <!-- PANTALLA PRINCIPAL CINEMÁTICA (ESTILO RE3 ORIGINAL) -->
     <div id="pantalla-menu">
         <h1>PATRONES DE CRIANZA</h1>
         <div class="subtitle">BATALLA DE GAMIFICACIÓN / 5TO SECUNDARIA</div>
         
         <div class="menu-list">
-            <button class="btn-menu" onclick="siguientePantalla('pantalla-menu', 'pantalla-fase1')">Iniciar Juego</button>
-            <button class="btn-menu" onclick="abrirModal('modal-instrucciones')">Cómo Jugar</button>
-            <button class="btn-menu" onclick="abrirModal('modal-creditos')">Créditos</button>
+            <button class="btn-menu" onclick="reproducirEfecto('confirmar'); iniciarJuego();">Iniciar Juego</button>
+            <button class="btn-menu" onclick="reproducirEfecto('seleccionar'); abrirModal('modal-instrucciones');">Cómo Jugar</button>
+            <button class="btn-menu" onclick="reproducirEfecto('seleccionar'); abrirModal('modal-creditos');">Créditos</button>
         </div>
 
-        <div class="footer-desc">Completa las 5 fases del reto y domina los perfiles familiares.</div>
+        <div class="footer-desc">Analiza los casos de supervivencia del entorno familiar.</div>
     </div>
 
-    <!-- FASE 1: RETO VISUAL -->
-    <div id="pantalla-fase1" class="hidden">
-        <span class="badge">FASE 01 / 05</span>
-        <h1>Análisis Visual</h1>
-        <p>Evalúa el comportamiento de la escena y digita el patrón correspondiente:</p>
+    <!-- CAMBIO DE ENTORNO: INTERFAZ DE MONITOREO TÁCTICO PARA EL JUEGO -->
+    <div id="zona-juego" class="game-interface hidden">
         
-        <img class="fase-img" src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=600" alt="Evidencia">
-        <br>
-        <input type="text" id="input-fase1" placeholder="Digita el patrón aquí...">
-        <br>
-        <button class="btn-action" onclick="verificarFase1()">Confirmar Entrada</button>
-    </div>
-
-    <!-- FASE 2 -->
-    <div id="pantalla-fase2" class="hidden">
-        <span class="badge">FASE 02 / 05</span>
-        <h1>Análisis Teórico</h1>
-        <p>Determina el concepto del patrón según la siguiente descripción:</p>
-        <div class="quiz-box">
-            <p style="color: #ffffff; margin: 0; font-size: 14px;">
-                "Padres muy afectuosos que evitan poner límites o normas claras. Ceden fácilmente a todos los deseos de sus hijos."
-            </p>
+        <!-- FASE 1: ACERTIJO GRÁFICO REAL -->
+        <div id="pantalla-fase1" class="hidden">
+            <div style="font-size: 11px; color:#81a1c1; letter-spacing:1px; margin-bottom:5px;">REGISTRO VISUAL / FASE 01</div>
+            <p style="margin-top:0;">Determina el patrón de conducta según el registro analógico:</p>
+            
+            <!-- Imagen específica: Conflicto severo/regaño autoritario -->
+            <img class="fase-img" src="https://images.unsplash.com/photo-1621252179027-94459d278660?auto=format&fit=crop&q=80&w=600" alt="Conducta Familiar">
+            
+            <input type="text" id="input-fase1" placeholder="Ingresa el patrón de crianza...">
+            <br>
+            <button class="btn-menu" style="color:#bf616a; font-size:16px; margin-top:15px;" onclick="verificarFase1()">[ CONFIRMAR REGISTRO ]</button>
         </div>
-        <input type="text" id="input-fase2" placeholder="Digita el patrón aquí...">
-        <br>
-        <button class="btn-action" onclick="verificarFase2()">Confirmar Entrada</button>
-    </div>
 
-    <!-- CASOS DE OPCIÓN MÚLTIPLE (FASES 3, 4 Y 5) -->
-    <div id="pantalla-casos" class="hidden">
-        <span class="badge">FASE 0<span id="num-fase">3</span> / 05</span>
-        <h1>Evaluación de Caso</h1>
-        <p>Selecciona la opción táctica idónea para la conducta descrita:</p>
-        
-        <div class="quiz-box" id="quiz-zona">
-            <p id="texto-pregunta" style="color: #ffffff; font-size: 15px; margin-bottom: 20px;"></p>
-            <div id="opciones-zona" style="display: flex; flex-direction: column; gap: 8px;"></div>
+        <!-- FASE 2 -->
+        <div id="pantalla-fase2" class="hidden">
+            <div style="font-size: 11px; color:#81a1c1; letter-spacing:1px; margin-bottom:5px;">REGISTRO TEÓRICO / FASE 02</div>
+            <p style="margin-top:0;">Ingresa el patrón clínico de la siguiente transmisión:</p>
+            <div class="quiz-box">
+                <p style="color: #ffffff; margin: 0; font-size: 14px;">
+                    "Padres altamente afectuosos que evitan establecer límites o normas. Ceden de manera inmediata ante las demandas de los hijos."
+                </p>
+            </div>
+            <input type="text" id="input-fase2" placeholder="Ingresa el patrón de crianza...">
+            <br>
+            <button class="btn-menu" style="color:#bf616a; font-size:16px; margin-top:15px;" onclick="verificarFase2()">[ CONFIRMAR REGISTRO ]</button>
         </div>
-    </div>
 
-    <!-- PANTALLA FINAL -->
-    <div id="pantalla-final" class="hidden">
-        <h1>SISTEMA COMPLETADO</h1>
-        <p style="font-size: 14px; margin-bottom: 25px;">Todos los cuadrantes de crianza han sido evaluados de manera exitosa.</p>
-        
-        <div class="quiz-box">
-            <p style="font-weight: bold; color: #fff; margin-top: 0; font-size: 13px; letter-spacing: 1px;">DATOS DE RENDIMIENTO</p>
-            <span style="display:block; margin: 6px 0; font-size: 13px;">• Formato cinemático de columna fijos.</span>
-            <span style="display:block; margin: 6px 0; font-size: 13px;">• 3 casos clínicos resueltos sin fallas.</span>
-            <span style="display:block; margin: 6px 0; font-size: 13px;">• Respuestas validadas por hilos de código.</span>
+        <!-- FASES 3, 4 Y 5 -->
+        <div id="pantalla-casos" class="hidden">
+            <div style="font-size: 11px; color:#81a1c1; letter-spacing:1px; margin-bottom:5px;">EVALUACIÓN CLÍNICA / FASE 0<span id="num-fase">3</span></div>
+            <p style="margin-top:0;" id="texto-pregunta"></p>
+            
+            <div id="opciones-zona" class="menu-list" style="margin-top:20px;"></div>
         </div>
-        <button class="btn-action" onclick="location.reload()">Reiniciar Reto</button>
+
+        <!-- PANTALLA FINAL -->
+        <div id="pantalla-final" class="hidden">
+            <h1 style="font-size:28px; color:#a3be8c;">SECTOR COMPLETADO</h1>
+            <p>Los parámetros estructurales han sido ordenados con éxito.</p>
+            
+            <div class="quiz-box">
+                <span style="display:block; margin: 4px 0; font-size:13px;">• Rediseño asimétrico de simulación.</span>
+                <span style="display:block; margin: 4px 0; font-size:13px;">• Diagnóstico de conductas completado.</span>
+            </div>
+            <button class="btn-menu" style="color:#81a1c1;" onclick="location.reload()">[ REINICIAR SISTEMA ]</button>
+        </div>
+
     </div>
 </div>
 
-<!-- MODAL: ¿CÓMO JUGAR? (ESTILO BARRA LATERAL) -->
+<!-- MODALES LATERALES -->
 <div id="modal-instrucciones" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="cerrarModal('modal-instrucciones')">&times;</span>
-        <h2 style="color: #ffffff; margin-top: 0; font-weight: 300; letter-spacing: 1px;">REGLAS DE OPERACIÓN</h2>
-        <p>Supera 5 puntos de control de análisis familiar:</p>
-        <p><strong>Fases 1 y 2:</strong> Observa o lee la premisa e ingresa la palabra clave en el cuadro de texto.</p>
-        <p><strong>Fases 3 a 5:</strong> Analiza detalladamente el caso clínico expuesto en pantalla y selecciona la opción interactiva del menú vertical.</p>
+        <h2 style="color: #ffffff; margin-top: 0; font-weight: 300;">MANUAL</h2>
+        <p>Analiza de forma secuencial los 5 sectores familiares expuestos del lado izquierdo del monitor.</p>
+        <p>Utiliza respuestas precisas escritas para los datos conceptuales y selecciones de un toque para los análisis de campo.</p>
     </div>
 </div>
 
-<!-- MODAL: CRÉDITOS (ESTILO BARRA LATERAL) -->
 <div id="modal-creditos" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="cerrarModal('modal-creditos')">&times;</span>
-        <h2 style="color: #ffffff; margin-top: 0; font-weight: 300; letter-spacing: 1px;">CRÉDITOS DEL SISTEMA</h2>
-        <p>Software interactivo gamificado estructurado de forma exclusiva para la Batalla de Crianza.</p>
-        <p><strong>Desarrollado y Dirigido por:</strong></p>
-        <div style="font-size: 17px; color: #fff; font-weight: 400; padding: 20px 0; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); margin: 20px 0; letter-spacing: 1px;">
+        <h2 style="color: #ffffff; margin-top: 0; font-weight: 300;">CRÉDITOS</h2>
+        <p>Desarrollo y lógica interactiva gamificada:</p>
+        <div style="font-size: 18px; color: #fff; padding: 15px 0; border-top: 1px solid #3b4252; border-bottom: 1px solid #3b4252; margin: 15px 0;">
             Lucia Carolina Barcenas Rodriguez
         </div>
-        <p style="font-size: 11px; color: #475569;">© 2026 - TODOS LOS DERECHOS RESERVADOS.</p>
+        <p style="font-size: 11px; color: #4c566a;">© 2026 - SIMULACIÓN EDUCATIVA.</p>
     </div>
 </div>
 
 <script>
+    // Sintetizador de Sonidos Nativos (Web Audio API)
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function reproducirEfecto(tipo) {
+        if (audioCtx.state === 'suspended') { audioCtx.resume(); }
+        
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (tipo === 'seleccionar') {
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(180, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.1);
+        } else if (tipo === 'confirmar') {
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+            osc.frequency.setValueAtTime(440, audioCtx.currentTime + 0.08);
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.2);
+        } else if (tipo === 'error') {
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(120, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.3);
+        }
+    }
+
+    // Intervalo aleatorio para truenos de fondo
+    setInterval(() => {
+        if(Math.random() > 0.6) {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(40, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(10, audioCtx.currentTime + 1.5);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.8);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 1.8);
+        }
+    }, 8000);
+
     const preguntasCasos = [
         {
             faseNum: 3,
-            caso: "Los padres de Carlos no le ponen horarios, permiten que haga lo que quiera sin supervisión y nunca hay consecuencias cuando rompe las normas de la casa.",
+            caso: "Los padres de Carlos no le imponen horarios, permiten que actúe sin supervisión y no existen repercusiones cuando se quiebran las directrices del hogar.",
             opciones: ["Patrón Autoritario", "Patrón Permisivo", "Patrón Democrático / Asertivo", "Patrón Negligente"],
             correcta: 1
         },
         {
             faseNum: 4,
-            caso: "En la casa de Ana, las reglas se conversan en familia. Sus padres escuchan sus opiniones, ponen límites claros y le brindan mucho apoyo y afecto.",
+            caso: "En el entorno de Ana, los límites se estructuran bajo consenso. Existe un canal de escucha abierto y un alto nivel de soporte emocional afectivo.",
             opciones: ["Patrón Negligente", "Patrón Autoritario", "Patrón Democrático / Asertivo", "Patrón Permisivo"],
             correcta: 2
         },
         {
             faseNum: 5,
-            caso: "Los padres de Luis muestran total desinterés por sus actividades escolares y emociones. Hay una ausencia total de cuidado, normas y afecto.",
+            caso: "Los tutores de Luis muestran desinterés sistemático por su evolución académica y sus estados emocionales, delegando por completo sus responsabilidades.",
             opciones: ["Patrón Negligente", "Patrón Autoritario", "Patrón Permisivo", "Patrón Democrático / Asertivo"],
             correcta: 0
         }
@@ -340,44 +382,47 @@
 
     let indiceCasoActual = 0;
 
-    function siguientePantalla(actual, siguiente) {
-        document.getElementById(actual).classList.add('hidden');
-        document.getElementById(siguiente).classList.remove('hidden');
-        if(siguiente === 'pantalla-casos') {
-            cargarCaso();
-        }
+    function iniciarJuego() {
+        document.getElementById('pantalla-menu').classList.add('hidden');
+        document.getElementById('zona-juego').classList.remove('hidden');
+        document.getElementById('pantalla-fase1').classList.remove('hidden');
+    }
+
+    function siguienteFase(actualId, siguienteId) {
+        document.getElementById(actualId).classList.add('hidden');
+        document.getElementById(siguienteId).classList.remove('hidden');
+        if(siguienteId === 'pantalla-casos') { cargarCaso(); }
     }
 
     function abrirModal(id) { document.getElementById(id).style.display = "block"; }
     function cerrarModal(id) { document.getElementById(id).style.display = "none"; }
-    
-    window.onclick = function(event) {
-        if (event.target.classList.contains('modal')) { event.target.style.display = "none"; }
-    }
 
     function verificarFase1() {
         let resp = document.getElementById('input-fase1').value.toLowerCase().trim();
         if(resp.includes('autoritario') || resp.includes('autoritaria')) {
-            alert("✔ ENTRADA COMPLETA. SECTOR 01 CONFIGURADO.");
-            siguientePantalla('pantalla-fase1', 'pantalla-fase2');
+            reproducirEfecto('confirmar');
+            siguienteFase('pantalla-fase1', 'pantalla-fase2');
         } else {
-            alert("❌ Denegado. Analiza los elementos de la imagen de nuevo.");
+            reproducirEfecto('error');
+            alert("Acceso Restringido: Patrón de conducta no correspondiente.");
         }
     }
 
     function verificarFase2() {
         let resp = document.getElementById('input-fase2').value.toLowerCase().trim();
         if(resp.includes('permisivo') || resp.includes('permisiva')) {
-            alert("✔ ENTRADA COMPLETA. SECTOR 02 CONFIGURADO.");
-            siguientePantalla('pantalla-fase2', 'pantalla-casos');
+            reproducirEfecto('confirmar');
+            siguienteFase('pantalla-fase2', 'pantalla-casos');
         } else {
-            alert("❌ Denegado. Comprueba los parámetros teóricos.");
+            reproducirEfecto('error');
+            alert("Acceso Restringido: Parámetro conceptual erróneo.");
         }
     }
 
     function cargarCaso() {
         if(indiceCasoActual >= preguntasCasos.length) {
-            siguientePantalla('pantalla-casos', 'pantalla-final');
+            document.getElementById('pantalla-casos').classList.add('hidden');
+            document.getElementById('pantalla-final').classList.remove('hidden');
             return;
         }
         
@@ -401,11 +446,12 @@
     function evaluarRespuesta(indiceSeleccionado) {
         let casoActual = preguntasCasos[indiceCasoActual];
         if(indiceSeleccionado === casoActual.correcta) {
-            alert("✔ SECTOR " + casoActual.faseNum + " VERIFICADO.");
+            reproducirEfecto('confirmar');
             indiceCasoActual++;
             cargarCaso();
         } else {
-            alert("❌ Desajuste en el diagnóstico del caso. Intenta otro patrón.");
+            reproducirEfecto('error');
+            alert("Inconsistencia en el análisis clínico.");
         }
     }
 </script>
