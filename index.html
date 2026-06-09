@@ -5,152 +5,211 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RETO: PATRONES DE CRIANZA</title>
     <style>
-        /* --- ESTILO BASE (Paleta de image_28bd9e.png) --- */
+        /* --- MOTOR DE TEMAS VARIABLES (CSS VARIABLES) --- */
+        :root {
+            --bg-base: #11001C;
+            --bg-panel: #1A0129;
+            --border-heavy: #3A025B;
+            --primary: #520380;
+            --primary-glow: #b146ff;
+            --text-accent: #DFB6B2;
+            --speed-fluid: 0.35s;
+        }
+
+        /* Variables Temas Opcionales */
+        [data-theme="cyber"] {
+            --bg-base: #000B05;
+            --bg-panel: #021F0F;
+            --border-heavy: #004D26;
+            --primary: #00E676;
+            --primary-glow: #66FFA6;
+            --text-accent: #B2DFDB;
+        }
+
+        [data-theme="crimson"] {
+            --bg-base: #1A0003;
+            --bg-panel: #2B0207;
+            --border-heavy: #5C040E;
+            --primary: #FF1744;
+            --primary-glow: #FF617F;
+            --text-accent: #FFE0E2;
+        }
+
+        /* --- ESTILO BASE & CAPAS --- */
         body {
-            background-color: #11001C; /* Dark Purple */
+            background-color: var(--bg-base);
             color: #FFFFFF;
             font-family: 'Impact', 'Arial Black', sans-serif;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            -webkit-tap-highlight-color: transparent;
+            margin: 0; padding: 0; height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden; -webkit-tap-highlight-color: transparent;
+            transition: background-color var(--speed-fluid) ease;
         }
 
-        /* --- FILTRO CRT / INTERFERENCIA GRUNGE DISCRETA --- */
+        /* FILTRO DIGITAL VIVO AVANZADO */
         body::before {
-            content: " ";
-            display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
             z-index: 10; background-size: 100% 4px, 6px 100%; pointer-events: none;
+            animation: crtFlicker 0.15s infinite;
         }
 
-        /* --- CONTENEDORES CON ANIMACIÓN DE ENTRADA SUAVE --- */
+        @keyframes crtFlicker {
+            0% { opacity: 0.98; } 50% { opacity: 1; } 100% { opacity: 0.99; }
+        }
+
+        /* --- ESTRUCTURA DE CONTENEDORES FLUIDOS --- */
         .wrapper-layout {
-            width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 2; padding: 20px; box-sizing: border-box; position: relative;
+            width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 2; padding: 20px; box-sizing: border-box;
         }
 
         .panel-grunge {
             width: 100%; max-width: 420px;
-            background: #1A0129; 
-            border: 3px solid #3A025B; 
-            box-shadow: 0 0 0 4px #11001C, 0 15px 40px rgba(0,0,0,0.9);
-            padding: 35px 20px; border-radius: 6px; box-sizing: border-box; position: relative;
-            animation: fadeInScale 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.2) both;
+            background: var(--bg-panel); 
+            border: 3px solid var(--border-heavy); 
+            box-shadow: 0 0 0 4px var(--bg-base), 0 20px 50px rgba(0,0,0,0.85);
+            padding: 35px 20px; border-radius: 12px; box-sizing: border-box; position: relative;
+            animation: containerEntrance var(--speed-fluid) cubic-bezier(0.19, 1, 0.22, 1) both;
+            transition: background var(--speed-fluid), border var(--speed-fluid), box-shadow var(--speed-fluid);
         }
         .panel-grunge::after {
-            content: ''; position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px; border: 1px dashed rgba(82, 3, 128, 0.4); pointer-events: none;
+            content: ''; position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px; border: 1px dashed var(--primary); opacity: 0.4; pointer-events: none; transition: border var(--speed-fluid);
         }
 
-        /* --- PERSONAJE VIO CON PARTÍCULAS MÁSTICAS ORBITALES --- */
+        @keyframes containerEntrance {
+            from { opacity: 0; transform: scale(0.95) translateY(15px); filter: blur(4px); }
+            to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+        }
+
+        /* --- SISTEMA DE SELECCIÓN DE TEMAS (UI AJUSTES) --- */
+        .theme-selector-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 25px;
+        }
+        .theme-btn-card {
+            border: 2px solid var(--border-heavy); background: rgba(0,0,0,0.2); border-radius: 6px;
+            padding: 10px; cursor: pointer; text-align: center; font-family: sans-serif; font-size: 11px; font-weight: bold; transition: all 0.2s ease;
+        }
+        .theme-btn-card.active {
+            border-color: var(--primary); background: var(--primary); color: #FFFFFF; box-shadow: 0 0 10px var(--primary);
+        }
+        .swatch { width: 20px; height: 20px; border-radius: 50%; margin: 0 auto 6px auto; border: 1px solid rgba(255,255,255,0.3); }
+
+        /* --- ENTORNO ENÉRGICO DEL PERSONAJE VIO --- */
         .character-container {
             display: flex; flex-direction: column; align-items: center; margin-bottom: 25px; position: relative;
         }
         .vio-orbit-zone {
-            position: relative; width: 90px; height: 90px; display: flex; justify-content: center; align-items: center;
+            position: relative; width: 95px; height: 95px; display: flex; justify-content: center; align-items: center;
         }
         .vio-spirit {
             width: 65px; height: 65px;
-            background: radial-gradient(circle at 35% 35%, #6c06a8 0%, #520380 40%, #1A0129 100%);
-            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-            box-shadow: 0 0 25px #520380, inset 0 -6px 12px rgba(0,0,0,0.5);
+            background: radial-gradient(circle at 35% 35%, var(--primary-glow) 0%, var(--primary) 50%, var(--bg-panel) 100%);
+            border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
+            box-shadow: 0 0 30px var(--primary), inset 0 -6px 12px rgba(0,0,0,0.6);
             display: flex; justify-content: center; align-items: center;
-            animation: floatSpirit 2.6s ease-in-out infinite;
-            transition: all 0.3s ease; z-index: 3;
+            animation: floatSpirit 2.4s ease-in-out infinite;
+            transition: all var(--speed-fluid) ease; z-index: 3;
         }
-        .vio-eyes { display: flex; gap: 14px; transition: transform 0.2s; }
-        .vio-eye { width: 9px; height: 9px; background: #FFFFFF; border-radius: 50%; position: relative; animation: blinkEyes 3.5s infinite; }
+        .vio-eyes { display: flex; gap: 14px; transition: transform 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .vio-eye { width: 9px; height: 9px; background: #FFFFFF; border-radius: 50%; position: relative; animation: blinkEyes 3.8s infinite; }
         
-        /* Partículas flotantes */
+        /* Estelas Orbitantes Cinemáticas */
         .vio-particle {
-            position: absolute; width: 6px; height: 6px; background: #DFB6B2; border-radius: 50%; opacity: 0.7;
-            box-shadow: 0 0 8px #FFFFFF; pointer-events: none;
+            position: absolute; width: 6px; height: 6px; background: #FFFFFF; border-radius: 50%; opacity: 0.8;
+            box-shadow: 0 0 10px var(--primary-glow); pointer-events: none;
         }
-        .p1 { animation: orbitParticle1 4s linear infinite; }
-        .p2 { animation: orbitParticle2 3.5s linear infinite; }
+        .p1 { animation: orbitQuantum1 3.2s infinite linear; }
+        .p2 { animation: orbitQuantum2 2.8s infinite linear; }
 
         .vio-shadow {
-            width: 45px; height: 5px; background: rgba(0, 0, 0, 0.5); border-radius: 50%;
-            margin-top: 8px; animation: shadowPulse 2.6s ease-in-out infinite;
+            width: 45px; height: 5px; background: rgba(0, 0, 0, 0.6); border-radius: 50%;
+            margin-top: 8px; animation: shadowPulse 2.4s ease-in-out infinite; transition: all var(--speed-fluid);
         }
 
-        /* Expresiones reactivas de Vio */
-        .vio-spirit.happy { background: radial-gradient(circle, #b146ff 0%, #520380 60%); box-shadow: 0 0 35px #b146ff; }
-        .vio-spirit.happy .vio-eye { height: 4px; border-radius: 12px 12px 0 0; transform: scaleY(1.2); }
-        .vio-spirit.sad { background: radial-gradient(circle, #731f1f 0%, #220135 100%); box-shadow: 0 0 20px #bf616a; }
-        .vio-spirit.sad .vio-eye { height: 3px; opacity: 0.8; transform: translateY(2px); }
+        /* Estados dinámicos de Vio */
+        .vio-spirit.happy { background: radial-gradient(circle, #FFFFFF 0%, var(--primary-glow) 40%, var(--primary) 80%); box-shadow: 0 0 40px var(--primary-glow); }
+        .vio-spirit.happy .vio-eye { height: 4px; border-radius: 12px 12px 0 0; transform: scale(1.1); }
+        .vio-spirit.sad { background: radial-gradient(circle, #611A24 0%, #150104 100%); box-shadow: 0 0 25px #FF1744; }
+        .vio-spirit.sad .vio-eye { height: 3px; opacity: 0.7; transform: translateY(2.5px); }
 
-        /* --- ANIMACIONES CSS AVANZADAS --- */
-        @keyframes fadeInScale {
-            from { opacity: 0; transform: scale(0.94) translateY(12px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
+        /* --- ANIMACIONES AVANZADAS (KEYFRAMES) --- */
         @keyframes floatSpirit {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(2deg); }
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            50% { transform: translateY(-14px) rotate(3deg) scale(1.02); }
         }
         @keyframes shadowPulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(0.75); opacity: 0.2; }
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(0.65); opacity: 0.25; }
         }
         @keyframes blinkEyes {
-            0%, 94%, 100% { transform: scaleY(1); }
-            97% { transform: scaleY(0.1); }
+            0%, 93%, 100% { transform: scaleY(1); }
+            96% { transform: scaleY(0.05); }
         }
-        @keyframes orbitParticle1 {
-            0% { transform: rotate(0deg) translateX(40px) rotate(0deg); opacity: 1; }
-            50% { opacity: 0.3; }
-            100% { transform: rotate(360deg) translateX(40px) rotate(-360deg); opacity: 1; }
+        @keyframes orbitQuantum1 {
+            0% { transform: rotate(0deg) translateX(44px) scale(1); opacity: 1; }
+            50% { opacity: 0.3; transform: rotate(180deg) translateX(44px) scale(0.7); }
+            100% { transform: rotate(360deg) translateX(44px) scale(1); opacity: 1; }
         }
-        @keyframes orbitParticle2 {
-            0% { transform: rotate(180deg) translateX(35px) rotate(-180deg); opacity: 0.4; }
-            50% { opacity: 1; }
-            100% { transform: rotate(540deg) translateX(35px) rotate(-540deg); opacity: 0.4; }
+        @keyframes orbitQuantum2 {
+            0% { transform: rotate(180deg) translateX(38px) scale(0.6); opacity: 0.4; }
+            50% { opacity: 1; transform: rotate(360deg) translateX(38px) scale(1.1); }
+            100% { transform: rotate(540deg) translateX(38px) scale(0.6); opacity: 0.4; }
         }
-        .interface-error { animation: shake 0.3s ease-in-out; border-color: #bf616a !important; }
-        @keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-5px); } 40%, 80% { transform: translateX(5px); } }
+        .interface-error { animation: structuralShake 0.35s cubic-bezier(.36,.07,.19,.97) both; border-color: #FF1744 !important; }
+        @keyframes structuralShake {
+            10%, 90% { transform: translate3d(-2px, 0, 0); }
+            20%, 80% { transform: translate3d(4px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+            40%, 60% { transform: translate3d(6px, 0, 0); }
+        }
 
-        /* --- METADATOS Y DISEÑO TEXTUAL --- */
-        h1.title-game { font-size: 42px; color: #FFFFFF; margin: 0 0 20px 0; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; line-height: 0.95; text-align: center; }
-        h2.section-header { font-size: 20px; color: #11001C; background: #FFFFFF; margin: -50px auto 25px auto; padding: 5px 15px; width: fit-content; text-transform: uppercase; letter-spacing: 2px; border: 2px solid #3A025B; font-weight: bold; }
-        p.desc-text { font-family: sans-serif; color: #DFB6B2; font-size: 14px; line-height: 1.5; margin-bottom: 20px; font-weight: 300; }
-        .meta-progress-text { font-family: sans-serif; font-size: 11px; text-transform: uppercase; color: #DFB6B2; opacity: 0.8; letter-spacing: 1px; text-align: center; margin-bottom: 12px; font-weight: bold;}
+        /* --- TIPOGRAFÍAS Y ROTULACIÓN --- */
+        h1.title-game { font-size: 40px; color: #FFFFFF; margin: 0 0 25px 0; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; line-height: 0.95; text-align: center; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        h2.section-header { font-size: 19px; color: var(--bg-base); background: #FFFFFF; margin: -52px auto 25px auto; padding: 6px 18px; width: fit-content; text-transform: uppercase; letter-spacing: 2px; border: 2px solid var(--border-heavy); font-weight: bold; transition: all var(--speed-fluid); }
+        p.desc-text { font-family: sans-serif; color: var(--text-accent); font-size: 14px; line-height: 1.5; margin-bottom: 25px; font-weight: 300; transition: color var(--speed-fluid); }
+        .meta-progress-text { font-family: sans-serif; font-size: 11px; text-transform: uppercase; color: var(--text-accent); opacity: 0.9; letter-spacing: 1px; text-align: center; margin-bottom: 15px; font-weight: bold; }
 
-        /* --- BOTONES E INDICADORES DE OPCIONES CON MICRO-INTERACCIONES --- */
+        /* --- BOTONES CON TRANSICIÓN TRIDIMENSIONAL EXTREMA --- */
         .menu-list { display: flex; flex-direction: column; gap: 12px; width: 100%; }
         .btn-grunge {
-            background: #520380; color: #FFFFFF; border: none; font-family: 'Impact', sans-serif; font-size: 22px; padding: 12px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; width: 100%; text-align: center; transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); clip-path: polygon(1% 2%, 99% 0%, 100% 96%, 0% 100%); position: relative;
+            background: var(--primary); color: #FFFFFF; border: none; font-family: 'Impact', sans-serif; font-size: 22px; padding: 13px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; width: 100%; text-align: center; transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1); clip-path: polygon(1% 3%, 99% 0%, 100% 95%, 0% 100%); position: relative;
         }
-        .btn-grunge:hover { background: #63059c; transform: scale(1.02); box-shadow: 0 0 15px rgba(82, 3, 128, 0.6); }
-        .btn-grunge:active { background: #3A025B; transform: scale(0.98); }
-        .btn-grunge.secondary { background: #1A0129; border: 2px solid #3A025B; font-size: 16px; font-family: sans-serif; font-weight: bold; text-align: left; padding-left: 20px; letter-spacing: 0.5px; text-transform: none; clip-path: none; border-radius: 4px; }
-        .btn-grunge.secondary:hover { border-color: #520380; background: #220135; }
+        .btn-grunge:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 20px rgba(0,0,0,0.5), 0 0 15px var(--primary-glow); }
+        .btn-grunge:active { transform: translateY(1px) scale(0.99); }
+        
+        .btn-grunge.secondary { background: var(--bg-panel); border: 2px solid var(--border-heavy); font-size: 15px; font-family: sans-serif; font-weight: bold; text-align: left; padding-left: 20px; letter-spacing: 0.5px; text-transform: none; clip-path: none; border-radius: 6px; }
+        .btn-grunge.secondary:hover { border-color: var(--primary); background: rgba(255,255,255,0.03); }
 
-        /* --- SELECCIÓN DE NIVELES --- */
+        /* --- REJILLA TÁCTICA DE NIVELES --- */
         .levels-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
         .level-box {
-            background: transparent; border: 2px solid #3A025B; color: #FFFFFF; font-size: 20px; height: 60px; display: flex; justify-content: center; align-items: center; cursor: pointer; font-family: 'Impact', sans-serif; transition: all 0.2s; position: relative; border-radius: 4px;
+            background: transparent; border: 2px solid var(--border-heavy); color: #FFFFFF; font-size: 20px; height: 58px; display: flex; justify-content: center; align-items: center; cursor: pointer; font-family: 'Impact', sans-serif; transition: all 0.2s ease; position: relative; border-radius: 6px;
         }
-        .level-box.locked { background: rgba(17, 0, 28, 0.7); border-color: #220135; color: rgba(255,255,255,0.15); cursor: not-allowed; }
-        .level-box.locked::before { content: "🔒"; font-size: 13px; }
-        .level-box.completed { background: #520380; border-color: #FFFFFF; color: #FFFFFF; box-shadow: 0 0 8px rgba(82, 3, 128, 0.7); }
-        .level-box.completed::after { content: "✔"; position: absolute; bottom: 2px; right: 4px; font-size: 10px; }
-        .level-box:not(.locked):hover { border-color: #520380; background: rgba(82, 3, 128, 0.25); transform: translateY(-2px); }
+        .level-box.locked { background: rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.05); color: rgba(255,255,255,0.15); cursor: not-allowed; }
+        .level-box.locked::before { content: "🔒"; font-size: 12px; }
+        .level-box.completed { background: var(--primary); border-color: #FFFFFF; color: #FFFFFF; box-shadow: 0 0 10px var(--primary); }
+        .level-box.completed::after { content: "✔"; position: absolute; bottom: 2px; right: 4px; font-size: 9px; }
+        .level-box:not(.locked):hover { border-color: var(--primary); background: rgba(255,255,255,0.02); transform: translateY(-3px); box-shadow: 0 5px 12px rgba(0,0,0,0.3); }
 
-        /* --- SOPAS DE LETRAS --- */
+        /* --- JUEGO EN MATRIZ DE SOPA --- */
         .wordsearch-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 15px auto; max-width: 240px; }
-        .letter-cell { background: #220135; border: 2px solid #3A025B; color: #FFFFFF; font-size: 20px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; user-select: none; border-radius: 4px; transition: all 0.1s ease; }
-        .letter-cell.selected { background: linear-gradient(135deg, #520380, #3A025B); color: #FFFFFF; border-color: #FFFFFF; transform: scale(1.06); box-shadow: 0 0 10px rgba(255,255,255,0.2); }
+        .letter-cell { background: rgba(0,0,0,0.3); border: 2px solid var(--border-heavy); color: #FFFFFF; font-size: 20px; height: 48px; display: flex; justify-content: center; align-items: center; cursor: pointer; user-select: none; border-radius: 6px; transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .letter-cell:hover { border-color: var(--primary); transform: scale(1.03); }
+        .letter-cell.selected { background: linear-gradient(135deg, var(--primary), var(--border-heavy)); color: #FFFFFF; border-color: #FFFFFF; transform: scale(1.08); box-shadow: 0 0 12px var(--primary-glow); }
 
-        /* --- COMPONENTES AUXILIARES --- */
-        .timer-container { width: 100%; background: #220135; height: 6px; margin-bottom: 20px; border-radius: 3px; overflow: hidden; }
-        .timer-bar { width: 100%; height: 100%; background: linear-gradient(90deg, #520380, #b146ff); transition: width 1s linear; }
-        .feedback-banner { font-family: sans-serif; margin-bottom: 15px; padding: 10px; font-size: 12px; font-weight: bold; display: none; text-align: center; border: 1px solid #bf616a; color: #ff8888; background: rgba(191, 97, 106, 0.15); border-radius: 4px; }
-        .btn-back-menu { font-family: sans-serif; font-size: 11px; text-transform: uppercase; color: #520380; background: none; border: none; font-weight: bold; margin-top: 25px; display: block; text-align: center; width: 100%; letter-spacing: 1px; cursor: pointer; transition: color 0.2s; }
-        .btn-back-menu:hover { color: #DFB6B2; }
+        /* --- CONTROL DE VOLUMEN (AJUSTES) --- */
+        .setting-row { display: flex; align-items: center; margin-bottom: 20px; font-family: sans-serif; font-weight: bold; font-size: 13px; }
+        .setting-label { width: 80px; color: var(--text-accent); text-transform: uppercase; letter-spacing: 1px; }
+        .slider-container { flex-grow: 1; height: 12px; background: rgba(0,0,0,0.4); border: 1px solid var(--border-heavy); position: relative; cursor: pointer; border-radius: 3px; }
+        .slider-bar { height: 100%; background: var(--primary); width: 60%; pointer-events: none; border-radius: 2px; }
+        .slider-handle { position: absolute; top: -4px; width: 12px; height: 18px; background: #FFFFFF; border-radius: 2px; transform: translateX(-50%); pointer-events: none; }
+
+        .timer-container { width: 100%; background: rgba(0,0,0,0.4); height: 6px; margin-bottom: 20px; border-radius: 3px; overflow: hidden; border: 1px solid var(--border-heavy); }
+        .timer-bar { width: 100%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--primary-glow)); transition: width 1s linear; }
+        
+        .feedback-banner { font-family: sans-serif; margin-bottom: 15px; padding: 12px; font-size: 12px; font-weight: bold; display: none; text-align: center; border: 1px solid #FF1744; color: #FF8A9F; background: rgba(255, 23, 68, 0.15); border-radius: 6px; animation: structuralShake 0.35s both; }
+        .btn-back-menu { font-family: sans-serif; font-size: 11px; text-transform: uppercase; color: var(--primary-glow); background: none; border: none; font-weight: bold; margin-top: 25px; display: block; text-align: center; width: 100%; letter-spacing: 1px; cursor: pointer; transition: color 0.2s; }
+        .btn-back-menu:hover { color: #FFFFFF; }
         
         .hidden { display: none !important; }
     </style>
@@ -159,6 +218,7 @@
 
 <div class="wrapper-layout">
     
+    <!-- MÓDULO 1: MENÚ PRINCIPAL -->
     <div id="m-main-menu" class="panel-grunge">
         <div class="character-container">
             <div class="vio-orbit-zone">
@@ -171,15 +231,16 @@
             <div class="vio-shadow"></div>
         </div>
 
-        <h1 class="title-game">PATRONES<br><span style="color:#520380;">DE CRIANZA</span></h1>
+        <h1 class="title-game">PATRONES<br><span style="color:var(--primary-glow); transition:color 0.3s;">DE CRIANZA</span></h1>
         <div class="menu-list">
             <button class="btn-grunge" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-levels'); refreshLevelsInterface();">Iniciar Juego</button>
-            <button class="btn-grunge" style="background:#3A025B;" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-howtoplay');">Cómo Jugar</button>
-            <button class="btn-grunge" style="background:#220135;" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-credits');">Créditos</button>
-            <button class="btn-grunge" style="background:#11001C; border: 2px solid #3A025B; font-size:15px; padding:8px;" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-settings');">Ajustes ⚙️</button>
+            <button class="btn-grunge" style="filter: brightness(0.85);" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-howtoplay');">Cómo Jugar</button>
+            <button class="btn-grunge" style="filter: brightness(0.7);" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-credits');">Créditos</button>
+            <button class="btn-grunge" style="filter: brightness(0.55); font-size:15px; padding:8px;" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-settings');">Ajustes & Temas ⚙️</button>
         </div>
     </div>
 
+    <!-- MÓDULO 2: SELECCIÓN DE NIVELES -->
     <div id="m-levels" class="panel-grunge hidden">
         <h2 class="section-header">NIVELES</h2>
         <div class="meta-progress-text" id="global-progress-lbl">Progreso Global: 0%</div>
@@ -187,25 +248,45 @@
         <button class="btn-back-menu" onclick="changeModule('m-levels', 'm-main-menu')">✖ VOLVER AL MENÚ</button>
     </div>
 
+    <!-- MÓDULO 3: CÓMO JUGAR -->
     <div id="m-howtoplay" class="panel-grunge hidden">
         <h2 class="section-header">MANUAL</h2>
         <p class="desc-text">¡Hola! Soy <b>Vio</b>. Estaré acompañándote a través de los cuadrantes analíticos familiares. Tu meta es detectar malas conductas y aplicar métodos asertivos.</p>
-        <p class="desc-text" style="color: #DFB6B2; font-weight: bold; font-size: 13px; border-left: 3px solid #520380; padding-left: 10px;">Pon mucha atención cuando te toque resolver las matrices verticales de sopa de letras.</p>
+        <p class="desc-text" style="color: var(--text-accent); font-weight: bold; font-size: 13px; border-left: 3px solid var(--primary); padding-left: 10px;">Pon mucha atención cuando te toque resolver las matrices verticales de sopa de letras.</p>
         <button class="btn-grunge" style="font-size: 18px; padding: 8px;" onclick="changeModule('m-howtoplay', 'm-main-menu')">ENTENDIDO</button>
     </div>
 
+    <!-- MÓDULO 4: CRÉDITOS -->
     <div id="m-credits" class="panel-grunge hidden">
         <h2 class="section-header">CREDITS</h2>
-        <p class="desc-text" style="text-align:center; font-size:15px;">Estructuración y Microdetalles Visuales:</p>
-        <div style="font-size:20px; color:#FFFFFF; text-align:center; margin:15px 0; border-top:1px solid #3A025B; border-bottom:1px solid #3A025B; padding:12px 0; letter-spacing: 1px;">
+        <p class="desc-text" style="text-align:center; font-size:15px;">Estructuración Modular y Fluidos Visuales:</p>
+        <div style="font-size:20px; color:#FFFFFF; text-align:center; margin:15px 0; border-top:1px solid var(--border-heavy); border-bottom:1px solid var(--border-heavy); padding:12px 0; letter-spacing: 1px;">
             Lucia Carolina Barcenas Rodriguez
         </div>
-        <p class="desc-text" style="text-align:center; font-size:11px; opacity:0.5;">© 2026 - SISTEMA DE CRIANZA ASÈRTIVA MODULAR.</p>
+        <p class="desc-text" style="text-align:center; font-size:11px; opacity:0.5;">© 2026 - SIMULACIÓN COMPORTAMENTAL DINÁMICA.</p>
         <button class="btn-back-menu" onclick="changeModule('m-credits', 'm-main-menu')">✖ VOLVER</button>
     </div>
 
+    <!-- MÓDULO 5: AJUSTES & SELECCIÓN DE ENTORNO (COLOR) -->
     <div id="m-settings" class="panel-grunge hidden">
         <h2 class="section-header">AJUSTES</h2>
+        
+        <div style="color:var(--text-accent); font-size:12px; margin-bottom:10px; font-family:sans-serif; font-weight:bold;">TEMA INTERFAZ:</div>
+        <div class="theme-selector-grid">
+            <div id="t-card-mystic" class="theme-btn-card active" onclick="updateAppTheme('mystic')">
+                <div class="swatch" style="background:#520380;"></div>
+                Místico
+            </div>
+            <div id="t-card-cyber" class="theme-btn-card" onclick="updateAppTheme('cyber')">
+                <div class="swatch" style="background:#00E676;"></div>
+                Cibernético
+            </div>
+            <div id="t-card-crimson" class="theme-btn-card" onclick="updateAppTheme('crimson')">
+                <div class="swatch" style="background:#FF1744;"></div>
+                Carmesí
+            </div>
+        </div>
+
         <div class="setting-row">
             <div class="setting-label">MÚSICA</div>
             <div class="slider-container" onclick="setVolume('music', event)">
@@ -220,9 +301,10 @@
                 <div id="handle-sfx" class="slider-handle" style="left: 80%;"></div>
             </div>
         </div>
-        <button class="btn-grunge" style="font-size:18px; padding: 10px;" onclick="changeModule('m-settings', 'm-main-menu')">GUARDAR CONFIGURACIÓN</button>
+        <button class="btn-grunge" style="font-size:18px; padding: 10px;" onclick="changeModule('m-settings', 'm-main-menu')">GUARDAR</button>
     </div>
 
+    <!-- MÓDULO 6: MOTOR DE JUEGO PRINCIPAL -->
     <div id="m-gameplay" class="panel-grunge hidden">
         <div class="character-container" style="margin-bottom: 12px;">
             <div class="vio-orbit-zone" style="width:75px; height:75px;">
@@ -234,29 +316,33 @@
 
         <div id="game-feedback" class="feedback-banner"></div>
 
+        <!-- MODO: QUIZ KAHOOT -->
         <div id="mech-kahoot" class="hidden">
             <div class="timer-container"><div id="kahoot-bar" class="timer-bar"></div></div>
             <p class="desc-text" id="kahoot-text" style="font-weight: bold; color: #FFFFFF;"></p>
             <div class="menu-list" id="kahoot-options"></div>
         </div>
 
+        <!-- MODO: SOPAS DE LETRAS -->
         <div id="mech-sopa" class="hidden">
             <p class="desc-text" id="sopa-instruccion" style="text-align:center; font-weight: bold; color: #FFFFFF;"></p>
             <div class="wordsearch-grid" id="grid-letras"></div>
             <button class="btn-grunge" style="font-size:16px; padding: 10px;" onclick="verificarSopa()">VALIDAR SELECCIÓN</button>
         </div>
 
+        <!-- MODO: BINARIO -->
         <div id="mech-binary" class="hidden">
             <p class="desc-text" id="binary-text" style="font-weight: bold; color: #FFFFFF;"></p>
             <div style="display:flex; gap:10px;">
-                <button class="btn-grunge" style="background:#520380; font-size:18px;" onclick="evaluarRespuestaDirecta(true)">✔ VERDADERO</button>
-                <button class="btn-grunge" style="background:#220135; font-size:18px; border: 1px solid #3A025B;" onclick="evaluarRespuestaDirecta(false)">✖ FALSO</button>
+                <button class="btn-grunge" onclick="evaluarRespuestaDirecta(true)">✔ VERDADERO</button>
+                <button class="btn-grunge" style="background:var(--bg-base); border: 2px solid var(--border-heavy);" onclick="evaluarRespuestaDirecta(false)">✖ FALSO</button>
             </div>
         </div>
 
-        <button class="btn-back-menu" style="color:#bf616a;" onclick="abortarJuego()">❌ DESCONECTARSE DEL MAPA</button>
+        <button class="btn-back-menu" style="color:#FF1744;" onclick="abortarJuego()">❌ DESCONECTARSE DEL MAPA</button>
     </div>
 
+    <!-- MÓDULO 7: PANTALLA INTERMEDIA DE NIVEL TERMINADO -->
     <div id="m-level-clear" class="panel-grunge hidden">
         <div class="character-container">
             <div class="vio-orbit-zone">
@@ -266,12 +352,13 @@
                 </div>
             </div>
         </div>
-        <h2 class="section-header" style="background:#520380; color:#FFFFFF;">ÉXITO</h2>
-        <h3 class="victory-title" style="color:#DFB6B2;">¡NÚCLEO SANO!</h3>
+        <h2 class="section-header" style="background:var(--primary); color:#FFFFFF;">ÉXITO</h2>
+        <h3 class="victory-title" style="color:var(--primary-glow);">¡NÚCLEO SANO!</h3>
         <p class="desc-text" id="clear-level-summary" style="text-align:center;"></p>
         <button class="btn-grunge" onclick="procederSiguienteNivel()">SIGUIENTE ENTORNO ➔</button>
     </div>
 
+    <!-- MÓDULO 8: PANTALLA FIN DEL JUEGO -->
     <div id="m-game-over" class="panel-grunge hidden">
         <div class="character-container">
             <div class="vio-orbit-zone" style="transform: scale(1.25);">
@@ -282,7 +369,7 @@
                 </div>
             </div>
         </div>
-        <h2 class="section-header" style="background:#FFFFFF; color:#11001C;">COMPLETO</h2>
+        <h2 class="section-header" style="background:#FFFFFF; color:#000000;">COMPLETO</h2>
         <h3 class="victory-title">¡VICTORIA ABSOLUTA!</h3>
         <p class="desc-text" style="text-align:center;">Felicidades. Has completado exitosamente la calibración conductual de los 10 cuadrantes críticos familiares.</p>
         <button class="btn-grunge" onclick="reiniciarTodoAlMenu()">VOLVER AL PANEL PRINCIPAL</button>
@@ -312,6 +399,21 @@
         9: { mech: 'binary', text: "El diálogo y el soporte emocional activo son herramientas ajenas al estilo de crianza autoritario.", ans: true },
         10: { mech: 'kahoot', text: "Estilo que genera baja autoestima, sumisión o conductas agresivas severas por el exceso de castigo coercitivo:", opt: ["Estilo Democrático", "Estilo Permisivo", "Estilo Autoritario"], ans: 2 }
     };
+
+    function updateAppTheme(themeName) {
+        document.body.removeAttribute('data-theme');
+        if (themeName !== 'mystic') {
+            document.body.setAttribute('data-theme', themeName);
+        }
+        
+        // Actualizar UI del selector
+        document.querySelectorAll('.theme-btn-card').forEach(c => c.classList.remove('active'));
+        if(themeName === 'mystic') document.getElementById('t-card-mystic').classList.add('active');
+        if(themeName === 'cyber') document.getElementById('t-card-cyber').classList.add('active');
+        if(themeName === 'crimson') document.getElementById('t-card-crimson').classList.add('active');
+        
+        reproducirEfecto('confirmar');
+    }
 
     function initAudioEngine() {
         if (!audioCtx) {
@@ -344,7 +446,6 @@
         reproducirEfecto('seleccionar');
         document.getElementById(fromId).classList.add('hidden');
         document.getElementById(toId).classList.remove('hidden');
-        document.getElementById('vio-gameplay').className = "violet-spirit"; 
     }
 
     function calculateProgress() {
@@ -433,6 +534,7 @@
             let optZone = document.getElementById('kahoot-options'); optZone.innerHTML = "";
             data.opt.forEach((o, i) => {
                 let btn = document.createElement('button'); btn.className = "btn-grunge secondary";
+                btn.style.animationDelay = (i * 0.06) + "s";
                 btn.innerText = `[${i + 1}]  ` + o;
                 btn.onclick = () => { if(i === data.ans) triggClearScreen(); else failAction(); };
                 optZone.appendChild(btn);
@@ -440,7 +542,7 @@
             runKahootTimer();
         } else if(data.mech === 'sopa') {
             document.getElementById('mech-sopa').classList.remove('hidden');
-            document.getElementById('sopa-instruccion').innerHTML = `Vio sugiere armar en vertical:<br><span style="color:#b146ff; font-size:18px;">"${data.palabra}"</span>`;
+            document.getElementById('sopa-instruccion').innerHTML = `Vio sugiere armar en vertical:<br><span style="color:var(--primary-glow); font-size:18px;">"${data.palabra}"</span>`;
             buildSopaGrid(data);
         } else if(data.mech === 'binary') {
             document.getElementById('mech-binary').classList.remove('hidden');
@@ -489,7 +591,7 @@
         nivelesCompletados[currentLevel] = true;
         
         document.getElementById('m-gameplay').classList.add('hidden');
-        document.getElementById('clear-level-summary').innerText = `¡Excelente! El Nivel ${currentLevel} ha quedado estabilizado. Las dinámicas de este entorno vuelven a ser armónicas y sanas.`;
+        document.getElementById('clear-level-summary').innerText = `¡Excelente! El Nivel ${currentLevel} ha quedado de forma óptima estabilizado. Vio y tú están logrando un gran cambio.`;
         document.getElementById('m-level-clear').classList.remove('hidden');
     }
 
@@ -509,12 +611,12 @@
         let playPanel = document.getElementById('m-gameplay');
         let feed = document.getElementById('game-feedback');
         
-        document.getElementById('violet-gameplay' ? 'violet-gameplay' : 'vio-gameplay').className = "vio-spirit sad";
+        document.getElementById('vio-gameplay').className = "vio-spirit sad";
         playPanel.classList.remove('interface-error');
         void playPanel.offsetWidth;
         playPanel.classList.add('interface-error');
         
-        feed.innerText = "❌ DIAGNÓSTICO INCORRECTO. EVALÚA NUEVAMENTE LA SITUACIÓN.";
+        feed.innerText = "❌ ENFOQUE DE CRIANZA ERRÓNEO. INTENTA OTRA PERSPECTIVA.";
         feed.style.display = "block";
         if(dbNiveles[currentLevel].mech === 'kahoot') loadLevelStructure();
     }
