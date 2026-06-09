@@ -5,156 +5,177 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RETO: PATRONES DE CRIANZA</title>
     <style>
-        /* Estilo Base: Atmosfera Oscura y Lluviosa */
+        /* Estilo General Atmosférico - Inspirado en Resident Evil 3 */
         body {
-            background-color: #05070a;
-            color: #d1d5db;
+            background-color: #030508;
+            color: #babcbf;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
             overflow: hidden;
         }
 
-        /* --- EFECTO DE LLUVIA Y CIUDAD DE FONDO --- */
+        /* --- EFECTO DE LLUVIA MEJORADO (MUTLI-CAPA 3D) --- */
         .background-ambience {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* Simulación de silueta de ciudad en la penumbra */
-            background: linear-gradient(to bottom, #0a0f1d 20%, #111827 60%, #030712 100%);
+            background: linear-gradient(to bottom, #070b12 10%, #0f1420 50%, #030508 100%);
             z-index: 1;
         }
         
-        /* Capa de lluvia animada en CSS */
+        /* Capa 1: Lluvia rápida y delgada de fondo */
         .background-ambience::before {
             content: "";
             position: absolute;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            /* Líneas finas que simulan gotas de lluvia cayendo de lado */
-            background-image: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.1) 45%, transparent 50%);
-            background-size: 120px 240px;
-            animation: rain 0.6s linear infinite;
+            background-image: linear-gradient(105deg, transparent 45%, rgba(255,255,255,0.08) 48%, transparent 52%);
+            background-size: 80px 300px;
+            animation: rain-back 0.5s linear infinite;
         }
 
-        @keyframes rain {
+        /* Capa 2: Lluvia más pesada y cercana al frente */
+        .background-ambience::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(102deg, transparent 40%, rgba(255,255,255,0.12) 45%, transparent 50%);
+            background-size: 150px 400px;
+            animation: rain-front 0.7s linear infinite;
+            filter: blur(0.5px);
+        }
+
+        @keyframes rain-back {
             0% { background-position: 0px 0px; }
-            100% { background-position: -40px 240px; }
+            100% { background-position: -50px 300px; }
         }
-        /* ------------------------------------------- */
 
-        /* Contenedor del Juego (Alineado a la izquierda como el menú de RE3) */
+        @keyframes rain-front {
+            0% { background-position: 0px 0px; }
+            100% { background-position: -80px 400px; }
+        }
+        /* ------------------------------------------------- */
+
+        /* Todo el Contenedor Absolutamente Alineado a la Izquierda */
         .container {
             width: 100%;
-            max-width: 800px;
-            padding: 40px;
+            max-width: 500px; /* Tamaño de columna ideal para lectura vertical */
+            padding-left: 60px;
+            padding-right: 20px;
             z-index: 2;
-            text-align: left; /* Alineación lateral izquierda clásica de Resident Evil */
+            text-align: left;
             box-sizing: border-box;
         }
 
-        /* Título del Juego minimalista y limpio */
+        /* Títulos e Identidad Visual Estilo RE3 */
         h1 { 
             color: #ffffff; 
             margin: 0 0 5px 0; 
-            font-size: 36px; 
+            font-size: 34px; 
             font-weight: 300;
-            letter-spacing: 3px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            letter-spacing: 2px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
         }
         .subtitle {
-            color: #9ca3af;
-            font-size: 13px;
+            color: #717680;
+            font-size: 12px;
             letter-spacing: 2px;
-            margin-bottom: 40px;
+            margin-bottom: 45px;
+            text-transform: uppercase;
         }
-        p { color: #9ca3af; font-size: 15px; line-height: 1.6; }
+        p { 
+            color: #a0a5b0; 
+            font-size: 15px; 
+            line-height: 1.6; 
+            text-transform: none;
+        }
 
-        /* Lista de Menú Estilo Resident Evil */
+        /* Lista Vertical del Menú */
         .menu-list {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            max-width: 300px;
+            gap: 14px;
         }
 
-        /* Botones Invisibles que se iluminan al pasar el mouse */
+        /* Botones de Texto Limpios y Reactivos */
         .btn-menu {
             background: none;
             border: none;
-            color: #9ca3af;
-            font-size: 18px;
+            color: #888d96;
+            font-size: 19px;
             font-weight: 400;
             text-align: left;
-            padding: 8px 0;
+            padding: 6px 0;
             cursor: pointer;
             letter-spacing: 1px;
             transition: all 0.2s ease;
+            width: fit-content;
         }
-        /* Al seleccionarlo o pasar el mouse se vuelve blanco puro y brilla sutilmente */
+        /* Al posicionarse sobre él, se desplaza a la derecha y brilla */
         .btn-menu:hover {
             color: #ffffff;
-            padding-left: 10px; /* Pequeño desplazamiento de selección */
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+            padding-left: 12px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
         }
-        .btn-menu:active { color: #d1d5db; }
 
-        /* Botones comunes de acción interna */
+        /* Cajas de Interacción y Respuestas fijos a la Izquierda */
         .btn-action {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.08);
             color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 12px 24px;
-            font-size: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 28px;
+            font-size: 14px;
             cursor: pointer;
             border-radius: 4px;
             margin-top: 15px;
+            letter-spacing: 1px;
             transition: background 0.2s;
+            width: fit-content;
         }
-        .btn-action:hover { background-color: rgba(255, 255, 255, 0.2); }
+        .btn-action:hover { background-color: rgba(255, 255, 255, 0.18); }
 
         .hidden { display: none; }
 
-        /* Cuadro de texto y cuestionarios adaptados al estilo sobrio */
         input[type="text"] {
             padding: 14px;
             width: 100%;
-            max-width: 400px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(0, 0, 0, 0.6);
+            max-width: 380px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(0, 0, 0, 0.7);
             color: #fff;
-            font-size: 16px;
+            font-size: 15px;
             border-radius: 4px;
-            margin-top: 20px;
+            margin-top: 15px;
             box-sizing: border-box;
         }
         input[type="text"]:focus { border-color: #ffffff; outline: none; }
 
         .quiz-box { 
-            background: rgba(17, 24, 39, 0.7); 
-            padding: 30px; 
-            border-radius: 6px; 
-            margin: 25px 0; 
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(4px);
+            background: rgba(10, 15, 26, 0.75); 
+            padding: 20px; 
+            border-radius: 4px; 
+            margin: 20px 0; 
+            border-left: 3px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            max-width: 420px;
         }
         .fase-img {
             width: 100%;
-            max-width: 450px;
+            max-width: 380px;
             height: auto;
             border-radius: 4px;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.15);
             margin-top: 15px;
         }
 
-        /* Modales Sobrios */
+        /* Modales Laterales Estilo Menú Desplegable */
         .modal {
             display: none;
             position: fixed;
@@ -163,40 +184,45 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.85);
-            backdrop-filter: blur(6px);
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(4px);
         }
         .modal-content {
-            background-color: #0b0f17;
-            margin: 12% auto;
-            padding: 40px;
-            border-radius: 6px;
-            max-width: 500px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #d1d5db;
+            background-color: #080c12;
+            height: 100vh;
+            width: 100%;
+            max-width: 450px; /* Abre como barra lateral izquierda */
+            padding: 50px 40px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            box-sizing: border-box;
+            color: #cbd5e1;
+            text-align: left;
         }
-        .close-btn { float: right; font-size: 24px; color: #9ca3af; cursor: pointer; }
+        .close-btn { float: right; font-size: 26px; color: #64748b; cursor: pointer; }
         .close-btn:hover { color: #fff; }
-        .badge { font-size: 12px; color: #9ca3af; letter-spacing: 2px; display: block; margin-bottom: 5px; }
+        .badge { font-size: 11px; color: #64748b; letter-spacing: 2px; display: block; margin-bottom: 5px; }
         
-        /* Texto inferior explicativo estilo RE3 */
+        /* Texto Descriptivo Inferior Fijo */
         .footer-desc {
             position: absolute;
-            bottom: 30px;
-            left: 40px;
-            color: #6b7280;
+            bottom: 35px;
+            left: 60px;
+            color: #525866;
             font-size: 13px;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             z-index: 2;
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
 
+<!-- CAPAS DE AMBIENTACIÓN -->
 <div class="background-ambience"></div>
 
 <div class="container">
     
+    <!-- PANTALLA PRINCIPAL ASIMÉTRICA IZQUIERDA -->
     <div id="pantalla-menu">
         <h1>PATRONES DE CRIANZA</h1>
         <div class="subtitle">BATALLA DE GAMIFICACIÓN / 5TO SECUNDARIA</div>
@@ -207,80 +233,86 @@
             <button class="btn-menu" onclick="abrirModal('modal-creditos')">Créditos</button>
         </div>
 
-        <div class="footer-desc">Inicia el reto interactivo y analiza las conductas familiares.</div>
+        <div class="footer-desc">Completa las 5 fases del reto y domina los perfiles familiares.</div>
     </div>
 
+    <!-- FASE 1: RETO VISUAL -->
     <div id="pantalla-fase1" class="hidden">
         <span class="badge">FASE 01 / 05</span>
-        <h1>Análisis de Evidencia</h1>
-        <p>Observa la escena y escribe el patrón de crianza correspondiente:</p>
+        <h1>Análisis Visual</h1>
+        <p>Evalúa el comportamiento de la escena y digita el patrón correspondiente:</p>
         
         <img class="fase-img" src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=600" alt="Evidencia">
         <br>
-        <input type="text" id="input-fase1" placeholder="Introduce el patrón de crianza...">
+        <input type="text" id="input-fase1" placeholder="Digita el patrón aquí...">
         <br>
-        <button class="btn-action" onclick="verificarFase1()">Confirmar Datos</button>
+        <button class="btn-action" onclick="verificarFase1()">Confirmar Entrada</button>
     </div>
 
+    <!-- FASE 2 -->
     <div id="pantalla-fase2" class="hidden">
         <span class="badge">FASE 02 / 05</span>
         <h1>Análisis Teórico</h1>
-        <p>Escribe el estilo de crianza correspondiente a la descripción:</p>
+        <p>Determina el concepto del patrón según la siguiente descripción:</p>
         <div class="quiz-box">
-            <p style="color: #ffffff; margin: 0;">
+            <p style="color: #ffffff; margin: 0; font-size: 14px;">
                 "Padres muy afectuosos que evitan poner límites o normas claras. Ceden fácilmente a todos los deseos de sus hijos."
             </p>
         </div>
-        <input type="text" id="input-fase2" placeholder="Introduce el patrón de crianza...">
+        <input type="text" id="input-fase2" placeholder="Digita el patrón aquí...">
         <br>
-        <button class="btn-action" onclick="verificarFase2()">Confirmar Datos</button>
+        <button class="btn-action" onclick="verificarFase2()">Confirmar Entrada</button>
     </div>
 
+    <!-- CASOS DE OPCIÓN MÚLTIPLE (FASES 3, 4 Y 5) -->
     <div id="pantalla-casos" class="hidden">
         <span class="badge">FASE 0<span id="num-fase">3</span> / 05</span>
         <h1>Evaluación de Caso</h1>
-        <p>Selecciona el patrón de crianza que mejor describa la situación familiar.</p>
+        <p>Selecciona la opción táctica idónea para la conducta descrita:</p>
         
         <div class="quiz-box" id="quiz-zona">
-            <p id="texto-pregunta" style="color: #ffffff; font-size: 16px; margin-bottom: 25px;"></p>
-            <div id="opciones-zona" style="display: flex; flex-direction: column; gap: 10px;"></div>
+            <p id="texto-pregunta" style="color: #ffffff; font-size: 15px; margin-bottom: 20px;"></p>
+            <div id="opciones-zona" style="display: flex; flex-direction: column; gap: 8px;"></div>
         </div>
     </div>
 
+    <!-- PANTALLA FINAL -->
     <div id="pantalla-final" class="hidden">
-        <h1>DESAFÍO COMPLETADO</h1>
-        <p style="font-size: 16px; margin-bottom: 30px;">Los 5 sectores de evaluación han sido analizados correctamente.</p>
+        <h1>SISTEMA COMPLETADO</h1>
+        <p style="font-size: 14px; margin-bottom: 25px;">Todos los cuadrantes de crianza han sido evaluados de manera exitosa.</p>
         
-        <div class="quiz-box" style="text-align: left;">
-            <p style="font-weight: bold; color: #fff; margin-top: 0;">REPORTE DE LOGROS</p>
-            <span style="display:block; margin: 5px 0;">• Claridad en navegación de menús.</span>
-            <span style="display:block; margin: 5px 0;">• Diagnóstico de 3 casos familiares prácticos.</span>
-            <span style="display:block; margin: 5px 0;">• Validación de conceptos en tiempo real.</span>
+        <div class="quiz-box">
+            <p style="font-weight: bold; color: #fff; margin-top: 0; font-size: 13px; letter-spacing: 1px;">DATOS DE RENDIMIENTO</p>
+            <span style="display:block; margin: 6px 0; font-size: 13px;">• Formato cinemático de columna fijos.</span>
+            <span style="display:block; margin: 6px 0; font-size: 13px;">• 3 casos clínicos resueltos sin fallas.</span>
+            <span style="display:block; margin: 6px 0; font-size: 13px;">• Respuestas validadas por hilos de código.</span>
         </div>
-        <button class="btn-action" onclick="location.reload()">Regresar al Menú</button>
+        <button class="btn-action" onclick="location.reload()">Reiniciar Reto</button>
     </div>
 </div>
 
+<!-- MODAL: ¿CÓMO JUGAR? (ESTILO BARRA LATERAL) -->
 <div id="modal-instrucciones" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="cerrarModal('modal-instrucciones')">&times;</span>
-        <h2 style="color: #ffffff; margin-top: 0; font-weight: 300; letter-spacing: 1px;">CÓMO JUGAR</h2>
-        <p>El reto consta de 5 fases de evaluación psicológica:</p>
-        <p><strong>Fases 1 y 2:</strong> Analiza el material (gráfico o escrito) e introduce el término exacto por teclado.</p>
-        <p><strong>Fases 3 a 5:</strong> Evalúa los casos clínicos familiares y selecciona una de las 4 opciones interactivas.</p>
+        <h2 style="color: #ffffff; margin-top: 0; font-weight: 300; letter-spacing: 1px;">REGLAS DE OPERACIÓN</h2>
+        <p>Supera 5 puntos de control de análisis familiar:</p>
+        <p><strong>Fases 1 y 2:</strong> Observa o lee la premisa e ingresa la palabra clave en el cuadro de texto.</p>
+        <p><strong>Fases 3 a 5:</strong> Analiza detalladamente el caso clínico expuesto en pantalla y selecciona la opción interactiva del menú vertical.</p>
     </div>
 </div>
 
+<!-- MODAL: CRÉDITOS (ESTILO BARRA LATERAL) -->
 <div id="modal-creditos" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="cerrarModal('modal-creditos')">&times;</span>
-        <h2 style="color: #ffffff; margin-top: 0; font-weight: 300; letter-spacing: 1px;">CRÉDITOS</h2>
-        <p>Herramienta multimedia diseñada exclusivamente para la Batalla de Gamificación de 5to de Secundaria.</p>
-        <p><strong>Dirección de Contenido y Diseño:</strong></p>
-        <div style="font-size: 16px; color: #fff; font-weight: bold; padding: 15px 0; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); margin: 15px 0;">
+        <h2 style="color: #ffffff; margin-top: 0; font-weight: 300; letter-spacing: 1px;">CRÉDITOS DEL SISTEMA</h2>
+        <p>Software interactivo gamificado estructurado de forma exclusiva para la Batalla de Crianza.</p>
+        <p><strong>Desarrollado y Dirigido por:</strong></p>
+        <div style="font-size: 17px; color: #fff; font-weight: 400; padding: 20px 0; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); margin: 20px 0; letter-spacing: 1px;">
             Lucia Carolina Barcenas Rodriguez
         </div>
-        <p style="font-size: 11px; color: #6b7280;">© 2026 - TODOS LOS DERECHOS RESERVADOS.</p>
+        <p style="font-size: 11px; color: #475569;">© 2026 - TODOS LOS DERECHOS RESERVADOS.</p>
     </div>
 </div>
 
@@ -326,20 +358,20 @@
     function verificarFase1() {
         let resp = document.getElementById('input-fase1').value.toLowerCase().trim();
         if(resp.includes('autoritario') || resp.includes('autoritaria')) {
-            alert("✔ FASE 1 COMPLETA.");
+            alert("✔ ENTRADA COMPLETA. SECTOR 01 CONFIGURADO.");
             siguientePantalla('pantalla-fase1', 'pantalla-fase2');
         } else {
-            alert("❌ Respuesta incorrecta. Analiza la imagen de nuevo.");
+            alert("❌ Denegado. Analiza los elementos de la imagen de nuevo.");
         }
     }
 
     function verificarFase2() {
         let resp = document.getElementById('input-fase2').value.toLowerCase().trim();
         if(resp.includes('permisivo') || resp.includes('permisiva')) {
-            alert("✔ FASE 2 COMPLETA.");
+            alert("✔ ENTRADA COMPLETA. SECTOR 02 CONFIGURADO.");
             siguientePantalla('pantalla-fase2', 'pantalla-casos');
         } else {
-            alert("❌ Respuesta incorrecta.");
+            alert("❌ Denegado. Comprueba los parámetros teóricos.");
         }
     }
 
@@ -369,333 +401,11 @@
     function evaluarRespuesta(indiceSeleccionado) {
         let casoActual = preguntasCasos[indiceCasoActual];
         if(indiceSeleccionado === casoActual.correcta) {
-            alert("✔ FASE " + casoActual.faseNum + " SUPERADA.");
+            alert("✔ SECTOR " + casoActual.faseNum + " VERIFICADO.");
             indiceCasoActual++;
             cargarCaso();
         } else {
-            alert("❌ Inconsistencia en el análisis. Intenta otra opción.");
-        }
-    }
-</script>
-
-</body>
-</html>        
-        /* Arte Animado CSS de la Portada */
-        .game-art {
-            width: 120px;
-            height: 120px;
-            margin: 20px auto;
-            background: radial-gradient(circle, #ff007f 10%, #00f0ff 80%);
-            border-radius: 50%;
-            box-shadow: 0 0 30px #ff007f, 0 0 10px #00f0ff;
-            position: relative;
-            animation: float 3s ease-in-out infinite;
-        }
-        .game-art::before {
-            content: "👁️";
-            font-size: 50px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            filter: drop-shadow(0 0 10px #fff);
-        }
-        @keyframes float {
-            0% { transform: translateY(0px); box-shadow: 0 0 30px #ff007f; }
-            50% { transform: translateY(-10px); box-shadow: 0 0 45px #00f0ff; }
-            100% { transform: translateY(0px); box-shadow: 0 0 30px #ff007f; }
-        }
-
-        /* Imagen del Escape Room (Fase 1) */
-        .fase-img {
-            width: 100%;
-            max-width: 450px;
-            height: auto;
-            border-radius: 8px;
-            border: 2px solid #00f0ff;
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
-            margin: 15px auto;
-            display: block;
-        }
-
-        /* Botones Estilo Arcade/Gamer */
-        .btn {
-            background: linear-gradient(135deg, #00f0ff, #7000ff);
-            color: white;
-            padding: 16px 30px;
-            border: 2px solid #fff;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            margin: 12px 0;
-            border-radius: 8px;
-            box-shadow: 0 4px 0 #3d008a, 0 0 10px rgba(0, 240, 255, 0.5);
-            transition: all 0.1s ease;
-            width: 100%;
-            display: block;
-        }
-        .btn:hover { 
-            background: linear-gradient(135deg, #ff007f, #7000ff);
-            box-shadow: 0 4px 0 #aa0055, 0 0 20px #ff007f;
-            transform: translateY(-2px);
-        }
-        .btn:active { 
-            transform: translateY(4px); 
-            box-shadow: 0 0px 0 #3d008a; 
-        }
-        .btn-gray { background: #30363d; box-shadow: 0 4px 0 #21262d; border-color: #8b949e; }
-        .btn-gray:hover { background: #484f58; box-shadow: 0 4px 0 #30363d, 0 0 10px #fff; }
-        
-        .hidden { display: none; }
-        
-        input[type="text"] {
-            padding: 12px;
-            width: 90%;
-            border: 2px solid #00f0ff;
-            background: #0d1117;
-            color: #fff;
-            font-size: 16px;
-            text-align: center;
-            border-radius: 6px;
-            margin-top: 15px;
-            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
-        }
-        input[type="text"]:focus { border-color: #ff007f; box-shadow: 0 0 15px #ff007f; outline: none; }
-        
-        .quiz-box { 
-            background: #21262d; 
-            padding: 25px; 
-            border-radius: 8px; 
-            margin: 25px 0; 
-            border: 2px solid #ff007f; 
-            box-shadow: inset 0 0 15px rgba(255, 0, 127, 0.1);
-        }
-        .opcion-btn {
-            background: #30363d;
-            color: #c9d1d9;
-            border: 2px solid #30363d;
-            padding: 14px;
-            text-align: left;
-            font-size: 15px;
-            font-weight: bold;
-            box-shadow: 0 4px 0 #21262d;
-            text-transform: none;
-        }
-        .opcion-btn:hover { background: #00f0ff; color: #0d1117; border-color: #fff; box-shadow: 0 4px 0 #0099aa; }
-        
-        .resultados { background: #21262d; padding: 20px; border-radius: 8px; text-align: left; margin-top: 20px; border: 1px solid #00f0ff; text-transform: none; }
-
-        /* Modales Neon */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 100;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.8);
-        }
-        .modal-content {
-            background-color: #161b22;
-            margin: 15% auto;
-            padding: 30px;
-            border-radius: 12px;
-            max-width: 500px;
-            text-align: left;
-            border: 2px solid #00f0ff;
-            box-shadow: 0 0 25px #00f0ff;
-            position: relative;
-            text-transform: none;
-            color: #c9d1d9;
-        }
-        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 24px; font-weight: bold; color: #ff007f; cursor: pointer; }
-        .fase-badge { background-color: #ff007f; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; box-shadow: 0 0 8px #ff007f; }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    
-    <div id="pantalla-menu">
-        <h1>PATRONES DE CRIANZA</h1>
-        <p style="color: #00f0ff; font-weight: bold;">[ PRESS START TO PLAY ]</p>
-        
-        <div class="game-art"></div>
-        
-        <button class="btn" onclick="siguientePantalla('pantalla-menu', 'pantalla-fase1')">🎮 ARCADE MODE (5 FASES)</button>
-        <button class="btn btn-gray" onclick="abrirModal('modal-instrucciones')">📖 HOW TO PLAY</button>
-        <button class="btn btn-gray" onclick="abrirModal('modal-creditos')">👥 CREDITS</button>
-    </div>
-
-    <div id="pantalla-fase1" class="hidden">
-        <span class="fase-badge">STAGE 1 / 5</span>
-        <h1 style="font-size: 24px; margin-top: 15px;">Acertijo Visual</h1>
-        <p style="text-transform:none; color:#fff;">Analiza la escena familiar de la imagen y escribe qué patrón de crianza representa:</p>
-        
-        <img class="fase-img" src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=600" alt="Evidencia Familiar">
-        
-        <input type="text" id="input-fase1" placeholder="RESPUESTA...">
-        <button class="btn" onclick="verificarFase1()">ENVIAR EVIDENCIA</button>
-    </div>
-
-    <div id="pantalla-fase2" class="hidden">
-        <span class="fase-badge">STAGE 2 / 5</span>
-        <h1 style="font-size: 24px; margin-top: 15px;">Descubre el Patrón B</h1>
-        <p style="text-transform:none; color:#fff;">Escribe el estilo de crianza correspondiente a la descripción:</p>
-        <div class="quiz-box">
-            <p style="font-size: 17px; font-weight: 600; color: #fff; margin: 0; text-transform:none;">
-                "Padres muy afectuosos que evitan poner límites o normas claras. Ceden fácilmente a todos los deseos y demandas de sus hijos."
-            </p>
-        </div>
-        <input type="text" id="input-fase2" placeholder="RESPUESTA...">
-        <button class="btn" onclick="verificarFase2()">ENVIAR DATOS</button>
-    </div>
-
-    <div id="pantalla-casos" class="hidden">
-        <span class="fase-badge">STAGE <span id="num-fase">3</span> / 5</span>
-        <h1 style="font-size: 24px; margin-top: 15px;">Análisis de Casos</h1>
-        <p style="text-transform:none; color:#fff;">Selecciona la opción correcta según la situación familiar descrita.</p>
-        
-        <div class="quiz-box" id="quiz-zona">
-            <p id="texto-pregunta" style="color: #fff; font-size: 16px; font-weight: 500; margin-bottom: 20px; text-transform:none; text-align:left;"></p>
-            <div id="opciones-zona"></div>
-        </div>
-    </div>
-
-    <div id="pantalla-final" class="hidden">
-        <h1 style="color: #00f0ff; text-shadow: 0 0 15px #00f0ff;">✨ STAGE CLEAR! 🎉</h1>
-        <p style="font-size: 18px; color: #fff;">¡Felicidades! Han completado con éxito las 5 fases del desafío.</p>
-        
-        <div class="resultados">
-            <p style="font-weight: bold; color: #ff007f; text-align: center; margin-top: 0; font-size: 18px;">Métricas del Sistema</p>
-            <ul>
-                <li><strong>Claridad:</strong> Interfaz Arcade interactiva con análisis visual directo.</li>
-                <li><strong>Evaluación:</strong> Diagnóstico conceptual gráfico y resolución de casos de estudio.</li>
-                <li><strong>Innovación/IA:</strong> Validación lógica algorítmica integrada.</li>
-            </ul>
-        </div>
-        <button class="btn" onclick="location.reload()" style="margin-top: 20px;">RESTART GAME</button>
-    </div>
-</div>
-
-<div id="modal-instrucciones" class="modal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="cerrarModal('modal-instrucciones')">&times;</span>
-        <h2 style="color: #00f0ff; margin-top: 0; text-transform: uppercase;">📖 Reglas del Juego</h2>
-        <p>Deben completar las <strong>5 fases consecutivas</strong> analizando el entorno familiar:</p>
-        <ul>
-            <li><strong>Fase 1:</strong> Observen bien la imagen y escriban qué patrón de crianza se muestra.</li>
-            <li><strong>Fase 2:</strong> Escriban en la caja de texto el nombre técnico del patrón descrito.</li>
-            <li><strong>Fases 3, 4 y 5:</strong> Seleccionen la opción correcta basada en casos reales de estudio.</li>
-        </ul>
-        <p style="font-weight: bold; color: #ff007f;">¡Observen los detalles para asegurar la victoria!</p>
-    </div>
-</div>
-
-<div id="modal-creditos" class="modal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="cerrarModal('modal-creditos')">&times;</span>
-        <h2 style="color: #8b949e; margin-top: 0; text-transform: uppercase;">👥 Equipo de Desarrollo</h2>
-        <p>Desarrollado de forma exclusiva como herramienta interactiva para la Batalla de Gamificación de 5to de Secundaria.</p>
-        <p><strong>Diseño de Contenido y Dirección por:</strong></p>
-        <p style="font-size: 18px; font-weight: bold; color: #00f0ff; text-align: center; background: #0d1117; padding: 12px; border-radius: 8px; border: 1px dashed #00f0ff;">
-            Lucia Carolina Barcenas Rodriguez
-        </p>
-        <p style="font-size: 11px; color: #8b949e; text-align: center; margin-top: 25px;">© 2026 - DIGITAL RETO SYSTEMS.</p>
-    </div>
-</div>
-
-<script>
-    const preguntasCasos = [
-        {
-            faseNum: 3,
-            caso: "Los padres de Carlos no le ponen horarios, permiten que haga lo que quiera sin supervisión y nunca hay consecuencias cuando rompe las normas de la casa.",
-            opciones: ["Patrón Autoritario", "Patrón Permisivo", "Patrón Democrático / Asertivo", "Patrón Negligente"],
-            correcta: 1
-        },
-        {
-            faseNum: 4,
-            caso: "En la casa de Ana, las reglas se conversan en familia. Sus padres escuchan sus opiniones, ponen límites claros y le brindan mucho apoyo y afecto.",
-            opciones: ["Patrón Negligente", "Patrón Autoritario", "Patrón Democrático / Asertivo", "Patrón Permisivo"],
-            correcta: 2
-        },
-        {
-            faseNum: 5,
-            caso: "Los padres de Luis muestran total desinterés por sus actividades escolares y emociones. Hay una ausencia total de cuidado, normas y afecto.",
-            opciones: ["Patrón Negligente", "Patrón Autoritario", "Patrón Permisivo", "Patrón Democrático / Asertivo"],
-            correcta: 0
-        }
-    ];
-
-    let indiceCasoActual = 0;
-
-    function siguientePantalla(actual, siguiente) {
-        document.getElementById(actual).classList.add('hidden');
-        document.getElementById(siguiente).classList.remove('hidden');
-        if(siguiente === 'pantalla-casos') {
-            cargarCaso();
-        }
-    }
-
-    function abrirModal(id) { document.getElementById(id).style.display = "block"; }
-    function cerrarModal(id) { document.getElementById(id).style.display = "none"; }
-    
-    window.onclick = function(event) {
-        if (event.target.classList.contains('modal')) { event.target.style.display = "none"; }
-    }
-
-    function verificarFase1() {
-        let resp = document.getElementById('input-fase1').value.toLowerCase().trim();
-        // Acepta respuestas que contengan "autoritario" o "autoritaria"
-        if(resp.includes('autoritario') || resp.includes('autoritaria')) {
-            alert("🎯 ¡EVIDENCIA CORRECTA! Es el Patrón Autoritario. Avanzando a la Fase 2.");
-            siguientePantalla('pantalla-fase1', 'pantalla-fase2');
-        } else {
-            alert("❌ Evidencia incorrecta. Observen las expresiones y la postura rígida de los personajes.");
-        }
-    }
-
-    function verificarFase2() {
-        let resp = document.getElementById('input-fase2').value.toLowerCase().trim();
-        if(resp.includes('permisivo') || resp.includes('permisiva')) {
-            alert("🎯 ¡FASE 2 COMPLETADA! Entrando a los niveles de análisis de casos.");
-            siguientePantalla('pantalla-fase2', 'pantalla-casos');
-        } else {
-            alert("❌ Respuesta incorrecta. Revisa el concepto.");
-        }
-    }
-
-    function cargarCaso() {
-        if(indiceCasoActual >= preguntasCasos.length) {
-            siguientePantalla('pantalla-casos', 'pantalla-final');
-            return;
-        }
-        
-        let casoActual = preguntasCasos[indiceCasoActual];
-        document.getElementById('num-fase').innerText = casoActual.faseNum;
-        document.getElementById('texto-pregunta').innerText = casoActual.caso;
-        
-        let zonaOpciones = document.getElementById('opciones-zona');
-        zonaOpciones.innerHTML = "";
-        
-        casoActual.opciones.forEach((opcion, indice) => {
-            let boton = document.createElement('button');
-            boton.className = "btn opcion-btn";
-            boton.innerText = opcion;
-            boton.onclick = function() { evaluarRespuesta(indice); };
-            zonaOpciones.appendChild(boton);
-        });
-    }
-
-    function evaluarRespuesta(indiceSeleccionado) {
-        let casoActual = preguntasCasos[indiceCasoActual];
-        if(indiceSeleccionado === casoActual.correcta) {
-            alert("🎯 ¡FASE " + casoActual.faseNum + " SUPERADA!");
-            indiceCasoActual++;
-            cargarCaso();
-        } else {
-            alert("❌ Respuesta incorrecta. Analicen el caso nuevamente.");
+            alert("❌ Desajuste en el diagnóstico del caso. Intenta otro patrón.");
         }
     }
 </script>
