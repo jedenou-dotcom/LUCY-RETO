@@ -4,18 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RETO: PATRONES DE CRIANZA</title>
-    <!-- Google Fonts para tipografías premium de ciencia ficción y tecnología -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- Iconografía Premium -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
-        /* --- MOTOR DE TEMAS VARIABLES (CSS VARIABLES) --- */
         :root {
             --bg-base: #0b0214;
-            --bg-panel: rgba(26, 1, 41, 0.65);
+            --bg-panel: rgba(26, 1, 41, 0.85);
             --border-heavy: #3A025B;
             --primary: #520380;
             --primary-glow: #b146ff;
@@ -29,354 +26,365 @@
         }
 
         [data-theme="cyber"] {
-            --bg-base: #000904;
-            --bg-panel: rgba(2, 31, 15, 0.65);
-            --border-heavy: #004D26;
-            --primary: #00E676;
-            --primary-glow: #66FFA6;
-            --text-main: #FFFFFF;
-            --text-accent: #B2DFDB;
-            --grid-opacity: 0.1;
-            --shadow-glow: rgba(0, 230, 118, 0.45);
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --glass-shine: rgba(255, 255, 255, 0.08);
+            --bg-base: #000904; --bg-panel: rgba(2, 31, 15, 0.85); --border-heavy: #004D26;
+            --primary: #00E676; --primary-glow: #66FFA6; --text-accent: #B2DFDB;
+            --grid-opacity: 0.1; --shadow-glow: rgba(0, 230, 118, 0.45);
         }
-
         [data-theme="crimson"] {
-            --bg-base: #120002;
-            --bg-panel: rgba(43, 2, 7, 0.65);
-            --border-heavy: #5C040E;
-            --primary: #FF1744;
-            --primary-glow: #FF617F;
-            --text-main: #FFFFFF;
-            --text-accent: #FFE0E2;
-            --grid-opacity: 0.07;
-            --shadow-glow: rgba(255, 23, 68, 0.45);
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --glass-shine: rgba(255, 255, 255, 0.08);
+            --bg-base: #120002; --bg-panel: rgba(43, 2, 7, 0.85); --border-heavy: #5C040E;
+            --primary: #FF1744; --primary-glow: #FF617F; --text-accent: #FFE0E2;
+            --grid-opacity: 0.07; --shadow-glow: rgba(255, 23, 68, 0.45);
         }
-
         [data-theme="cyan-white"] {
-            --bg-base: #f0f9ff;
-            --bg-panel: rgba(255, 255, 255, 0.75);
-            --border-heavy: #0EA5E9;
-            --primary: #0284C7;
-            --primary-glow: #0ea5e9;
-            --text-main: #0F172A;
-            --text-accent: #475569;
-            --grid-opacity: 0.2;
-            --shadow-glow: rgba(14, 165, 233, 0.35);
-            --card-bg: rgba(14, 165, 233, 0.04);
-            --glass-shine: rgba(14, 165, 233, 0.12);
+            --bg-base: #f0f9ff; --bg-panel: rgba(255, 255, 255, 0.92); --border-heavy: #0EA5E9;
+            --primary: #0284C7; --primary-glow: #0ea5e9; --text-main: #0F172A; --text-accent: #475569;
+            --grid-opacity: 0.2; --shadow-glow: rgba(14, 165, 233, 0.35);
+            --card-bg: rgba(14, 165, 233, 0.04); --glass-shine: rgba(14, 165, 233, 0.12);
         }
-
         [data-theme="amber"] {
-            --bg-base: #140d00;
-            --bg-panel: rgba(43, 29, 2, 0.65);
-            --border-heavy: #5C3D04;
-            --primary: #D97706;
-            --primary-glow: #FBBF24;
-            --text-main: #FFFFFF;
-            --text-accent: #FEF3C7;
-            --grid-opacity: 0.06;
-            --shadow-glow: rgba(251, 191, 36, 0.45);
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --glass-shine: rgba(255, 255, 255, 0.08);
+            --bg-base: #140d00; --bg-panel: rgba(43, 29, 2, 0.85); --border-heavy: #5C3D04;
+            --primary: #D97706; --primary-glow: #FBBF24; --text-accent: #FEF3C7;
+            --grid-opacity: 0.06; --shadow-glow: rgba(251, 191, 36, 0.45);
         }
 
-        /* --- ESTILO BASE & MALLA TÁCTICA --- */
+        /* RESET Y BASE MOBILE */
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background-color: var(--bg-base);
             color: var(--text-main);
             font-family: 'Plus Jakarta Sans', sans-serif;
-            margin: 0; padding: 0; height: 100vh;
-            display: flex; justify-content: center; align-items: center;
-            overflow: hidden; -webkit-tap-highlight-color: transparent;
-            transition: background-color var(--speed-fluid) ease, color var(--speed-fluid) ease;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            /* CLAVE: permite scroll vertical total */
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-text-size-adjust: 100%;
+            transition: background-color var(--speed-fluid) ease;
             position: relative;
         }
 
+        /* Malla de fondo */
         body::after {
-            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: 
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image:
                 linear-gradient(rgba(255,255,255, var(--grid-opacity)) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255,255,255, var(--grid-opacity)) 1px, transparent 1px);
             background-size: 30px 30px;
-            z-index: 1; pointer-events: none;
+            z-index: 0; pointer-events: none;
         }
 
+        /* Efecto CRT sutil */
         body::before {
-            content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.05) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.005), rgba(0, 255, 0, 0.002), rgba(0, 0, 255, 0.005));
-            z-index: 10; background-size: 100% 4px, 6px 100%; pointer-events: none;
+            content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.04) 50%);
+            z-index: 0; background-size: 100% 4px; pointer-events: none;
         }
 
-        /* --- ORBES DE LUZ FLOTANTE (ESTÉTICA PREMIUM) --- */
+        /* ORBES */
         .bg-orb {
-            position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.22; z-index: 0; pointer-events: none;
-            transition: background var(--speed-fluid) ease;
+            position: fixed; border-radius: 50%; filter: blur(90px); opacity: 0.18; z-index: 0; pointer-events: none;
         }
-        .orb-1 {
-            width: 350px; height: 350px; background: var(--primary-glow); top: 15%; left: 15%;
-            animation: floatOrb1 18s infinite alternate ease-in-out;
-        }
-        .orb-2 {
-            width: 300px; height: 300px; background: var(--primary); bottom: 15%; right: 15%;
-            animation: floatOrb2 15s infinite alternate ease-in-out;
-        }
-        @keyframes floatOrb1 {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(60px, 40px) scale(1.15); }
-        }
-        @keyframes floatOrb2 {
-            0% { transform: translate(0, 0) scale(1.1); }
-            100% { transform: translate(-50px, -40px) scale(0.9); }
-        }
+        .orb-1 { width: 280px; height: 280px; background: var(--primary-glow); top: 5%; left: -10%; animation: floatOrb1 18s infinite alternate ease-in-out; }
+        .orb-2 { width: 250px; height: 250px; background: var(--primary); bottom: 5%; right: -10%; animation: floatOrb2 15s infinite alternate ease-in-out; }
+        @keyframes floatOrb1 { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(40px,30px) scale(1.1); } }
+        @keyframes floatOrb2 { 0% { transform: translate(0,0) scale(1.1); } 100% { transform: translate(-30px,-25px) scale(0.9); } }
 
-        /* --- PANTALLA DE CARGA VERTICAL MÍNIMA --- */
+        /* PANTALLA DE CARGA */
         .loading-wrapper {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: var(--bg-base); z-index: 9999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 0.5s ease; padding: 40px 20px; box-sizing: border-box;
+            transition: opacity 0.5s ease; padding: 40px 24px;
         }
         .loading-vertical-panel {
             display: flex; flex-direction: column; align-items: center; justify-content: space-between;
-            height: 100%; max-height: 520px; text-align: center; width: 100%; max-width: 360px;
+            height: 100%; max-height: 500px; text-align: center; width: 100%; max-width: 340px;
         }
         .loading-title-zone h1 {
             font-family: 'Orbitron', sans-serif; font-weight: 900;
-            font-size: 38px; margin: 0; line-height: 1.1; letter-spacing: 1px; color: var(--text-main);
+            font-size: clamp(28px, 8vw, 42px); margin: 0; line-height: 1.1; color: var(--text-main);
             text-shadow: 0 0 20px var(--shadow-glow);
         }
         .loading-title-zone .sub {
-            font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 5px; color: var(--text-accent);
-            text-transform: uppercase; margin-top: 12px; font-weight: 700;
+            font-family: 'Rajdhani', sans-serif; font-size: 12px; letter-spacing: 5px; color: var(--text-accent);
+            text-transform: uppercase; margin-top: 10px; font-weight: 700;
         }
-        .loading-center-meta {
-            width: 100%; display: flex; flex-direction: column; align-items: center; gap: 15px;
-        }
+        .loading-center-meta { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 16px; }
         .quantum-pulse-loader {
             width: 52px; height: 52px; border-radius: 50%; border: 3px solid var(--primary-glow);
             border-top-color: transparent; animation: spinQ 1s linear infinite;
             filter: drop-shadow(0 0 8px var(--primary-glow));
         }
         @keyframes spinQ { to { transform: rotate(360deg); } }
-        
         .loading-progress-bar {
-            width: 85%; height: 6px; background: rgba(0,0,0,0.3);
+            width: 90%; height: 6px; background: rgba(0,0,0,0.3);
             border-radius: 10px; overflow: hidden; border: 1px solid var(--border-heavy);
         }
-        .loading-fill {
-            width: 0%; height: 100%; background: var(--primary-glow); box-shadow: 0 0 10px var(--primary-glow);
-            transition: width 0.1s linear;
-        }
-        .loading-author-zone {
-            font-size: 13px; color: var(--text-accent); letter-spacing: 0.5px; line-height: 1.4;
-        }
-        .loading-author-zone b {
-            display: block; font-size: 16px; color: var(--text-main); margin-top: 6px; font-family: 'Orbitron', sans-serif; font-weight: 700; letter-spacing: 1px;
+        .loading-fill { width: 0%; height: 100%; background: var(--primary-glow); box-shadow: 0 0 10px var(--primary-glow); transition: width 0.1s linear; }
+        .loading-author-zone { font-size: 13px; color: var(--text-accent); letter-spacing: 0.5px; line-height: 1.5; }
+        .loading-author-zone b { display: block; font-size: 15px; color: var(--text-main); margin-top: 6px; font-family: 'Orbitron', sans-serif; font-weight: 700; letter-spacing: 1px; }
+
+        /* LAYOUT PRINCIPAL — SCROLL VERTICAL */
+        .wrapper-layout {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;   /* alineación desde arriba */
+            padding: 16px 16px 40px;  /* espacio superior e inferior */
         }
 
-        /* --- CONTENEDORES MÓDULOS DE CRISTAL --- */
-        .wrapper-layout {
-            width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 2; padding: 20px; box-sizing: border-box;
-        }
+        /* PANEL BASE */
         .panel-grunge {
-            width: 100%; max-width: 440px; background: var(--bg-panel); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-shine); box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 0 35px var(--shadow-glow);
-            padding: 35px 25px; border-radius: 24px; box-sizing: border-box; position: relative;
-            animation: containerEntrance var(--speed-fluid) cubic-bezier(0.19, 1, 0.22, 1) both;
+            width: 100%;
+            max-width: 440px;
+            background: var(--bg-panel);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-shine);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px var(--shadow-glow);
+            padding: 28px 20px 32px;
+            border-radius: 22px;
+            position: relative;
+            animation: containerEntrance 0.4s cubic-bezier(0.19, 1, 0.22, 1) both;
             transition: background var(--speed-fluid), border var(--speed-fluid), box-shadow var(--speed-fluid);
+            /* IMPORTANTE: deja que el panel crezca naturalmente */
+            height: auto;
+            overflow: visible;
         }
         @keyframes containerEntrance {
-            from { opacity: 0; transform: scale(0.96) translateY(20px); filter: blur(5px); }
-            to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+            from { opacity: 0; transform: scale(0.97) translateY(16px); filter: blur(4px); }
+            to   { opacity: 1; transform: scale(1) translateY(0);      filter: blur(0);  }
         }
-
         .panel-grunge::before {
             content: ''; position: absolute; top: 12px; left: 12px; width: 16px; height: 16px;
-            border-top: 2px solid var(--primary-glow); border-left: 2px solid var(--primary-glow); opacity: 0.7; pointer-events: none;
-            transition: border var(--speed-fluid);
+            border-top: 2px solid var(--primary-glow); border-left: 2px solid var(--primary-glow); opacity: 0.6; pointer-events: none;
         }
         .panel-grunge::after {
             content: ''; position: absolute; bottom: 12px; right: 12px; width: 16px; height: 16px;
-            border-bottom: 2px solid var(--primary-glow); border-right: 2px solid var(--primary-glow); opacity: 0.7; pointer-events: none;
-            transition: border var(--speed-fluid);
+            border-bottom: 2px solid var(--primary-glow); border-right: 2px solid var(--primary-glow); opacity: 0.6; pointer-events: none;
         }
 
-        /* Decoración de estatus táctico */
         .system-tag {
-            font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 2px; color: var(--primary-glow); opacity: 0.7; position: absolute; top: 12px; right: 20px; font-weight: bold;
+            font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 2px;
+            color: var(--primary-glow); opacity: 0.7; position: absolute; top: 14px; right: 20px; font-weight: bold;
         }
 
-        /* --- PERSONAJE VIO --- */
-        .character-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; }
-        .vio-orbit-zone { position: relative; width: 95px; height: 95px; display: flex; justify-content: center; align-items: center; }
-        
-        /* Escáner de diagnóstico */
+        /* PERSONAJE VIO */
+        .character-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 16px; }
+        .vio-orbit-zone { position: relative; width: 90px; height: 90px; display: flex; justify-content: center; align-items: center; }
         .scanner-line {
-            position: absolute; width: 85px; height: 2px; background: var(--primary-glow); opacity: 0.65;
+            position: absolute; width: 80px; height: 2px; background: var(--primary-glow); opacity: 0.6;
             top: 0; animation: scanSweep 3.5s infinite ease-in-out; filter: drop-shadow(0 0 5px var(--primary-glow)); pointer-events: none; z-index: 4;
         }
-        @keyframes scanSweep {
-            0%, 100% { top: 10px; opacity: 0.2; }
-            50% { top: 85px; opacity: 0.95; }
-        }
-
+        @keyframes scanSweep { 0%,100% { top:8px; opacity:0.2; } 50% { top:80px; opacity:0.9; } }
         .vio-svg-body {
-            width: 70px; height: 70px; z-index: 3; filter: drop-shadow(0 0 14px var(--primary));
+            width: 68px; height: 68px; z-index: 3; filter: drop-shadow(0 0 14px var(--primary));
             animation: floatSpirit 3.5s ease-in-out infinite; cursor: pointer;
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .vio-svg-body.pet-jump { animation: petBounce 0.45s cubic-bezier(0.25, 0.8, 0.25, 1.4); }
-        @keyframes petBounce {
-            0%, 100% { transform: translateY(0); } 50% { transform: translateY(-24px) scale(1.08, 0.92); }
-        }
+        @keyframes petBounce { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-22px) scale(1.08,0.92); } }
         .vio-svg-body .main-core { fill: var(--primary); transition: fill var(--speed-fluid); }
         .vio-svg-body .glow-core { fill: var(--primary-glow); transition: fill var(--speed-fluid); }
         .vio-svg-body .eyes { fill: #FFFFFF; }
-        
-        .vio-shadow { 
-            width: 44px; height: 4px; background: rgba(0, 0, 0, 0.45); border-radius: 50%; margin-top: 6px; 
-            animation: shadowPulse 3.5s ease-in-out infinite; transition: background var(--speed-fluid); 
+        .vio-shadow {
+            width: 40px; height: 4px; background: rgba(0,0,0,0.45); border-radius: 50%; margin-top: 4px;
+            animation: shadowPulse 3.5s ease-in-out infinite;
         }
-        
-        @keyframes floatSpirit { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        @keyframes shadowPulse { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(0.65); opacity: 0.15; } }
+        @keyframes floatSpirit { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-9px); } }
+        @keyframes shadowPulse { 0%,100% { transform:scale(1); opacity:0.5; } 50% { transform:scale(0.65); opacity:0.15; } }
 
-        /* Variantes Emocionales de Vio */
-        .sad-eyes, .happy-eyes, .cool-eyes, .surprised-eyes { display: none; }
-        .vio-svg-body.happy .normal-eyes { display: none; } .vio-svg-body.happy .happy-eyes { display: block; }
-        .vio-svg-body.sad .normal-eyes { display: none; } .vio-svg-body.sad .sad-eyes { display: block; }
-        .vio-svg-body.cool .normal-eyes { display: none; } .vio-svg-body.cool .cool-eyes { display: block; }
-        .vio-svg-body.surprised .normal-eyes { display: none; } .vio-svg-body.surprised .surprised-eyes { display: block; }
+        .sad-eyes,.happy-eyes,.cool-eyes,.surprised-eyes { display:none; }
+        .vio-svg-body.happy .normal-eyes { display:none; } .vio-svg-body.happy .happy-eyes { display:block; }
+        .vio-svg-body.sad .normal-eyes   { display:none; } .vio-svg-body.sad .sad-eyes     { display:block; }
+        .vio-svg-body.cool .normal-eyes  { display:none; } .vio-svg-body.cool .cool-eyes   { display:block; }
+        .vio-svg-body.surprised .normal-eyes { display:none; } .vio-svg-body.surprised .surprised-eyes { display:block; }
 
-        /* --- BOTONES PREMIUM FUTURISTAS --- */
-        .menu-list { display: flex; flex-direction: column; gap: 14px; width: 100%; margin-top: 10px; }
-        
+        /* TÍTULOS */
+        h1.title-game {
+            font-family: 'Orbitron', sans-serif; font-weight: 900;
+            font-size: clamp(26px, 7vw, 36px);
+            text-align: center; margin: 0 0 22px 0;
+            text-transform: uppercase; line-height: 1.1; letter-spacing: 1px;
+        }
+        h2.section-header {
+            font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 13px;
+            color: var(--bg-base); background: var(--text-main);
+            margin: -40px auto 20px auto; padding: 5px 14px;
+            width: fit-content; text-transform: uppercase; letter-spacing: 2px;
+            border-radius: 4px; box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        p.desc-text { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text-accent); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
+        .meta-progress-text { font-family: 'Rajdhani', sans-serif; font-size: 13px; text-transform: uppercase; color: var(--text-accent); letter-spacing: 1px; text-align: center; margin-bottom: 6px; font-weight: bold; }
+        .feedback-banner {
+            font-family: 'Plus Jakarta Sans', sans-serif; padding: 12px; font-size: 12px; font-weight: bold;
+            display: none; text-align: center; border: 1px solid #FF1744; color: #FF8A9F;
+            background: rgba(255, 23, 68, 0.1); border-radius: 8px; margin-bottom: 12px;
+        }
+
+        /* BOTONES */
+        .menu-list { display: flex; flex-direction: column; gap: 12px; width: 100%; margin-top: 8px; }
+
         .btn-grunge {
-            background: linear-gradient(135deg, var(--primary), rgba(26, 1, 41, 0.4));
-            color: #FFFFFF; border: 1px solid var(--border-heavy); font-family: 'Rajdhani', sans-serif; font-size: 21px; font-weight: 700;
-            padding: 14px 20px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; width: 100%; text-align: left;
-            transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1); border-radius: 14px;
+            background: linear-gradient(135deg, var(--primary), rgba(26,1,41,0.4));
+            color: #FFFFFF; border: 1px solid var(--border-heavy);
+            font-family: 'Rajdhani', sans-serif; font-size: clamp(17px, 5vw, 21px); font-weight: 700;
+            padding: 16px 18px; cursor: pointer; text-transform: uppercase; letter-spacing: 1.5px;
+            width: 100%; text-align: left;
+            transition: all 0.25s cubic-bezier(0.25,0.8,0.25,1); border-radius: 14px;
             display: flex; align-items: center; justify-content: space-between; position: relative; overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+            /* tamaño táctil mínimo cómodo en mobile */
+            min-height: 56px;
         }
-        /* Muesca angular estética en los botones */
         .btn-grunge::before {
             content: ''; position: absolute; top: 0; right: 0; width: 12px; height: 12px;
             background: var(--primary-glow); opacity: 0.85; clip-path: polygon(100% 0, 0 0, 100% 100%);
-            transition: transform 0.25s;
         }
-        .btn-grunge:hover {
-            transform: translateY(-3px) scale(1.02);
-            border-color: var(--primary-glow);
-            box-shadow: 0 8px 25px var(--shadow-glow);
-            background: linear-gradient(135deg, var(--primary), var(--primary-glow));
-        }
-        .btn-grunge:hover::before {
-            transform: scale(1.3);
-        }
-        .btn-grunge:active { transform: translateY(1px); }
-        
-        .btn-grunge i.btn-icon {
-            font-size: 18px; color: var(--primary-glow); transition: transform 0.25s, color 0.25s;
-        }
-        .btn-grunge:hover i.btn-icon {
-            transform: translateX(4px); color: #FFFFFF;
-        }
+        .btn-grunge:active { transform: scale(0.98); opacity: 0.9; }
+        .btn-grunge i.btn-icon { font-size: 18px; color: var(--primary-glow); }
 
         .btn-grunge.secondary {
-            background: var(--card-bg); border: 1px solid var(--border-heavy); font-size: 15px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; text-align: left; padding: 14px 18px; border-radius: 12px; color: var(--text-main); justify-content: flex-start; gap: 12px;
+            background: var(--card-bg); border: 1px solid var(--border-heavy); font-size: 15px;
+            font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; text-align: left;
+            padding: 14px 16px; border-radius: 12px; color: var(--text-main);
+            justify-content: flex-start; gap: 10px;
         }
         .btn-grunge.secondary::before { display: none; }
-        .btn-grunge.secondary:hover { border-color: var(--primary-glow); background: rgba(255,255,255,0.05); }
 
-        /* BOTÓN DE DESCONEXIÓN REESTRUCTURADO */
         .btn-disconnect-tactical {
-            background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.35); color: #FCA5A5; font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 2px; padding: 12px; border-radius: 12px; cursor: pointer; width: 100%; margin-top: 22px; transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; align-items: center; justify-content: center; gap: 8px;
+            background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.35); color: #FCA5A5;
+            font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 13px;
+            text-transform: uppercase; letter-spacing: 2px; padding: 14px;
+            border-radius: 12px; cursor: pointer; width: 100%; margin-top: 20px;
+            transition: all 0.25s; display: flex; align-items: center; justify-content: center; gap: 8px;
+            min-height: 50px;
         }
-        .btn-disconnect-tactical:hover { background: #DC2626; color: #FFFFFF; border-color: #DC2626; box-shadow: 0 0 15px rgba(220, 38, 38, 0.4); transform: translateY(-2px); }
+        .btn-disconnect-tactical:active { background: #DC2626; color: #FFFFFF; border-color: #DC2626; }
 
-        /* --- TIPOGRAFÍAS Y DISEÑO GENERAL --- */
-        h1.title-game { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 34px; text-align: center; margin: 0 0 25px 0; text-transform: uppercase; line-height: 1; letter-spacing: 1px; }
-        h2.section-header { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 15px; color: var(--bg-base); background: var(--text-main); margin: -48px auto 20px auto; padding: 5px 16px; width: fit-content; text-transform: uppercase; letter-spacing: 2px; border-radius: 4px; box-shadow: 0 0 10px rgba(0,0,0,0.15); }
-        p.desc-text { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text-accent); font-size: 14px; line-height: 1.5; margin-bottom: 18px; }
-        .meta-progress-text { font-family: 'Rajdhani', sans-serif; font-size: 13px; text-transform: uppercase; color: var(--text-accent); opacity: 0.95; letter-spacing: 1px; text-align: center; margin-bottom: 6px; font-weight: bold; }
-        .feedback-banner { font-family: 'Plus Jakarta Sans', sans-serif; padding: 12px; font-size: 12px; font-weight: bold; display: none; text-align: center; border: 1px solid #FF1744; color: #FF8A9F; background: rgba(255, 23, 68, 0.1); border-radius: 8px; margin-bottom: 12px; }
+        .btn-back-menu {
+            font-family: 'Rajdhani', sans-serif; font-size: 13px; font-weight: 700;
+            text-transform: uppercase; color: var(--primary-glow); background: none; border: none;
+            margin-top: 20px; display: block; text-align: center; width: 100%; cursor: pointer;
+            letter-spacing: 2px; padding: 12px 0;
+        }
 
-        /* --- MAPA NODAL / NIVELES --- */
-        .progress-container-ui { width: 100%; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border-heavy); height: 12px; border-radius: 20px; padding: 2px; box-sizing: border-box; margin-bottom: 25px; }
+        /* NIVELES */
+        .progress-container-ui {
+            width: 100%; background: rgba(0,0,0,0.4); border: 1px solid var(--border-heavy);
+            height: 10px; border-radius: 20px; padding: 2px; margin-bottom: 20px;
+        }
         .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--primary-glow)); border-radius: 20px; box-shadow: 0 0 8px var(--primary-glow); transition: width 0.4s ease; }
-        .levels-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 15px; }
-        .level-box {
-            background: rgba(255, 255, 255, 0.02); border: 2px solid var(--border-heavy); color: var(--text-main); font-size: 16px; height: 50px; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; transition: all 0.2s; border-radius: 8px;
-        }
-        .level-box::after { content: 'N-'; font-family: sans-serif; font-size: 8px; opacity: 0.5; }
-        .level-box.locked { background: rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.02); color: rgba(255,255,255,0.1); cursor: not-allowed; }
-        .level-box.locked::after { content: '🔒'; font-size: 9px; }
-        .level-box.locked .num-label { display: none; }
-        .level-box.completed { background: var(--primary); border-color: var(--text-main); }
-        .level-box.completed::after { content: '✓'; color: var(--primary-glow); }
-        .level-box:not(.locked):hover { border-color: var(--primary-glow); transform: translateY(-3px); }
 
-        /* --- MÓDULO MASCOTA INTERACTIVA --- */
-        .mascot-stats-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 15px 0; }
-        .stat-card { background: var(--card-bg); border: 1px solid var(--border-heavy); border-radius: 10px; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; font-family: sans-serif; }
+        .levels-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .level-box {
+            background: rgba(255,255,255,0.02); border: 2px solid var(--border-heavy);
+            color: var(--text-main); font-size: 15px;
+            height: 52px; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            cursor: pointer; transition: all 0.2s; border-radius: 8px;
+        }
+        .level-box::after { content:'N-'; font-family:sans-serif; font-size:8px; opacity:0.5; }
+        .level-box.locked { background: rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.02); color: rgba(255,255,255,0.1); cursor:not-allowed; }
+        .level-box.locked::after { content:'🔒'; font-size:10px; }
+        .level-box.locked .num-label { display:none; }
+        .level-box.completed { background: var(--primary); border-color: var(--text-main); }
+        .level-box.completed::after { content:'✓'; color:var(--primary-glow); }
+        .level-box:not(.locked):active { border-color: var(--primary-glow); transform: scale(0.96); }
+
+        /* MASCOTA */
+        .mascot-stats-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 14px 0; }
+        .stat-card {
+            background: var(--card-bg); border: 1px solid var(--border-heavy); border-radius: 10px;
+            padding: 10px 14px; display: flex; align-items: center; justify-content: space-between;
+        }
         .stat-info { display: flex; flex-direction: column; width: 65%; }
         .stat-label { font-weight: bold; font-size: 11px; margin-bottom: 4px; color: var(--text-main); }
         .stat-bar-container { background: rgba(0,0,0,0.3); height: 6px; border-radius: 5px; overflow: hidden; }
         .stat-bar-fill { height: 100%; background: var(--primary-glow); width: 50%; transition: width 0.3s; }
         .stat-val { font-size: 18px; color: var(--primary-glow); }
-        .mood-selector { display: flex; justify-content: space-around; background: var(--card-bg); border: 1px solid var(--border-heavy); padding: 6px; border-radius: 10px; margin: 12px 0; }
-        .mood-btn { background: none; border: none; font-size: 18px; cursor: pointer; filter: grayscale(1); transition: transform 0.2s; }
-        .mood-btn.active { filter: grayscale(0); transform: scale(1.15); }
+        .mood-selector {
+            display: flex; justify-content: space-around; background: var(--card-bg);
+            border: 1px solid var(--border-heavy); padding: 8px; border-radius: 10px; margin: 12px 0;
+        }
+        .mood-btn { background: none; border: none; font-size: 24px; cursor: pointer; filter: grayscale(1); transition: transform 0.2s; padding: 6px 12px; min-width: 56px; }
+        .mood-btn.active { filter: grayscale(0); transform: scale(1.2); }
 
-        /* --- NUEVO MODO DE JUEGO: RITMO (ESTILO OSU! / POU) --- */
+        /* MODO RITMO OSU */
         .osu-playfield {
-            width: 100%; height: 260px; background: rgba(0, 0, 0, 0.5); border: 2px solid var(--border-heavy); border-radius: 12px; position: relative; overflow: hidden; margin: 15px 0; cursor: crosshair;
+            width: 100%; height: 240px; background: rgba(0,0,0,0.5);
+            border: 2px solid var(--border-heavy); border-radius: 12px;
+            position: relative; overflow: hidden; margin: 14px 0; cursor: crosshair;
         }
         .osu-target-node {
-            position: absolute; width: 50px; height: 50px; background: radial-gradient(circle, var(--primary-glow) 20%, var(--primary) 80%); border: 3px solid #FFFFFF; border-radius: 50%; transform: translate(-50%, -50%); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px var(--primary-glow); animation: nodeShrink 1.5s linear forwards;
+            position: absolute; width: 52px; height: 52px;
+            background: radial-gradient(circle, var(--primary-glow) 20%, var(--primary) 80%);
+            border: 3px solid #FFFFFF; border-radius: 50%;
+            transform: translate(-50%, -50%); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 15px var(--primary-glow); animation: nodeShrink 1.5s linear forwards;
         }
         .osu-target-node::before {
-            content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border: 2px solid var(--primary-glow); border-radius: 50%; animation: approachRing 1.5s linear forwards;
+            content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px;
+            border: 2px solid var(--primary-glow); border-radius: 50%; animation: approachRing 1.5s linear forwards;
         }
-        @keyframes nodeShrink { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 90% { opacity: 1; } 100% { transform: translate(-50%, -50%) scale(0); opacity: 0; } }
-        @keyframes approachRing { 0% { transform: scale(1.6); opacity: 0.8; } 100% { transform: scale(1); opacity: 0.2; } }
-        .osu-score-banner { display: flex; justify-content: space-between; font-family: sans-serif; font-size: 12px; color: var(--text-accent); font-weight: bold; }
+        @keyframes nodeShrink { 0% { transform: translate(-50%,-50%) scale(1); opacity:1; } 90% { opacity:1; } 100% { transform: translate(-50%,-50%) scale(0); opacity:0; } }
+        @keyframes approachRing { 0% { transform:scale(1.6); opacity:0.8; } 100% { transform:scale(1); opacity:0.2; } }
+        .osu-score-banner { display:flex; justify-content:space-between; font-family:sans-serif; font-size:13px; color:var(--text-accent); font-weight:bold; margin-bottom: 6px; }
 
-        /* --- SOPA DE LETRAS Y QUIZ --- */
-        .wordsearch-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin: 15px auto; max-width: 320px; }
-        .letter-cell { background: var(--card-bg); border: 1px solid var(--border-heavy); color: var(--text-main); font-size: 16px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; user-select: none; border-radius: 6px; }
+        /* SOPA DE LETRAS */
+        .wordsearch-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; margin: 12px auto; max-width: 100%; }
+        .letter-cell {
+            background: var(--card-bg); border: 1px solid var(--border-heavy);
+            color: var(--text-main); font-size: clamp(13px, 4vw, 17px);
+            aspect-ratio: 1; display: flex; justify-content: center; align-items: center;
+            cursor: pointer; user-select: none; border-radius: 6px;
+        }
         .letter-cell.selected { background: var(--primary); border-color: var(--primary-glow); box-shadow: 0 0 8px var(--primary-glow); }
-        .word-target-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 10px 0; font-family: sans-serif; font-size: 12px; }
-        .word-badge { background: var(--card-bg); border: 1px solid var(--border-heavy); padding: 4px 10px; border-radius: 20px; color: var(--text-accent); }
+        .word-target-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 10px 0; }
+        .word-badge { background: var(--card-bg); border: 1px solid var(--border-heavy); padding: 5px 12px; border-radius: 20px; color: var(--text-accent); font-size: 12px; }
 
+        /* AJUSTES / TEMAS */
         .theme-selector-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 20px; }
-        .theme-btn-card { border: 1px solid var(--border-heavy); background: var(--card-bg); border-radius: 6px; padding: 8px 2px; cursor: pointer; text-align: center; font-family: sans-serif; font-size: 9px; font-weight: bold; color: var(--text-main); }
+        .theme-btn-card {
+            border: 1px solid var(--border-heavy); background: var(--card-bg); border-radius: 8px;
+            padding: 10px 4px; cursor: pointer; text-align: center;
+            font-family: sans-serif; font-size: 9px; font-weight: bold; color: var(--text-main);
+            transition: all 0.2s;
+        }
         .theme-btn-card.active { border-color: var(--primary-glow); background: var(--primary); }
-        .swatch { width: 14px; height: 14px; border-radius: 50%; margin: 0 auto 4px auto; }
+        .swatch { width: 16px; height: 16px; border-radius: 50%; margin: 0 auto 5px auto; }
 
-        .btn-back-menu { font-family: 'Rajdhani', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; color: var(--primary-glow); background: none; border: none; margin-top: 18px; display: block; text-align: center; width: 100%; cursor: pointer; letter-spacing: 2px; }
+        /* UTILIDAD */
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-<!-- ORBES DINÁMICOS DE FONDO -->
 <div class="bg-orb orb-1"></div>
 <div class="bg-orb orb-2"></div>
 
-<!-- PANTALLA DE CARGA VERTICAL SÓLIDA (SIN IMAGENES) -->
+<!-- PANTALLA DE CARGA -->
 <div id="m-loading-screen" class="loading-wrapper">
     <div class="loading-vertical-panel">
         <div class="loading-title-zone">
             <h1>PATRONES<br><span style="color:var(--primary-glow);">DE CRIANZA</span></h1>
             <div class="sub">Entorno de Calibración</div>
         </div>
-
         <div class="loading-center-meta">
             <div class="quantum-pulse-loader"></div>
             <div class="loading-progress-bar">
@@ -384,7 +392,6 @@
             </div>
             <div style="font-size: 14px; font-weight: bold;" id="loading-pct">0%</div>
         </div>
-
         <div class="loading-author-zone">
             Desarrollado y estructurado por:
             <b>Lucia Carolina Barcenas Rodriguez</b>
@@ -393,11 +400,11 @@
 </div>
 
 <div class="wrapper-layout">
-    
-    <!-- MÓDULO 1: MENÚ PRINCIPAL (REDISEÑADO) -->
+
+    <!-- MENÚ PRINCIPAL -->
     <div id="m-main-menu" class="panel-grunge">
         <div class="system-tag">SYS_STATUS: ACTIVE</div>
-        
+
         <div class="character-container">
             <div class="vio-orbit-zone">
                 <div class="scanner-line"></div>
@@ -411,48 +418,48 @@
         </div>
 
         <h1 class="title-game">PATRONES<br><span style="color:var(--primary-glow);">DE CRIANZA</span></h1>
-        
+
         <div class="menu-list">
-            <button class="btn-grunge" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-levels'); refreshLevelsInterface();">
-                <span>Modo Historia (Mapa)</span>
+            <button class="btn-grunge" onclick="initAudioEngine(); changeModule('m-main-menu','m-levels'); refreshLevelsInterface();">
+                <span>Modo Historia</span>
                 <i class="fa-solid fa-compass btn-icon"></i>
             </button>
-            <button class="btn-grunge" style="filter: brightness(0.95);" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-mascot'); refreshMascotaUI();">
-                <span>Santuario Mascota 🐾</span>
+            <button class="btn-grunge" style="filter:brightness(0.95);" onclick="initAudioEngine(); changeModule('m-main-menu','m-mascot'); refreshMascotaUI();">
+                <span>Santuario 🐾</span>
                 <i class="fa-solid fa-heart btn-icon"></i>
             </button>
-            <button class="btn-grunge" style="filter: brightness(0.9);" onclick="initAudioEngine(); startOsuGameMode();">
-                <span>Modo Ritmo: ¡A jugar! ⚡</span>
+            <button class="btn-grunge" style="filter:brightness(0.9);" onclick="initAudioEngine(); startOsuGameMode();">
+                <span>Modo Ritmo ⚡</span>
                 <i class="fa-solid fa-bolt-lightning btn-icon"></i>
             </button>
-            <button class="btn-grunge" style="filter: brightness(0.8); font-size:16px; padding:12px 18px;" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-settings');">
+            <button class="btn-grunge" style="filter:brightness(0.8); font-size:16px; padding:14px 16px;" onclick="initAudioEngine(); changeModule('m-main-menu','m-settings');">
                 <span>Ajustes & Temas</span>
                 <i class="fa-solid fa-gears btn-icon"></i>
             </button>
         </div>
     </div>
 
-    <!-- MÓDULO 2: MI MASCOTA (SANCTUARY) -->
-    <div id="m-mascot" class="panel-grunge">
+    <!-- MASCOTA SANCTUARY -->
+    <div id="m-mascot" class="panel-grunge hidden">
         <div class="system-tag">VIO_HEART_CORE</div>
         <h2 class="section-header">SANTUARIO</h2>
-        
+
         <div class="character-container">
             <div class="vio-orbit-zone">
                 <div class="scanner-line"></div>
                 <svg id="vio-sanctuary" class="vio-svg-body happy" viewBox="0 0 100 100" onclick="acariciarMascota()">
                     <path class="main-core" d="M50,15 C25,15 15,35 15,60 C15,78 30,85 50,85 C70,85 85,78 85,60 C85,35 75,15 50,15 Z" />
-                    <g class="normal-eyes"><circle class="eyes" cx="38" cy="50" r="5" /><circle class="eyes" cx="62" cy="50" r="5" /></g>
+                    <g class="normal-eyes"><circle class="eyes" cx="38" cy="50" r="5"/><circle class="eyes" cx="62" cy="50" r="5"/></g>
                     <g class="happy-eyes">
                         <path d="M32,52 Q38,46 44,52" stroke="#FFFFFF" stroke-width="4.5" fill="none" stroke-linecap="round"/>
                         <path d="M56,52 Q62,46 68,52" stroke="#FFFFFF" stroke-width="4.5" fill="none" stroke-linecap="round"/>
                     </g>
                     <g class="cool-eyes">
-                        <rect x="28" y="44" width="20" height="8" rx="2" fill="#111" />
-                        <rect x="52" y="44" width="20" height="8" rx="2" fill="#111" />
+                        <rect x="28" y="44" width="20" height="8" rx="2" fill="#111"/>
+                        <rect x="52" y="44" width="20" height="8" rx="2" fill="#111"/>
                     </g>
                     <g class="surprised-eyes">
-                        <circle cx="38" cy="50" r="6" fill="#FFF" /><circle cx="62" cy="50" r="6" fill="#FFF" />
+                        <circle cx="38" cy="50" r="6" fill="#FFF"/><circle cx="62" cy="50" r="6" fill="#FFF"/>
                     </g>
                 </svg>
             </div>
@@ -482,66 +489,62 @@
             <button class="mood-btn" id="m-cool" onclick="setMascotExpression('cool')">😎</button>
         </div>
 
-        <button class="btn-grunge" style="font-size:16px; padding:12px; justify-content:center;" onclick="startOsuGameMode()">
+        <button class="btn-grunge" style="font-size:16px; padding:14px; justify-content:center;" onclick="startOsuGameMode()">
             Jugar Ritmo con Vio
         </button>
-        <button class="btn-back-menu" onclick="changeModule('m-mascot', 'm-main-menu')">✖ VOLVER</button>
+        <button class="btn-back-menu" onclick="changeModule('m-mascot','m-main-menu')">✖ VOLVER</button>
     </div>
 
-    <!-- MÓDULO NUEVO: JUEGO DE RITMO (ESTILO OSU / POU) -->
+    <!-- MODO RITMO OSU -->
     <div id="m-game-osu" class="panel-grunge hidden">
-        <h2 class="section-header" style="background: var(--primary-glow); color: #FFF;">MODO RITMO</h2>
+        <h2 class="section-header" style="background:var(--primary-glow); color:#FFF;">MODO RITMO</h2>
         <div class="osu-score-banner">
             <div>PUNTOS: <span id="osu-score-val" style="color:#FFF;">0</span></div>
             <div>TIEMPO: <span id="osu-timer-val" style="color:var(--primary-glow);">20</span>s</div>
         </div>
-        
-        <div class="osu-playfield" id="osu-field">
-            <!-- Los nodos interactivos se inyectarán de forma dinámica aquí -->
-        </div>
-        
-        <p class="desc-text" style="font-size: 11px; text-align: center; font-family: sans-serif;">¡Presiona los círculos rápidamente antes de que se encojan!</p>
+        <div class="osu-playfield" id="osu-field"></div>
+        <p class="desc-text" style="font-size:12px; text-align:center;">¡Presiona los círculos antes de que desaparezcan!</p>
         <button class="btn-disconnect-tactical" onclick="endOsuGame(true)">SALIR DEL MODO JUEGO</button>
     </div>
 
-    <!-- MÓDULO 3: MAPA NODAL -->
+    <!-- MAPA NODAL -->
     <div id="m-levels" class="panel-grunge hidden">
         <h2 class="section-header">MAPA NODAL</h2>
         <div class="progress-container-ui"><div id="progress-bar-fill" class="progress-bar-fill"></div></div>
         <div class="levels-grid" id="grid-selector-niveles"></div>
-        <button class="btn-back-menu" onclick="changeModule('m-levels', 'm-main-menu')">✖ VOLVER AL MENÚ</button>
+        <button class="btn-back-menu" onclick="changeModule('m-levels','m-main-menu')">✖ VOLVER AL MENÚ</button>
     </div>
 
-    <!-- MÓDULO 4: AJUSTES & TEMAS -->
+    <!-- AJUSTES -->
     <div id="m-settings" class="panel-grunge hidden">
         <h2 class="section-header">AJUSTES</h2>
         <div class="theme-selector-grid">
             <div id="t-card-mystic" class="theme-btn-card active" onclick="updateAppTheme('mystic')"><div class="swatch" style="background:#520380;"></div>Místico</div>
             <div id="t-card-cyber" class="theme-btn-card" onclick="updateAppTheme('cyber')"><div class="swatch" style="background:#00E676;"></div>Ciber</div>
             <div id="t-card-crimson" class="theme-btn-card" onclick="updateAppTheme('crimson')"><div class="swatch" style="background:#FF1744;"></div>Carmesí</div>
-            <div id="t-card-cyan-white" class="theme-btn-card" onclick="updateAppTheme('cyan-white')"><div class="swatch" style="background:#0284C7; border:1px solid #fff;"></div>Aero</div>
+            <div id="t-card-cyan-white" class="theme-btn-card" onclick="updateAppTheme('cyan-white')"><div class="swatch" style="background:#0284C7; border:1px solid #ccc;"></div>Aero</div>
             <div id="t-card-amber" class="theme-btn-card" onclick="updateAppTheme('amber')"><div class="swatch" style="background:#D97706;"></div>Ámbar</div>
         </div>
-        <button class="btn-grunge" style="justify-content:center; font-size:16px;" onclick="changeModule('m-settings', 'm-main-menu')">REGRESAR</button>
+        <button class="btn-grunge" style="justify-content:center; font-size:16px;" onclick="changeModule('m-settings','m-main-menu')">REGRESAR</button>
     </div>
 
-    <!-- MÓDULO 5: MOTOR DE HISTORIA (QUIZ / SOPA) -->
+    <!-- MOTOR DE HISTORIA (QUIZ / SOPA) -->
     <div id="m-gameplay" class="panel-grunge hidden">
         <div id="game-feedback" class="feedback-banner"></div>
 
         <div id="mech-kahoot" class="hidden">
-            <p class="desc-text" id="kahoot-text" style="font-weight: bold; color: var(--text-main);"></p>
+            <p class="desc-text" id="kahoot-text" style="font-weight:bold; color:var(--text-main);"></p>
             <div class="menu-list" id="kahoot-options"></div>
         </div>
 
         <div id="mech-sopa" class="hidden">
             <div class="word-target-list" id="lista-palabras-buscar"></div>
             <div class="wordsearch-grid" id="grid-letras"></div>
-            <button class="btn-grunge" style="font-size:16px;" onclick="verificarSopa()">VALIDAR SELECCIÓN</button>
+            <button class="btn-grunge" style="font-size:16px; margin-top:12px;" onclick="verificarSopa()">VALIDAR SELECCIÓN</button>
         </div>
 
         <div id="mech-binary" class="hidden">
-            <p class="desc-text" id="binary-text" style="font-weight: bold; color: var(--text-main);"></p>
+            <p class="desc-text" id="binary-text" style="font-weight:bold; color:var(--text-main);"></p>
             <div style="display:flex; gap:10px;">
                 <button class="btn-grunge" onclick="evaluarRespuestaDirecta(true)">✔ SÍ</button>
                 <button class="btn-grunge" style="background:none; border:2px solid var(--border-heavy);" onclick="evaluarRespuestaDirecta(false)">✖ NO</button>
@@ -551,36 +554,35 @@
         <button class="btn-disconnect-tactical" onclick="abortarJuego()">✖ SALIR DEL MAPA</button>
     </div>
 
-    <!-- PANTALLAS DE TRANCISION -->
+    <!-- NIVEL COMPLETADO -->
     <div id="m-level-clear" class="panel-grunge hidden">
         <h2 class="section-header" style="background:var(--primary); color:#FFF;">ÉXITO</h2>
-        <p class="desc-text" id="clear-level-summary" style="text-align:center;"></p>
+        <p class="desc-text" id="clear-level-summary" style="text-align:center; font-size:16px; margin-top: 16px;"></p>
         <button class="btn-grunge" onclick="procederSiguienteNivel()">CONTINUAR ➔</button>
     </div>
 
+    <!-- JUEGO TERMINADO -->
     <div id="m-game-over" class="panel-grunge hidden">
         <h2 class="section-header">FIN</h2>
-        <h3 style="text-align:center;">¡VICTORIA TOTAL!</h3>
+        <h3 style="text-align:center; font-family:'Orbitron',sans-serif; margin: 24px 0 20px;">¡VICTORIA TOTAL!</h3>
         <button class="btn-grunge" onclick="reiniciarTodoAlMenu()">VOLVER AL INICIO</button>
     </div>
 
-</div>
+</div><!-- fin wrapper-layout -->
 
 <script>
-    // --- LÓGICA DE PRE-CARGA VERTICAL SIMPLIFICADA ---
+    // --- CARGA ---
     document.addEventListener("DOMContentLoaded", () => {
         let pct = 0;
         const fill = document.getElementById('loading-fill');
         const pctLbl = document.getElementById('loading-pct');
-        
-        let intervalLoading = setInterval(() => {
+        let interval = setInterval(() => {
             pct += Math.floor(Math.random() * 6) + 3;
             if (pct > 100) pct = 100;
             fill.style.width = pct + "%";
             pctLbl.innerText = pct + "%";
-
             if (pct >= 100) {
-                clearInterval(intervalLoading);
+                clearInterval(interval);
                 setTimeout(() => {
                     const loader = document.getElementById('m-loading-screen');
                     loader.style.opacity = "0";
@@ -590,7 +592,7 @@
         }, 60);
     });
 
-    // --- VARIABLES DE LA MASCOTA ---
+    // --- MASCOTA ---
     let mascotaState = { energy: 75, love: 50, currentExpression: 'happy' };
 
     function refreshMascotaUI() {
@@ -603,190 +605,204 @@
 
     function setMascotExpression(mood) {
         mascotaState.currentExpression = mood;
+        document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('m-' + mood).classList.add('active');
         reproducirEfecto('confirmar');
         refreshMascotaUI();
     }
 
     function acariciarMascota() {
-        const sanctuaryVio = document.getElementById('vio-sanctuary');
-        sanctuaryVio.classList.add('pet-jump');
+        const v = document.getElementById('vio-sanctuary');
+        v.classList.add('pet-jump');
         reproducirEfecto('seleccionar');
         mascotaState.love = Math.min(100, mascotaState.love + 5);
         refreshMascotaUI();
-        setTimeout(() => sanctuaryVio.classList.remove('pet-jump'), 400);
+        setTimeout(() => v.classList.remove('pet-jump'), 400);
     }
 
     function interactMascotaHome() {
-        const homeVio = document.getElementById('vio-menu');
-        homeVio.classList.add('pet-jump');
+        const v = document.getElementById('vio-menu');
+        v.classList.add('pet-jump');
         reproducirEfecto('seleccionar');
-        setTimeout(() => homeVio.classList.remove('pet-jump'), 400);
+        setTimeout(() => v.classList.remove('pet-jump'), 400);
     }
 
-    // --- MÓDULO COMPLETAMENTE NUEVO: JUEGO DE RITMO (ESTILO OSU! / POU) ---
-    let osuScore = 0;
-    let osuTimeLeft = 20;
-    let osuTimerInterval;
-    let osuSpawnInterval;
+    // --- MODO RITMO ---
+    let osuScore = 0, osuTimeLeft = 20, osuTimerInterval, osuSpawnInterval;
     const osuField = document.getElementById('osu-field');
 
     function startOsuGameMode() {
-        document.getElementById('m-main-menu').classList.add('hidden');
-        document.getElementById('m-mascot').classList.add('hidden');
+        ['m-main-menu','m-mascot'].forEach(id => document.getElementById(id).classList.add('hidden'));
         document.getElementById('m-game-osu').classList.remove('hidden');
-        
-        osuScore = 0;
-        osuTimeLeft = 20;
-        document.getElementById('osu-score-val').innerText = osuScore;
-        document.getElementById('osu-timer-val').innerText = osuTimeLeft;
+        scrollTop();
+
+        osuScore = 0; osuTimeLeft = 20;
+        document.getElementById('osu-score-val').innerText = 0;
+        document.getElementById('osu-timer-val').innerText = 20;
         osuField.innerHTML = "";
 
         osuTimerInterval = setInterval(() => {
             osuTimeLeft--;
             document.getElementById('osu-timer-val').innerText = osuTimeLeft;
-            if(osuTimeLeft <= 0) {
-                endOsuGame(false);
-            }
+            if (osuTimeLeft <= 0) endOsuGame(false);
         }, 1000);
-
         osuSpawnInterval = setInterval(spawnOsuNode, 650);
     }
 
     function spawnOsuNode() {
         const node = document.createElement('div');
         node.className = "osu-target-node";
-        
-        const x = Math.floor(Math.random() * 80) + 10;
-        const y = Math.floor(Math.random() * 75) + 12;
-        node.style.left = x + "%";
-        node.style.top = y + "%";
-
+        node.style.left = (Math.floor(Math.random() * 80) + 10) + "%";
+        node.style.top  = (Math.floor(Math.random() * 75) + 12) + "%";
         node.onclick = (e) => {
             e.stopPropagation();
             osuScore += 10;
             document.getElementById('osu-score-val').innerText = osuScore;
-            
-            mascotaState.love = Math.min(100, mascotaState.love + 2);
+            mascotaState.love   = Math.min(100, mascotaState.love + 2);
             mascotaState.energy = Math.min(100, mascotaState.energy + 1);
-
             reproducirEfecto('ritmoHit');
             node.remove();
         };
-
         osuField.appendChild(node);
-
-        setTimeout(() => { if(node.parentNode) node.remove(); }, 1400);
+        setTimeout(() => { if (node.parentNode) node.remove(); }, 1400);
     }
 
     function endOsuGame(wasAborted) {
         clearInterval(osuTimerInterval);
         clearInterval(osuSpawnInterval);
         osuField.innerHTML = "";
-
-        if(!wasAborted) {
+        if (!wasAborted) {
             reproducirEfecto('confirmar');
-            alert(`¡Fin del juego! Lograste acumular ${osuScore} puntos. Vio se siente más feliz y unido a ti.`);
+            alert(`¡Fin del juego! Lograste ${osuScore} puntos. Vio se siente más feliz.`);
         }
-        
         document.getElementById('m-game-osu').classList.add('hidden');
         document.getElementById('m-main-menu').classList.remove('hidden');
+        scrollTop();
     }
 
-    // --- MOTOR BASE HISTORIA Y CORE GENERAL ---
-    let audioCtx = null; let mainOsc = null; let mainGain = null;
-    let currentLevel = 1; let celdasSeleccionadasSopa = [];
-    let nivelesCompletados = { 1:false, 2:false, 3:false, 4:false, 5:false, 6:false, 7:false, 8:false, 9:false, 10:false };
-
-    const dbNiveles = {
-        1: { mech: 'kahoot', text: "Un padre le grita fuertemente a su hijo exigiéndole obediencia inmediata y ciega sin derecho a réplica. ¿Qué patrón es?", opt: ["Estilo Permisivo", "Estilo Autoritario", "Estilo Negligente"], ans: 1 },
-        2: { mech: 'sopa', palabras: ['AMOR', 'PAZ', 'AFECTO'], letras: ['A','M','O','R','X','Q','P','A','Z','W','T','V','A','F','E','C','T','O','K','B','L','M','N','P','R','S','J','G','H','I','Z','X','Y','C','B','A'], targets: [0,1,2,3, 6,7,8, 12,13,14,15,16,17] },
-        3: { mech: 'binary', text: "El patrón desapegado o negligente se destaca por un alto nivel de control estricto y castigos físicos constantes.", ans: false },
-        4: { mech: 'sopa', palabras: ['GUIA', 'HOGAR', 'UNION'], letras: ['G','U','I','A','X','Z','H','O','G','A','R','Y','U','N','I','O','N','W','B','M','L','P','Q','K','F','R','S','T','V','D','J','N','M','L','K','H'], targets: [0,1,2,3, 6,7,8,9,10, 12,13,14,15,16] },
-        5: { mech: 'binary', text: "El patrón Democrático equilibra de manera óptima las muestras de afecto mutuo con límites claros y dialogados.", ans: true },
-        6: { mech: 'kahoot', text: "Los tutores muestran desinterés sistemático por la salud, educación y alimentación de los menores. ¿Qué es?", opt: ["Estilo Negligente", "Estilo Sobreprotector", "Estilo Permisivo"], ans: 0 },
-        7: { mech: 'sopa', palabras: ['LAZO', 'DIALOGO', 'APOYO'], letras: ['L','A','Z','O','Q','W','D','I','A','L','O','G','O','X','V','B','N','M','A','P','O','Y','O','P','R','S','T','U','V','X','K','L','M','N','O','P'], targets: [0,1,2,3, 6,7,8,9,10,11,12, 18,19,20,21,22] },
-        8: { mech: 'kahoot', text: "El hijo tiene derecho a opinar sobre las normas del hogar bajo un esquema de respeto y asertividad mutua. ¿Qué es?", opt: ["Estilo Autoritario", "Estilo Democrático", "Estilo Negligente"], ans: 1 },
-        9: { mech: 'binary', text: "El diálogo y el soporte emotional activo son herramientas ajenas al estilo de crianza autoritario.", ans: true },
-        10: { mech: 'kahoot', text: "Estilo que genera baja autoestima, sumisión o conductas agresivas severas por el exceso de castigo coercitivo:", opt: ["Estilo Democrático", "Estilo Permisivo", "Estilo Autoritario"], ans: 2 }
-    };
+    // --- AUDIO ---
+    let audioCtx = null;
 
     function initAudioEngine() {
         if (!audioCtx) {
             audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            mainOsc = audioCtx.createOscillator();
-            mainGain = audioCtx.createGain();
-            mainOsc.type = 'triangle';
-            mainOsc.frequency.setValueAtTime(110, audioCtx.currentTime);
-            mainGain.gain.setValueAtTime(0.06, audioCtx.currentTime);
-            mainOsc.connect(mainGain); mainGain.connect(audioCtx.destination);
-            mainOsc.start();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(110, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+            osc.connect(gain); gain.connect(audioCtx.destination); osc.start();
         }
     }
 
+    function reproducirEfecto(tipo) {
+        if (!audioCtx) return;
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        const configs = {
+            seleccionar: { type:'sine',     freq:500, vol:0.10, dur:0.05 },
+            ritmoHit:    { type:'sine',     freq:880, vol:0.15, dur:0.08 },
+            confirmar:   { type:'triangle', freq:600, vol:0.10, dur:0.15 },
+            error:       { type:'sawtooth', freq:150, vol:0.15, dur:0.20 }
+        };
+        const c = configs[tipo] || configs.seleccionar;
+        osc.type = c.type;
+        osc.frequency.setValueAtTime(c.freq, now);
+        gain.gain.setValueAtTime(c.vol, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + c.dur);
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.start(now); osc.stop(now + c.dur);
+    }
+
+    // --- NAVEGACIÓN ---
     function changeModule(fromId, toId) {
         reproducirEfecto('seleccionar');
         document.getElementById(fromId).classList.add('hidden');
         document.getElementById(toId).classList.remove('hidden');
+        scrollTop();
     }
 
-    function updateAppTheme(themeName) {
+    function scrollTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- TEMAS ---
+    function updateAppTheme(name) {
         document.body.removeAttribute('data-theme');
-        if (themeName !== 'mystic') document.body.setAttribute('data-theme', themeName);
+        if (name !== 'mystic') document.body.setAttribute('data-theme', name);
         document.querySelectorAll('.theme-btn-card').forEach(c => c.classList.remove('active'));
-        document.getElementById('t-card-' + themeName).classList.add('active');
+        document.getElementById('t-card-' + name).classList.add('active');
         reproducirEfecto('confirmar');
     }
 
-    function refreshLevelsInterface() {
-        let completadosCount = Object.values(nivelesCompletados).filter(Boolean).length;
-        let progreso = Math.round((completadosCount / 10) * 100);
-        document.getElementById('progress-bar-fill').style.width = `${progreso}%`;
+    // --- NIVELES ---
+    let currentLevel = 1;
+    let celdasSeleccionadasSopa = [];
+    let nivelesCompletados = {1:false,2:false,3:false,4:false,5:false,6:false,7:false,8:false,9:false,10:false};
 
-        let contenedor = document.getElementById('grid-selector-niveles'); contenedor.innerHTML = "";
+    const dbNiveles = {
+        1:  { mech:'kahoot',  text:"Un padre le grita fuertemente a su hijo exigiéndole obediencia inmediata y ciega sin derecho a réplica. ¿Qué patrón es?", opt:["Estilo Permisivo","Estilo Autoritario","Estilo Negligente"], ans:1 },
+        2:  { mech:'sopa',    palabras:['AMOR','PAZ','AFECTO'], letras:['A','M','O','R','X','Q','P','A','Z','W','T','V','A','F','E','C','T','O','K','B','L','M','N','P','R','S','J','G','H','I','Z','X','Y','C','B','A'], targets:[0,1,2,3,6,7,8,12,13,14,15,16,17] },
+        3:  { mech:'binary',  text:"El patrón desapegado o negligente se destaca por un alto nivel de control estricto y castigos físicos constantes.", ans:false },
+        4:  { mech:'sopa',    palabras:['GUIA','HOGAR','UNION'], letras:['G','U','I','A','X','Z','H','O','G','A','R','Y','U','N','I','O','N','W','B','M','L','P','Q','K','F','R','S','T','V','D','J','N','M','L','K','H'], targets:[0,1,2,3,6,7,8,9,10,12,13,14,15,16] },
+        5:  { mech:'binary',  text:"El patrón Democrático equilibra de manera óptima las muestras de afecto mutuo con límites claros y dialogados.", ans:true },
+        6:  { mech:'kahoot',  text:"Los tutores muestran desinterés sistemático por la salud, educación y alimentación de los menores. ¿Qué es?", opt:["Estilo Negligente","Estilo Sobreprotector","Estilo Permisivo"], ans:0 },
+        7:  { mech:'sopa',    palabras:['LAZO','DIALOGO','APOYO'], letras:['L','A','Z','O','Q','W','D','I','A','L','O','G','O','X','V','B','N','M','A','P','O','Y','O','P','R','S','T','U','V','X','K','L','M','N','O','P'], targets:[0,1,2,3,6,7,8,9,10,11,12,18,19,20,21,22] },
+        8:  { mech:'kahoot',  text:"El hijo tiene derecho a opinar sobre las normas del hogar bajo un esquema de respeto y asertividad mutua. ¿Qué es?", opt:["Estilo Autoritario","Estilo Democrático","Estilo Negligente"], ans:1 },
+        9:  { mech:'binary',  text:"El diálogo y el soporte emocional activo son herramientas ajenas al estilo de crianza autoritario.", ans:true },
+        10: { mech:'kahoot',  text:"Estilo que genera baja autoestima, sumisión o conductas agresivas severas por el exceso de castigo coercitivo:", opt:["Estilo Democrático","Estilo Permisivo","Estilo Autoritario"], ans:2 }
+    };
+
+    function refreshLevelsInterface() {
+        const completadosCount = Object.values(nivelesCompletados).filter(Boolean).length;
+        document.getElementById('progress-bar-fill').style.width = Math.round((completadosCount / 10) * 100) + "%";
+        const contenedor = document.getElementById('grid-selector-niveles');
+        contenedor.innerHTML = "";
         for (let i = 1; i <= 10; i++) {
-            let box = document.createElement('div'); box.innerHTML = `<span class="num-label">${i}</span>`;
-            let estaBloqueado = (i > 1 && !nivelesCompletados[i - 1] && !nivelesCompletados[i]);
-            
-            if (estaBloqueado) box.className = "level-box locked";
+            const box = document.createElement('div');
+            box.innerHTML = `<span class="num-label">${i}</span>`;
+            const bloqueado = (i > 1 && !nivelesCompletados[i-1] && !nivelesCompletados[i]);
+            if (bloqueado) box.className = "level-box locked";
             else if (nivelesCompletados[i]) box.className = "level-box completed";
             else box.className = "level-box";
-
-            box.onclick = () => { if (!estaBloqueado) startLevel(i); else reproducirEfecto('error'); };
+            box.onclick = () => { if (!bloqueado) startLevel(i); else reproducirEfecto('error'); };
             contenedor.appendChild(box);
         }
     }
 
     function startLevel(num) {
         currentLevel = num;
-        document.getElementById('m-levels').classList.add('hidden');
-        document.getElementById('m-gameplay').classList.remove('hidden');
+        changeModule('m-levels', 'm-gameplay');
         loadLevelStructure();
     }
 
     function loadLevelStructure() {
         document.getElementById('game-feedback').style.display = "none";
-        document.getElementById('mech-kahoot').classList.add('hidden');
-        document.getElementById('mech-sopa').classList.add('hidden');
-        document.getElementById('mech-binary').classList.add('hidden');
+        ['mech-kahoot','mech-sopa','mech-binary'].forEach(id => document.getElementById(id).classList.add('hidden'));
+        const data = dbNiveles[currentLevel];
 
-        let data = dbNiveles[currentLevel];
-        if(data.mech === 'kahoot') {
+        if (data.mech === 'kahoot') {
             document.getElementById('mech-kahoot').classList.remove('hidden');
             document.getElementById('kahoot-text').innerText = data.text;
-            let optZone = document.getElementById('kahoot-options'); optZone.innerHTML = "";
+            const zone = document.getElementById('kahoot-options');
+            zone.innerHTML = "";
             data.opt.forEach((o, i) => {
-                let btn = document.createElement('button'); btn.className = "btn-grunge secondary";
-                btn.innerHTML = o; btn.onclick = () => { if(i === data.ans) triggClearScreen(); else failAction(); };
-                optZone.appendChild(btn);
+                const btn = document.createElement('button');
+                btn.className = "btn-grunge secondary";
+                btn.innerText = o;
+                btn.onclick = () => { if (i === data.ans) triggClearScreen(); else failAction(); };
+                zone.appendChild(btn);
             });
-        } else if(data.mech === 'sopa') {
+        } else if (data.mech === 'sopa') {
             document.getElementById('mech-sopa').classList.remove('hidden');
-            let badgeZone = document.getElementById('lista-palabras-buscar'); badgeZone.innerHTML = "";
+            const badges = document.getElementById('lista-palabras-buscar');
+            badges.innerHTML = "";
             data.palabras.forEach(p => {
-                let b = document.createElement('span'); b.className = "word-badge"; b.innerText = p; badgeZone.appendChild(b);
+                const b = document.createElement('span'); b.className = "word-badge"; b.innerText = p; badges.appendChild(b);
             });
             buildSopaGrid(data);
-        } else if(data.mech === 'binary') {
+        } else if (data.mech === 'binary') {
             document.getElementById('mech-binary').classList.remove('hidden');
             document.getElementById('binary-text').innerText = data.text;
         }
@@ -794,15 +810,19 @@
 
     function buildSopaGrid(data) {
         celdasSeleccionadasSopa = [];
-        let grid = document.getElementById('grid-letras'); grid.innerHTML = "";
+        const grid = document.getElementById('grid-letras');
+        grid.innerHTML = "";
         data.letras.forEach((l, idx) => {
-            let cell = document.createElement('div'); cell.className = "letter-cell"; cell.innerText = l;
+            const cell = document.createElement('div');
+            cell.className = "letter-cell"; cell.innerText = l;
             cell.onclick = () => {
                 reproducirEfecto('seleccionar');
-                if(cell.classList.contains('selected')) {
-                    cell.classList.remove('selected'); celdasSeleccionadasSopa = celdasSeleccionadasSopa.filter(i => i !== idx);
+                if (cell.classList.contains('selected')) {
+                    cell.classList.remove('selected');
+                    celdasSeleccionadasSopa = celdasSeleccionadasSopa.filter(i => i !== idx);
                 } else {
-                    cell.classList.add('selected'); celdasSeleccionadasSopa.push(idx);
+                    cell.classList.add('selected');
+                    celdasSeleccionadasSopa.push(idx);
                 }
             };
             grid.appendChild(cell);
@@ -810,13 +830,13 @@
     }
 
     function verificarSopa() {
-        let data = dbNiveles[currentLevel];
-        let esCorrecto = celdasSeleccionadasSopa.length === data.targets.length && celdasSeleccionadasSopa.every(v => data.targets.includes(v));
-        if(esCorrecto) triggClearScreen(); else failAction();
+        const data = dbNiveles[currentLevel];
+        const ok = celdasSeleccionadasSopa.length === data.targets.length && celdasSeleccionadasSopa.every(v => data.targets.includes(v));
+        if (ok) triggClearScreen(); else failAction();
     }
 
-    function evaluarRespuestaDirecta(userVal) {
-        if(userVal === dbNiveles[currentLevel].ans) triggClearScreen(); else failAction();
+    function evaluarRespuestaDirecta(val) {
+        if (val === dbNiveles[currentLevel].ans) triggClearScreen(); else failAction();
     }
 
     function triggClearScreen() {
@@ -825,18 +845,26 @@
         document.getElementById('m-gameplay').classList.add('hidden');
         document.getElementById('clear-level-summary').innerText = `Entorno ${currentLevel} equilibrado con éxito.`;
         document.getElementById('m-level-clear').classList.remove('hidden');
+        scrollTop();
     }
 
     function procederSiguienteNivel() {
         document.getElementById('m-level-clear').classList.add('hidden');
-        if(currentLevel < 10) { currentLevel++; document.getElementById('m-gameplay').classList.remove('hidden'); loadLevelStructure(); }
-        else { document.getElementById('m-game-over').classList.remove('hidden'); }
+        if (currentLevel < 10) {
+            currentLevel++;
+            document.getElementById('m-gameplay').classList.remove('hidden');
+            loadLevelStructure();
+            scrollTop();
+        } else {
+            document.getElementById('m-game-over').classList.remove('hidden');
+            scrollTop();
+        }
     }
 
     function failAction() {
         reproducirEfecto('error');
-        let feed = document.getElementById('game-feedback');
-        feed.innerText = "❌ RESPUESTA NO OPTIMA. REVISA EL CONSTRUCTO.";
+        const feed = document.getElementById('game-feedback');
+        feed.innerText = "❌ RESPUESTA NO ÓPTIMA. REVISA EL CONSTRUCTO.";
         feed.style.display = "block";
     }
 
@@ -844,37 +872,14 @@
         document.getElementById('m-gameplay').classList.add('hidden');
         document.getElementById('m-levels').classList.remove('hidden');
         refreshLevelsInterface();
+        scrollTop();
     }
 
     function reiniciarTodoAlMenu() {
-        nivelesCompletados = { 1:false, 2:false, 3:false, 4:false, 5:false, 6:false, 7:false, 8:false, 9:false, 10:false };
+        nivelesCompletados = {1:false,2:false,3:false,4:false,5:false,6:false,7:false,8:false,9:false,10:false};
         document.getElementById('m-game-over').classList.add('hidden');
         document.getElementById('m-main-menu').classList.remove('hidden');
-    }
-
-    function reproducirEfecto(tipo) {
-        if (!audioCtx) return;
-        let now = audioCtx.currentTime;
-        let osc = audioCtx.createOscillator();
-        let gain = audioCtx.createGain();
-        
-        if (tipo === 'seleccionar') {
-            osc.type = 'sine'; osc.frequency.setValueAtTime(500, now);
-            gain.gain.setValueAtTime(0.1, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
-            osc.connect(gain); gain.connect(audioCtx.destination); osc.start(now); osc.stop(now + 0.05);
-        } else if (tipo === 'ritmoHit') {
-            osc.type = 'sine'; osc.frequency.setValueAtTime(880, now);
-            gain.gain.setValueAtTime(0.15, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
-            osc.connect(gain); gain.connect(audioCtx.destination); osc.start(now); osc.stop(now + 0.08);
-        } else if (tipo === 'confirmar') {
-            osc.type = 'triangle'; osc.frequency.setValueAtTime(600, now);
-            gain.gain.setValueAtTime(0.1, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
-            osc.connect(gain); gain.connect(audioCtx.destination); osc.start(now); osc.stop(now + 0.15);
-        } else if (tipo === 'error') {
-            osc.type = 'sawtooth'; osc.frequency.setValueAtTime(150, now);
-            gain.gain.setValueAtTime(0.15, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
-            osc.connect(gain); gain.connect(audioCtx.destination); osc.start(now); osc.stop(now + 0.2);
-        }
+        scrollTop();
     }
 </script>
 </body>
