@@ -35,7 +35,7 @@
         }
         p { color: #8b949e; font-size: 14px; text-transform: none; }
         
-        /* --- ARTE DIGITAL GENERADO POR IA (CSS) --- */
+        /* Arte Animado CSS de la Portada */
         .game-art {
             width: 120px;
             height: 120px;
@@ -60,7 +60,18 @@
             50% { transform: translateY(-10px); box-shadow: 0 0 45px #00f0ff; }
             100% { transform: translateY(0px); box-shadow: 0 0 30px #ff007f; }
         }
-        /* ------------------------------------------- */
+
+        /* Imagen del Escape Room (Fase 1) */
+        .fase-img {
+            width: 100%;
+            max-width: 450px;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid #00f0ff;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+            margin: 15px auto;
+            display: block;
+        }
 
         /* Botones Estilo Arcade/Gamer */
         .btn {
@@ -174,15 +185,13 @@
 
     <div id="pantalla-fase1" class="hidden">
         <span class="fase-badge">STAGE 1 / 5</span>
-        <h1 style="font-size: 24px; margin-top: 15px;">Descubre el Patrón A</h1>
-        <p style="text-transform:none; color:#fff;">Escribe el estilo de crianza correspondiente a la descripción:</p>
-        <div class="quiz-box">
-            <p style="font-size: 17px; font-weight: 600; color: #fff; margin: 0; text-transform:none;">
-                "Padres que imponen reglas estrictas, exigen obediencia absoluta, utilizan el castigo y casi no muestran afecto ni diálogo."
-            </p>
-        </div>
+        <h1 style="font-size: 24px; margin-top: 15px;">Acertijo Visual</h1>
+        <p style="text-transform:none; color:#fff;">Analiza la escena familiar de la imagen y escribe qué patrón de crianza representa:</p>
+        
+        <img class="fase-img" src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=600" alt="Evidencia Familiar">
+        
         <input type="text" id="input-fase1" placeholder="RESPUESTA...">
-        <button class="btn" onclick="verificarFase1()">ENVIAR DATOS</button>
+        <button class="btn" onclick="verificarFase1()">ENVIAR EVIDENCIA</button>
     </div>
 
     <div id="pantalla-fase2" class="hidden">
@@ -216,8 +225,8 @@
         <div class="resultados">
             <p style="font-weight: bold; color: #ff007f; text-align: center; margin-top: 0; font-size: 18px;">Métricas del Sistema</p>
             <ul>
-                <li><strong>Claridad:</strong> Interfaz Arcade interactiva de carga inmediata.</li>
-                <li><strong>Evaluación:</strong> Diagnóstico conceptual y resolución de casos de estudio.</li>
+                <li><strong>Claridad:</strong> Interfaz Arcade interactiva con análisis visual directo.</li>
+                <li><strong>Evaluación:</strong> Diagnóstico conceptual gráfico y resolución de casos de estudio.</li>
                 <li><strong>Innovación/IA:</strong> Validación lógica algorítmica integrada.</li>
             </ul>
         </div>
@@ -229,12 +238,13 @@
     <div class="modal-content">
         <span class="close-btn" onclick="cerrarModal('modal-instrucciones')">&times;</span>
         <h2 style="color: #00f0ff; margin-top: 0; text-transform: uppercase;">📖 Reglas del Juego</h2>
-        <p>Deben completar las <strong>5 fases consecutivas</strong> sin cometer errores para limpiar el nivel:</p>
+        <p>Deben completar las <strong>5 fases consecutivas</strong> analizando el entorno familiar:</p>
         <ul>
-            <li><strong>Fases 1 y 2:</strong> Escriban en la caja de texto el nombre técnico del patrón descrito.</li>
-            <li><strong>Fases 3, 4 y 5:</strong> Seleccionen la opción correcta entre las 4 alternativas basadas en casos reales.</li>
+            <li><strong>Fase 1:</strong> Observen bien la imagen y escriban qué patrón de crianza se muestra.</li>
+            <li><strong>Fase 2:</strong> Escriban en la caja de texto el nombre técnico del patrón descrito.</li>
+            <li><strong>Fases 3, 4 y 5:</strong> Seleccionen la opción correcta basada en casos reales de estudio.</li>
         </ul>
-        <p style="font-weight: bold; color: #ff007f;">¡El trabajo coordinado asegura la victoria académica!</p>
+        <p style="font-weight: bold; color: #ff007f;">¡Observen los detalles para asegurar la victoria!</p>
     </div>
 </div>
 
@@ -292,18 +302,19 @@
 
     function verificarFase1() {
         let resp = document.getElementById('input-fase1').value.toLowerCase().trim();
+        // Acepta respuestas que contengan "autoritario" o "autoritaria"
         if(resp.includes('autoritario') || resp.includes('autoritaria')) {
-            alert("🎯 ¡FASE 1 COMPLETADA!");
+            alert("🎯 ¡EVIDENCIA CORRECTA! Es el Patrón Autoritario. Avanzando a la Fase 2.");
             siguientePantalla('pantalla-fase1', 'pantalla-fase2');
         } else {
-            alert("❌ Respuesta incorrecta. Vuelve a intentarlo.");
+            alert("❌ Evidencia incorrecta. Observen las expresiones y la postura rígida de los personajes.");
         }
     }
 
     function verificarFase2() {
         let resp = document.getElementById('input-fase2').value.toLowerCase().trim();
         if(resp.includes('permisivo') || resp.includes('permisiva')) {
-            alert("🎯 ¡FASE 2 COMPLETADA! Entrando a los niveles de casos.");
+            alert("🎯 ¡FASE 2 COMPLETADA! Entrando a los niveles de análisis de casos.");
             siguientePantalla('pantalla-fase2', 'pantalla-casos');
         } else {
             alert("❌ Respuesta incorrecta. Revisa el concepto.");
