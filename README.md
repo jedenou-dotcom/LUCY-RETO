@@ -1,2 +1,0 @@
-# LUCY-RETO
-zcXZCZX
