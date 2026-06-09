@@ -76,11 +76,11 @@
         }
 
         .panel-grunge {
-            width: 100%; max-width: 420px;
+            width: 100%; max-width: 440px;
             background: var(--bg-panel); 
             border: 3px solid var(--border-heavy); 
             box-shadow: 0 0 0 4px var(--bg-base), 0 20px 50px rgba(0,0,0,0.85);
-            padding: 35px 20px; border-radius: 12px; box-sizing: border-box; position: relative;
+            padding: 30px 20px; border-radius: 12px; box-sizing: border-box; position: relative;
             animation: containerEntrance var(--speed-fluid) cubic-bezier(0.19, 1, 0.22, 1) both;
             transition: background var(--speed-fluid), border var(--speed-fluid), box-shadow var(--speed-fluid);
         }
@@ -109,16 +109,16 @@
             to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
         }
 
-        /* --- PERSONAJE VIO (MEJORADO) --- */
+        /* --- PERSONAJE VIO --- */
         .character-container {
-            display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; position: relative;
+            display: flex; flex-direction: column; align-items: center; margin-bottom: 15px; position: relative;
         }
         .vio-orbit-zone {
-            position: relative; width: 110px; height: 110px; display: flex; justify-content: center; align-items: center;
+            position: relative; width: 90px; height: 90px; display: flex; justify-content: center; align-items: center;
         }
         
         .vio-svg-body {
-            width: 80px; height: 80px; z-index: 3;
+            width: 70px; height: 70px; z-index: 3;
             filter: drop-shadow(0 0 12px var(--primary));
             animation: floatSpirit 3s ease-in-out infinite;
             transition: filter var(--speed-fluid);
@@ -135,7 +135,7 @@
         .p2 { animation: orbitQuantum2 1.8s infinite linear; }
 
         .vio-shadow {
-            width: 52px; height: 6px; background: rgba(0, 0, 0, 0.6); border-radius: 50%;
+            width: 45px; height: 5px; background: rgba(0, 0, 0, 0.6); border-radius: 50%;
             margin-top: 5px; animation: shadowPulse 3s ease-in-out infinite;
         }
 
@@ -147,21 +147,21 @@
 
         @keyframes floatSpirit {
             0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-12px) scale(1.03); }
+            50% { transform: translateY(-10px) scale(1.03); }
         }
         @keyframes shadowPulse {
             0%, 100% { transform: scale(1); opacity: 0.6; }
             50% { transform: scale(0.6); opacity: 0.2; }
         }
         @keyframes orbitQuantum1 {
-            0% { transform: rotate(0deg) translateX(48px) scale(1); }
-            50% { transform: rotate(180deg) translateX(48px) scale(0.6); opacity: 0.4; }
-            100% { transform: rotate(360deg) translateX(48px) scale(1); }
+            0% { transform: rotate(0deg) translateX(42px) scale(1); }
+            50% { transform: rotate(180deg) translateX(42px) scale(0.6); opacity: 0.4; }
+            100% { transform: rotate(360deg) translateX(42px) scale(1); }
         }
         @keyframes orbitQuantum2 {
-            0% { transform: rotate(180deg) translateX(42px) scale(0.5); }
-            50% { transform: rotate(360deg) translateX(42px) scale(1); }
-            100% { transform: rotate(540deg) translateX(42px) scale(0.5); }
+            0% { transform: rotate(180deg) translateX(38px) scale(0.5); }
+            50% { transform: rotate(360deg) translateX(38px) scale(1); }
+            100% { transform: rotate(540deg) translateX(38px) scale(0.5); }
         }
 
         .interface-error { animation: structuralShake 0.4s both; border-color: #FF1744 !important; }
@@ -172,7 +172,7 @@
             40%, 60% { transform: translate3d(5px, 0, 0); }
         }
 
-        /* --- APARTADO DE NIVELES (UPGRADED) --- */
+        /* --- APARTADO DE NIVELES --- */
         .progress-container-ui {
             width: 100%; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border-heavy); height: 14px; border-radius: 20px; padding: 2px; box-sizing: border-box; margin-bottom: 25px; position: relative;
         }
@@ -190,7 +190,6 @@
         }
         .level-box .num-label { font-size: 18px; line-height: 1; }
 
-        /* Estados de Niveles */
         .level-box.locked { background: rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.04); color: rgba(255,255,255,0.15); cursor: not-allowed; }
         .level-box.locked::after { content: '🔒'; font-size: 10px; margin-top: 2px; }
         .level-box.locked .num-label { display: none; }
@@ -213,10 +212,48 @@
             50% { box-shadow: 0 0 12px var(--primary-glow); border-color: #FFFFFF; }
         }
 
+        /* --- SOPA DE LETRAS MATRIZ 6X6 EXTREMA --- */
+        .wordsearch-grid { 
+            display: grid; 
+            grid-template-columns: repeat(6, 1fr); 
+            gap: 6px; 
+            margin: 15px auto; 
+            max-width: 320px; 
+        }
+        .letter-cell { 
+            background: rgba(0,0,0,0.3); 
+            border: 1px solid var(--border-heavy); 
+            color: #FFFFFF; 
+            font-size: 16px; 
+            height: 42px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            cursor: pointer; 
+            user-select: none; 
+            border-radius: 4px; 
+            transition: all 0.15s; 
+        }
+        .letter-cell.selected { 
+            background: linear-gradient(135deg, var(--primary), var(--border-heavy)); 
+            border-color: #FFFFFF; 
+            transform: scale(1.05); 
+            box-shadow: 0 0 10px var(--primary-glow); 
+            animation: cellPulse 0.2s ease; 
+        }
+        .word-target-list {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 10px 0; font-family: sans-serif; font-size: 12px;
+        }
+        .word-badge {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border-heavy); padding: 4px 10px; border-radius: 20px; color: var(--text-accent); letter-spacing: 0.5px;
+        }
+        
+        @keyframes cellPulse { 0% { transform: scale(0.9); } 100% { transform: scale(1.05); } }
+
         /* --- TIPOGRAFÍAS --- */
         h1.title-game { font-size: 38px; color: #FFFFFF; margin: 0 0 25px 0; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; line-height: 0.95; text-align: center; }
-        h2.section-header { font-size: 18px; color: var(--bg-base); background: #FFFFFF; margin: -52px auto 25px auto; padding: 5px 16px; width: fit-content; text-transform: uppercase; letter-spacing: 2px; border: 2px solid var(--border-heavy); font-weight: bold; transition: all var(--speed-fluid); }
-        p.desc-text { font-family: sans-serif; color: var(--text-accent); font-size: 14px; line-height: 1.5; margin-bottom: 22px; font-weight: 300; }
+        h2.section-header { font-size: 18px; color: var(--bg-base); background: #FFFFFF; margin: -47px auto 20px auto; padding: 5px 16px; width: fit-content; text-transform: uppercase; letter-spacing: 2px; border: 2px solid var(--border-heavy); font-weight: bold; transition: all var(--speed-fluid); }
+        p.desc-text { font-family: sans-serif; color: var(--text-accent); font-size: 14px; line-height: 1.5; margin-bottom: 18px; font-weight: 300; }
         .meta-progress-text { font-family: sans-serif; font-size: 11px; text-transform: uppercase; color: var(--text-accent); opacity: 0.9; letter-spacing: 1px; text-align: center; margin-bottom: 6px; font-weight: bold; }
 
         /* --- BOTONES --- */
@@ -232,13 +269,6 @@
         .btn-grunge.secondary .prefix { color: var(--primary-glow); margin-right: 10px; transition: transform 0.2s; display: inline-block; }
         .btn-grunge.secondary:hover { border-color: var(--primary); background: var(--bg-panel); }
         .btn-grunge.secondary:hover .prefix { transform: translateX(4px); }
-
-        /* SOPA DE LETRAS */
-        .wordsearch-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 15px auto; max-width: 240px; }
-        .letter-cell { background: rgba(0,0,0,0.3); border: 1px solid var(--border-heavy); color: #FFFFFF; font-size: 19px; height: 46px; display: flex; justify-content: center; align-items: center; cursor: pointer; user-select: none; border-radius: 4px; transition: all 0.15s; }
-        .letter-cell.selected { background: linear-gradient(135deg, var(--primary), var(--border-heavy)); border-color: #FFFFFF; transform: scale(1.05); box-shadow: 0 0 10px var(--primary-glow); animation: cellPulse 0.2s ease; }
-        
-        @keyframes cellPulse { 0% { transform: scale(0.9); } 100% { transform: scale(1.05); } }
 
         /* SELECTORES DE TEMA */
         .theme-selector-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 25px; }
@@ -258,7 +288,7 @@
         .timer-container { width: 100%; background: rgba(0,0,0,0.4); height: 6px; margin-bottom: 20px; border-radius: 3px; overflow: hidden; }
         .timer-bar { width: 100%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--primary-glow)); transition: width 1s linear; }
         .feedback-banner { font-family: sans-serif; margin-bottom: 15px; padding: 12px; font-size: 12px; font-weight: bold; display: none; text-align: center; border: 1px solid #FF1744; color: #FF8A9F; background: rgba(255, 23, 68, 0.1); border-radius: 6px; }
-        .btn-back-menu { font-family: sans-serif; font-size: 11px; text-transform: uppercase; color: var(--primary-glow); background: none; border: none; font-weight: bold; margin-top: 25px; display: block; text-align: center; width: 100%; letter-spacing: 1px; cursor: pointer; }
+        .btn-back-menu { font-family: sans-serif; font-size: 11px; text-transform: uppercase; color: var(--primary-glow); background: none; border: none; font-weight: bold; margin-top: 20px; display: block; text-align: center; width: 100%; letter-spacing: 1px; cursor: pointer; }
         
         .hidden { display: none !important; }
     </style>
@@ -300,7 +330,6 @@
         <h2 class="section-header">MAPA NODAL</h2>
         <div class="meta-progress-text" id="global-progress-lbl">Progreso Global: 0%</div>
         
-        <!-- BARRA DE PROGRESO DE CONTROL VISUAL -->
         <div class="progress-container-ui">
             <div id="progress-bar-fill" class="progress-bar-fill"></div>
         </div>
@@ -313,7 +342,7 @@
     <div id="m-howtoplay" class="panel-grunge hidden">
         <h2 class="section-header">MANUAL</h2>
         <p class="desc-text">¡Hola! Soy <b>Vio</b>. Estaré acompañándote a través de los cuadrantes analíticos familiares. Tu meta es detectar malas conductas y aplicar métodos asertivos.</p>
-        <p class="desc-text" style="color: var(--text-accent); font-weight: bold; font-size: 13px; border-left: 3px solid var(--primary); padding-left: 10px;">Pon mucha atención cuando te toque resolver las matrices verticales de sopa de letras.</p>
+        <p class="desc-text" style="color: var(--text-accent); font-weight: bold; font-size: 13px; border-left: 3px solid var(--primary); padding-left: 10px;">¡Atención! Las sopas de letras han sido saboteadas: ahora contienen un mínimo de 3 palabras ocultas de forma horizontal y vertical.</p>
         <button class="btn-grunge" style="font-size: 18px; padding: 8px;" onclick="changeModule('m-howtoplay', 'm-main-menu')">ENTENDIDO</button>
     </div>
 
@@ -367,7 +396,7 @@
     <!-- MÓDULO 6: MOTOR DE JUEGO PRINCIPAL -->
     <div id="m-gameplay" class="panel-grunge hidden">
         <div class="character-container" style="margin-bottom: 12px;">
-            <div class="vio-orbit-zone" style="width:80px; height:80px;">
+            <div class="vio-orbit-zone" style="width:70px; height:70px;">
                 <svg id="vio-gameplay" class="vio-svg-body" viewBox="0 0 100 100">
                     <path class="main-core" d="M50,15 C25,15 15,35 15,60 C15,78 30,85 50,85 C70,85 85,78 85,60 C85,35 75,15 50,15 Z" />
                     <g class="normal-eyes">
@@ -395,9 +424,10 @@
             <div class="menu-list" id="kahoot-options"></div>
         </div>
 
-        <!-- MODO: SOPAS DE LETRAS -->
+        <!-- MODO: SOPAS DE LETRAS MULTIPALABRA (6X6 EXTREMA) -->
         <div id="mech-sopa" class="hidden">
-            <p class="desc-text" id="sopa-instruccion" style="text-align:center; font-weight: bold; color: #FFFFFF;"></p>
+            <p class="desc-text" id="sopa-instruccion" style="text-align:center; font-weight: bold; color: #FFFFFF; margin-bottom:5px;"></p>
+            <div class="word-target-list" id="lista-palabras-buscar"></div>
             <div class="wordsearch-grid" id="grid-letras"></div>
             <button class="btn-grunge" style="font-size:16px; padding: 10px;" onclick="verificarSopa()">VALIDAR SELECCIÓN</button>
         </div>
@@ -454,21 +484,59 @@
 <script>
     let audioCtx = null; let mainOsc = null; let mainGain = null;
     let volMusic = 0.6; let volSfx = 0.8;
-    let currentLevel = 1; let tiempoKahoot = 20; let intervaloKahoot; let palabraSopa = [];
+    let currentLevel = 1; let tiempoKahoot = 20; let intervaloKahoot; let celdasSeleccionadasSopa = [];
 
     let nivelesCompletados = {
         1: false, 2: false, 3: false, 4: false, 5: false,
         6: false, 7: false, 8: false, 9: false, 10: false
     };
 
+    // BASE DE DATOS ACTUALIZADA CON SOPAS DE LETRAS DIFICULTAD EXTREMA (6X6, 3 PALABRAS MÍNIMO)
     const dbNiveles = {
         1: { mech: 'kahoot', text: "Un padre le grita fuertemente a su hijo exigiéndole obediencia inmediata y ciega sin derecho a réplica. ¿Qué patrón es?", opt: ["Estilo Permisivo", "Estilo Autoritario", "Estilo Negligente"], ans: 1 },
-        2: { mech: 'sopa', palabra: 'AMOR', letras: ['A','X','B','Z','M','P','Q','W','O','R','S','Y','R','K','L','M'], targets: [0,4,8,12] }, 
+        2: { 
+            mech: 'sopa', 
+            palabras: ['AMOR', 'PAZ', 'AFECTO'], 
+            letras: [
+                'A','M','O','R','X','Q',
+                'P','A','Z','W','T','V',
+                'A','F','E','C','T','O',
+                'K','B','L','M','N','P',
+                'R','S','J','G','H','I',
+                'Z','X','Y','C','B','A'
+            ], 
+            targets: [0,1,2,3, 6,7,8, 12,13,14,15,16,17] 
+        }, 
         3: { mech: 'binary', text: "El patrón desapegado o negligente se destaca por un alto nivel de control estricto y castigos físicos constantes.", ans: false },
-        4: { mech: 'sopa', palabra: 'GUIA', letras: ['G','K','J','F','U','W','P','N','I','O','L','M','A','E','S','T'], targets: [0,4,8,12] },
+        4: { 
+            mech: 'sopa', 
+            palabras: ['GUIA', 'HOGAR', 'UNION'], 
+            letras: [
+                'G','U','I','A','X','Z',
+                'H','O','G','A','R','Y',
+                'U','N','I','O','N','W',
+                'B','M','L','P','Q','K',
+                'F','R','S','T','V','D',
+                'J','N','M','L','K','H'
+            ], 
+            targets: [0,1,2,3, 6,7,8,9,10, 12,13,14,15,16] 
+        },
         5: { mech: 'binary', text: "El patrón Democrático equilibra de manera óptima las muestras de afecto mutuo con límites claros y dialogados.", ans: true },
         6: { mech: 'kahoot', text: "Los tutores muestran desinterés sistemático por la salud, educación y alimentación de los menores. ¿Qué es?", opt: ["Estilo Negligente", "Estilo Sobreprotector", "Estilo Permisivo"], ans: 0 },
-        7: { mech: 'sopa', palabra: 'LAZO', letras: ['L','V','N','Q','A','Z','S','W','Z','X','D','E','O','R','F','V'], targets: [0,4,8,12] },
+        7: { 
+            mech: 'sopa', 
+            palabras: ['LAZO', 'DIALOGO', 'APOYO'], 
+            letras: [
+                'L','A','Z','O','Q','W',
+                'D','I','A','L','O','G',
+                'O','X','V','B','N','M',
+                'A','P','O','Y','O','P',
+                'R','S','T','U','V','X',
+                'K','L','M','N','O','P'
+            ], 
+            // Nota: DIALOGO toma de la fila 1 (index 6 al 11) + la 'O' inicial en fila 2 index 12
+            targets: [0,1,2,3, 6,7,8,9,10,11,12, 18,19,20,21,22] 
+        },
         8: { mech: 'kahoot', text: "El hijo tiene derecho a opinar sobre las normas del hogar bajo un esquema de respeto y asertividad mutua. ¿Qué es?", opt: ["Estilo Autoritario", "Estilo Democrático", "Estilo Negligente"], ans: 1 },
         9: { mech: 'binary', text: "El diálogo y el soporte emocional activo son herramientas ajenas al estilo de crianza autoritario.", ans: true },
         10: { mech: 'kahoot', text: "Estilo que genera baja autoestima, sumisión o conductas agresivas severas por el exceso de castigo coercitivo:", opt: ["Estilo Democrático", "Estilo Permisivo", "Estilo Autoritario"], ans: 2 }
@@ -513,7 +581,6 @@
         mainOsc.start();
     }
 
-    // TRANSICIÓN GLITCH DE MÓDULOS EN INTERFAZ
     function changeModule(fromId, toId) {
         reproducirEfecto('seleccionar');
         const activePanel = document.getElementById(fromId);
@@ -533,7 +600,6 @@
         return Math.round((completadosCount / 10) * 100);
     }
 
-    // REGENERACIÓN DE LA INTERFAZ DE NIVELES AVANZADA
     function refreshLevelsInterface() {
         let progreso = calculateProgress();
         document.getElementById('global-progress-lbl').innerText = `Progreso Global: ${progreso}%`;
@@ -578,7 +644,6 @@
         reproducirEfecto('seleccionar');
     }
 
-    // MOTOR DE SÍNTESIS DE AUDIO ADSR MEJORADO
     function reproducirEfecto(tipo) {
         if (!audioCtx) return;
         let now = audioCtx.currentTime;
@@ -595,7 +660,6 @@
             osc.start(now); osc.stop(now + 0.08);
         } 
         else if (tipo === 'confirmar') {
-            // Arpeggio polifónico cristalino ascendente
             let notas = [440, 554.37, 659.25, 880];
             notas.forEach((freq, idx) => {
                 let osc = audioCtx.createOscillator();
@@ -611,7 +675,6 @@
             });
         } 
         else if (tipo === 'error') {
-            // Caída de frecuencia sucia (Onda de sierra desajustada)
             let osc = audioCtx.createOscillator();
             let gain = audioCtx.createGain();
             osc.type = 'sawtooth';
@@ -655,7 +718,17 @@
             runKahootTimer();
         } else if(data.mech === 'sopa') {
             document.getElementById('mech-sopa').classList.remove('hidden');
-            document.getElementById('sopa-instruccion').innerHTML = `Vio sugiere armar en vertical:<br><span style="color:var(--primary-glow); font-size:18px;">"${data.palabra}"</span>`;
+            document.getElementById('sopa-instruccion').innerHTML = `Vio requiere mapear los constructos:`;
+            
+            // Render de palabras objetivo en la interfaz
+            let badgeZone = document.getElementById('lista-palabras-buscar');
+            badgeZone.innerHTML = "";
+            data.palabras.forEach(p => {
+                let b = document.createElement('span'); b.className = "word-badge";
+                b.innerText = p;
+                badgeZone.appendChild(b);
+            });
+
             buildSopaGrid(data);
         } else if(data.mech === 'binary') {
             document.getElementById('mech-binary').classList.remove('hidden');
@@ -672,16 +745,16 @@
     }
 
     function buildSopaGrid(data) {
-        palabraSopa = [];
+        celdasSeleccionadasSopa = [];
         let grid = document.getElementById('grid-letras'); grid.innerHTML = "";
         data.letras.forEach((l, idx) => {
             let cell = document.createElement('div'); cell.className = "letter-cell"; cell.innerText = l;
             cell.onclick = () => {
                 reproducirEfecto('seleccionar');
                 if(cell.classList.contains('selected')) {
-                    cell.classList.remove('selected'); palabraSopa = palabraSopa.filter(i => i !== idx);
+                    cell.classList.remove('selected'); celdasSeleccionadasSopa = celdasSeleccionadasSopa.filter(i => i !== idx);
                 } else {
-                    cell.classList.add('selected'); palabraSopa.push(idx);
+                    cell.classList.add('selected'); celdasSeleccionadasSopa.push(idx);
                 }
             };
             grid.appendChild(cell);
@@ -689,9 +762,14 @@
     }
 
     function verificarSopa() {
-        let data = dbNiveles[currentLevel]; let targets = data.targets;
-        let win = palabraSopa.length === targets.length && palabraSopa.every((v, i) => v === targets[i]);
-        if(win) triggClearScreen(); else failAction();
+        let data = dbNiveles[currentLevel]; 
+        let targets = data.targets;
+        
+        // Verifica si la selección del usuario contiene exactamente las celdas mapeadas de las 3 palabras
+        let esCorrecto = celdasSeleccionadasSopa.length === targets.length && 
+                         celdasSeleccionadasSopa.every(v => targets.includes(v));
+
+        if(esCorrecto) triggClearScreen(); else failAction();
     }
 
     function evaluarRespuestaDirecta(userVal) {
@@ -729,9 +807,8 @@
         void playPanel.offsetWidth;
         playPanel.classList.add('interface-error');
         
-        feed.innerText = "❌ ENFOQUE DE CRIANZA ERRÓNEO. INTENTA OTRA PERSPECTIVA.";
+        feed.innerText = "❌ ENFOQUE DE CRIANZA ERRÓNEO o PALABRAS INCOMPLETAS.";
         feed.style.display = "block";
-        if(dbNiveles[currentLevel].mech === 'kahoot') loadLevelStructure();
     }
 
     function abortarJuego() {
