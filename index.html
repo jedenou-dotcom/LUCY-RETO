@@ -1,456 +1,535 @@
-```html
-<!-- REEMPLAZA SOLO ESTA PARTE EN TU CSS ORIGINAL -->
-
 <style>
-
-/* ====== BLOQUEO TOTAL A FORMATO VERTICAL ====== */
-
-html, body{
-    width:100%;
-    height:100%;
-    overflow:hidden;
-}
-
-body{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:#05010d;
-}
-
-/* CONTENEDOR PRINCIPAL */
-.wrapper-layout{
-    width:100%;
-    max-width:430px;
-    height:100vh;
-    margin:auto;
-    position:relative;
-    overflow:hidden;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:14px;
-}
-
-/* TODOS LOS PANELES */
-.panel-grunge{
-    width:100%;
-    max-width:390px;
-    max-height:96vh;
-    overflow-y:auto;
-    overflow-x:hidden;
-    border-radius:28px;
-}
-
-/* SCROLL INVISIBLE */
-.panel-grunge::-webkit-scrollbar{
-    width:0;
-}
-
-/* TÍTULOS */
-.title-game{
-    font-size:30px !important;
-}
-
-/* BOTONES */
-.btn-grunge{
-    min-height:58px;
-    font-size:18px;
-    border-radius:18px;
-}
-
-/* MODO RITMO */
-.osu-playfield{
-    height:320px !important;
-}
-
-/* PERSONAJE */
-.vio-orbit-zone{
-    transform:scale(1.08);
-}
-
-/* GRID NIVELES */
-.levels-grid{
-    grid-template-columns:repeat(3,1fr) !important;
-    gap:12px;
-}
-
-/* CAJAS NIVELES */
-.level-box{
-    height:72px !important;
-    border-radius:16px;
-    font-size:20px;
-}
-
-/* PANTALLA DE CARGA */
-.loading-title-zone h1{
-    font-size:42px !important;
-}
-
-.loading-vertical-panel{
-    max-width:360px;
-}
-
-/* AJUSTES */
-.theme-selector-grid{
-    grid-template-columns:repeat(2,1fr) !important;
-}
-
-/* MASCOTA */
-.stat-card{
-    border-radius:18px;
-}
-
-/* ANIMACIÓN EXTRA */
-.panel-grunge{
-    animation:ultimateEntrance .5s cubic-bezier(.19,1,.22,1);
-}
-
-@keyframes ultimateEntrance{
-    from{
-        opacity:0;
-        transform:translateY(20px) scale(.96);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0px) scale(1);
-    }
-}
-
-/* GLOW PREMIUM */
-.panel-grunge{
-    box-shadow:
-    0 20px 60px rgba(0,0,0,.55),
-    0 0 25px rgba(177,70,255,.35),
-    inset 0 0 20px rgba(255,255,255,.02);
-}
-
-/* EFECTO BOTONES */
-.btn-grunge:hover{
-    transform:translateY(-3px) scale(1.02);
-}
-
-.btn-grunge:active{
-    transform:scale(.98);
-}
-
-/* EFECTOS PREMIUM MODO RITMO */
-.osu-target-node{
-    animation:
-    nodeShrink 1.4s linear forwards,
-    pulseGlow 1s infinite alternate;
-}
-
-@keyframes pulseGlow{
-    from{
-        box-shadow:0 0 10px var(--primary-glow);
-    }
-    to{
-        box-shadow:
-        0 0 25px var(--primary-glow),
-        0 0 45px var(--primary-glow);
-    }
-}
-
-/* PARTÍCULAS FONDO */
-body::after{
-    animation:gridMove 10s linear infinite;
-}
-
-@keyframes gridMove{
-    from{
-        background-position:0 0,0 0;
-    }
-    to{
-        background-position:30px 30px,30px 30px;
-    }
-}
-
-/* RESPONSIVE MÓVIL */
-@media(max-width:480px){
-
-    .panel-grunge{
-        padding:24px 18px;
+    /* --- MOTOR DE TEMAS VARIABLES (CSS VARIABLES) --- */
+    :root {
+        --bg-base: #0b0214;
+        --bg-panel: rgba(26, 1, 41, 0.65);
+        --border-heavy: #3A025B;
+        --primary: #520380;
+        --primary-glow: #b146ff;
+        --text-main: #FFFFFF;
+        --text-accent: #DFB6B2;
+        --speed-fluid: 0.35s;
+        --grid-opacity: 0.05;
+        --shadow-glow: rgba(177, 70, 255, 0.45);
+        --card-bg: rgba(255, 255, 255, 0.03);
+        --glass-shine: rgba(255, 255, 255, 0.08);
     }
 
-    .title-game{
-        font-size:26px !important;
+    [data-theme="cyber"] {
+        --bg-base: #000904;
+        --bg-panel: rgba(2, 31, 15, 0.65);
+        --border-heavy: #004D26;
+        --primary: #00E676;
+        --primary-glow: #66FFA6;
+        --text-main: #FFFFFF;
+        --text-accent: #B2DFDB;
+        --grid-opacity: 0.1;
+        --shadow-glow: rgba(0, 230, 118, 0.45);
+        --card-bg: rgba(255, 255, 255, 0.03);
+        --glass-shine: rgba(255, 255, 255, 0.08);
     }
 
-    .btn-grunge{
-        font-size:16px;
-        min-height:54px;
+    [data-theme="crimson"] {
+        --bg-base: #120002;
+        --bg-panel: rgba(43, 2, 7, 0.65);
+        --border-heavy: #5C040E;
+        --primary: #FF1744;
+        --primary-glow: #FF617F;
+        --text-main: #FFFFFF;
+        --text-accent: #FFE0E2;
+        --grid-opacity: 0.07;
+        --shadow-glow: rgba(255, 23, 68, 0.45);
+        --card-bg: rgba(255, 255, 255, 0.03);
+        --glass-shine: rgba(255, 255, 255, 0.08);
     }
 
-    .osu-playfield{
-        height:280px !important;
-    }
-}
-
-/* BLOQUEAR HORIZONTAL */
-@media screen and (orientation:landscape){
-
-    body{
-        background:#000;
-    }
-
-    body *{
-        display:none !important;
+    [data-theme="cyan-white"] {
+        --bg-base: #f0f9ff;
+        --bg-panel: rgba(255, 255, 255, 0.75);
+        --border-heavy: #0EA5E9;
+        --primary: #0284C7;
+        --primary-glow: #0ea5e9;
+        --text-main: #0F172A;
+        --text-accent: #475569;
+        --grid-opacity: 0.2;
+        --shadow-glow: rgba(14, 165, 233, 0.35);
+        --card-bg: rgba(14, 165, 233, 0.04);
+        --glass-shine: rgba(14, 165, 233, 0.12);
     }
 
-    body::before{
-        content:"GIRA EL DISPOSITIVO 📱";
-        display:flex !important;
-        position:fixed;
-        inset:0;
-        justify-content:center;
-        align-items:center;
-        color:#fff;
-        font-size:28px;
-        font-family:'Orbitron',sans-serif;
-        letter-spacing:2px;
-        z-index:999999;
+    [data-theme="amber"] {
+        --bg-base: #140d00;
+        --bg-panel: rgba(43, 29, 2, 0.65);
+        --border-heavy: #5C3D04;
+        --primary: #D97706;
+        --primary-glow: #FBBF24;
+        --text-main: #FFFFFF;
+        --text-accent: #FEF3C7;
+        --grid-opacity: 0.06;
+        --shadow-glow: rgba(251, 191, 36, 0.45);
+        --card-bg: rgba(255, 255, 255, 0.03);
+        --glass-shine: rgba(255, 255, 255, 0.08);
     }
-}
 
+    /* --- ESTILO BASE & MALLA TÁCTICA --- */
+    body {
+        background-color: var(--bg-base);
+        color: var(--text-main);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        margin: 0; padding: 0; height: 100vh;
+        display: flex; justify-content: center; align-items: center;
+        overflow: hidden; -webkit-tap-highlight-color: transparent;
+        transition: background-color var(--speed-fluid) ease, color var(--speed-fluid) ease;
+        position: relative;
+    }
+
+    body::after {
+        content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background-image: 
+            linear-gradient(rgba(255,255,255, var(--grid-opacity)) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255, var(--grid-opacity)) 1px, transparent 1px);
+        background-size: 30px 30px;
+        z-index: 1; pointer-events: none;
+    }
+
+    body::before {
+        content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
+        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.05) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.005), rgba(0, 255, 0, 0.002), rgba(0, 0, 255, 0.005));
+        z-index: 10; background-size: 100% 4px, 6px 100%; pointer-events: none;
+    }
+
+    /* --- ORBES DE LUZ FLOTANTE (ESTÉTICA PREMIUM) --- */
+    .bg-orb {
+        position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.22; z-index: 0; pointer-events: none;
+        transition: background var(--speed-fluid) ease;
+    }
+    .orb-1 {
+        width: 350px; height: 350px; background: var(--primary-glow); top: 15%; left: 15%;
+        animation: floatOrb1 18s infinite alternate ease-in-out;
+    }
+    .orb-2 {
+        width: 300px; height: 300px; background: var(--primary); bottom: 15%; right: 15%;
+        animation: floatOrb2 15s infinite alternate ease-in-out;
+    }
+    @keyframes floatOrb1 {
+        0% { transform: translate(0, 0) scale(1); }
+        100% { transform: translate(60px, 40px) scale(1.15); }
+    }
+    @keyframes floatOrb2 {
+        0% { transform: translate(0, 0) scale(1.1); }
+        100% { transform: translate(-50px, -40px) scale(0.9); }
+    }
+
+    /* --- PANTALLA DE CARGA VERTICAL MÍNIMA --- */
+    .loading-wrapper {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background-color: var(--bg-base); z-index: 9999;
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        transition: opacity 0.5s ease; padding: 40px 20px; box-sizing: border-box;
+    }
+    .loading-vertical-panel {
+        display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+        height: 100%; max-height: 520px; text-align: center; width: 100%; max-width: 360px;
+    }
+    .loading-title-zone h1 {
+        font-family: 'Orbitron', sans-serif; font-weight: 900;
+        font-size: 38px; margin: 0; line-height: 1.1; letter-spacing: 1px; color: var(--text-main);
+        text-shadow: 0 0 20px var(--shadow-glow);
+    }
+    .loading-title-zone .sub {
+        font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 5px; color: var(--text-accent);
+        text-transform: uppercase; margin-top: 12px; font-weight: 700;
+    }
+    .loading-center-meta {
+        width: 100%; display: flex; flex-direction: column; align-items: center; gap: 15px;
+    }
+    .quantum-pulse-loader {
+        width: 52px; height: 52px; border-radius: 50%; border: 3px solid var(--primary-glow);
+        border-top-color: transparent; animation: spinQ 1s linear infinite;
+        filter: drop-shadow(0 0 8px var(--primary-glow));
+    }
+    @keyframes spinQ { to { transform: rotate(360deg); } }
+    
+    .loading-progress-bar {
+        width: 85%; height: 6px; background: rgba(0,0,0,0.3);
+        border-radius: 10px; overflow: hidden; border: 1px solid var(--border-heavy);
+    }
+    .loading-fill {
+        width: 0%; height: 100%; background: var(--primary-glow); box-shadow: 0 0 10px var(--primary-glow);
+        transition: width 0.1s linear;
+    }
+    .loading-author-zone {
+        font-size: 13px; color: var(--text-accent); letter-spacing: 0.5px; line-height: 1.4;
+    }
+    .loading-author-zone b {
+        display: block; font-size: 16px; color: var(--text-main); margin-top: 6px; font-family: 'Orbitron', sans-serif; font-weight: 700; letter-spacing: 1px;
+    }
+
+    /* --- CONTENEDORES MÓDULOS DE CRISTAL --- */
+    .wrapper-layout {
+        width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 2; padding: 20px; box-sizing: border-box;
+    }
+    .panel-grunge {
+        width: 100%; max-width: 440px; background: var(--bg-panel); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-shine); box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 0 35px var(--shadow-glow);
+        padding: 35px 25px; border-radius: 24px; box-sizing: border-box; position: relative;
+        animation: containerEntrance var(--speed-fluid) cubic-bezier(0.19, 1, 0.22, 1) both;
+        transition: background var(--speed-fluid), border var(--speed-fluid), box-shadow var(--speed-fluid);
+    }
+    @keyframes containerEntrance {
+        from { opacity: 0; transform: scale(0.96) translateY(20px); filter: blur(5px); }
+        to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+    }
+
+    .panel-grunge::before {
+        content: ''; position: absolute; top: 12px; left: 12px; width: 16px; height: 16px;
+        border-top: 2px solid var(--primary-glow); border-left: 2px solid var(--primary-glow); opacity: 0.7; pointer-events: none;
+        transition: border var(--speed-fluid);
+    }
+    .panel-grunge::after {
+        content: ''; position: absolute; bottom: 12px; right: 12px; width: 16px; height: 16px;
+        border-bottom: 2px solid var(--primary-glow); border-right: 2px solid var(--primary-glow); opacity: 0.7; pointer-events: none;
+        transition: border var(--speed-fluid);
+    }
+
+    /* Decoración de estatus táctico */
+    .system-tag {
+        font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 2px; color: var(--primary-glow); opacity: 0.7; position: absolute; top: 12px; right: 20px; font-weight: bold;
+    }
+
+    /* --- PERSONAJE VIO --- */
+    .character-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; }
+    .vio-orbit-zone { position: relative; width: 95px; height: 95px; display: flex; justify-content: center; align-items: center; }
+    
+    /* Escáner de diagnóstico */
+    .scanner-line {
+        position: absolute; width: 85px; height: 2px; background: var(--primary-glow); opacity: 0.65;
+        top: 0; animation: scanSweep 3.5s infinite ease-in-out; filter: drop-shadow(0 0 5px var(--primary-glow)); pointer-events: none; z-index: 4;
+    }
+    @keyframes scanSweep {
+        0%, 100% { top: 10px; opacity: 0.2; }
+        50% { top: 85px; opacity: 0.95; }
+    }
+
+    .vio-svg-body {
+        width: 70px; height: 70px; z-index: 3; filter: drop-shadow(0 0 14px var(--primary));
+        animation: floatSpirit 3.5s ease-in-out infinite; cursor: pointer;
+        transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .vio-svg-body.pet-jump { animation: petBounce 0.45s cubic-bezier(0.25, 0.8, 0.25, 1.4); }
+    @keyframes petBounce {
+        0%, 100% { transform: translateY(0); } 50% { transform: translateY(-24px) scale(1.08, 0.92); }
+    }
+    .vio-svg-body .main-core { fill: var(--primary); transition: fill var(--speed-fluid); }
+    .vio-svg-body .glow-core { fill: var(--primary-glow); transition: fill var(--speed-fluid); }
+    .vio-svg-body .eyes { fill: #FFFFFF; }
+    
+    .vio-shadow { 
+        width: 44px; height: 4px; background: rgba(0, 0, 0, 0.45); border-radius: 50%; margin-top: 6px; 
+        animation: shadowPulse 3.5s ease-in-out infinite; transition: background var(--speed-fluid); 
+    }
+    
+    @keyframes floatSpirit { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes shadowPulse { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(0.65); opacity: 0.15; } }
+
+    /* Variantes Emocionales de Vio */
+    .sad-eyes, .happy-eyes, .cool-eyes, .surprised-eyes { display: none; }
+    .vio-svg-body.happy .normal-eyes { display: none; } .vio-svg-body.happy .happy-eyes { display: block; }
+    .vio-svg-body.sad .normal-eyes { display: none; } .vio-svg-body.sad .sad-eyes { display: block; }
+    .vio-svg-body.cool .normal-eyes { display: none; } .vio-svg-body.cool .cool-eyes { display: block; }
+    .vio-svg-body.surprised .normal-eyes { display: none; } .vio-svg-body.surprised .surprised-eyes { display: block; }
+
+    /* --- BOTONES PREMIUM FUTURISTAS --- */
+    .menu-list { display: flex; flex-direction: column; gap: 14px; width: 100%; margin-top: 10px; }
+    
+    .btn-grunge {
+        background: linear-gradient(135deg, var(--primary), rgba(26, 1, 41, 0.4));
+        color: #FFFFFF; border: 1px solid var(--border-heavy); font-family: 'Rajdhani', sans-serif; font-size: 21px; font-weight: 700;
+        padding: 14px 20px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; width: 100%; text-align: left;
+        transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1); border-radius: 14px;
+        display: flex; align-items: center; justify-content: space-between; position: relative; overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+    }
+    /* Muesca angular estética en los botones */
+    .btn-grunge::before {
+        content: ''; position: absolute; top: 0; right: 0; width: 12px; height: 12px;
+        background: var(--primary-glow); opacity: 0.85; clip-path: polygon(100% 0, 0 0, 100% 100%);
+        transition: transform 0.25s;
+    }
+    .btn-grunge:hover {
+        transform: translateY(-3px) scale(1.02);
+        border-color: var(--primary-glow);
+        box-shadow: 0 8px 25px var(--shadow-glow);
+        background: linear-gradient(135deg, var(--primary), var(--primary-glow));
+    }
+    .btn-grunge:hover::before {
+        transform: scale(1.3);
+    }
+    .btn-grunge:active { transform: translateY(1px); }
+    
+    .btn-grunge i.btn-icon {
+        font-size: 18px; color: var(--primary-glow); transition: transform 0.25s, color 0.25s;
+    }
+    .btn-grunge:hover i.btn-icon {
+        transform: translateX(4px); color: #FFFFFF;
+    }
+
+    .btn-grunge.secondary {
+        background: var(--card-bg); border: 1px solid var(--border-heavy); font-size: 15px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; text-align: left; padding: 14px 18px; border-radius: 12px; color: var(--text-main); justify-content: flex-start; gap: 12px;
+    }
+    .btn-grunge.secondary::before { display: none; }
+    .btn-grunge.secondary:hover { border-color: var(--primary-glow); background: rgba(255,255,255,0.05); }
+
+    /* BOTÓN DE DESCONEXIÓN REESTRUCTURADO */
+    .btn-disconnect-tactical {
+        background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.35); color: #FCA5A5; font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 2px; padding: 12px; border-radius: 12px; cursor: pointer; width: 100%; margin-top: 22px; transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-disconnect-tactical:hover { background: #DC2626; color: #FFFFFF; border-color: #DC2626; box-shadow: 0 0 15px rgba(220, 38, 38, 0.4); transform: translateY(-2px); }
+
+    /* --- TIPOGRAFÍAS Y DISEÑO GENERAL --- */
+    h1.title-game { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 34px; text-align: center; margin: 0 0 25px 0; text-transform: uppercase; line-height: 1; letter-spacing: 1px; }
+    h2.section-header { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 15px; color: var(--bg-base); background: var(--text-main); margin: -48px auto 20px auto; padding: 5px 16px; width: fit-content; text-transform: uppercase; letter-spacing: 2px; border-radius: 4px; box-shadow: 0 0 10px rgba(0,0,0,0.15); }
+    p.desc-text { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text-accent); font-size: 14px; line-height: 1.5; margin-bottom: 18px; }
+    .meta-progress-text { font-family: 'Rajdhani', sans-serif; font-size: 13px; text-transform: uppercase; color: var(--text-accent); opacity: 0.95; letter-spacing: 1px; text-align: center; margin-bottom: 6px; font-weight: bold; }
+    .feedback-banner { font-family: 'Plus Jakarta Sans', sans-serif; padding: 12px; font-size: 12px; font-weight: bold; display: none; text-align: center; border: 1px solid #FF1744; color: #FF8A9F; background: rgba(255, 23, 68, 0.1); border-radius: 8px; margin-bottom: 12px; }
+
+    /* --- MAPA NODAL / NIVELES --- */
+    .progress-container-ui { width: 100%; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border-heavy); height: 12px; border-radius: 20px; padding: 2px; box-sizing: border-box; margin-bottom: 25px; }
+    .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--primary-glow)); border-radius: 20px; box-shadow: 0 0 8px var(--primary-glow); transition: width 0.4s ease; }
+    .levels-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 15px; }
+    .level-box {
+        background: rgba(255, 255, 255, 0.02); border: 2px solid var(--border-heavy); color: var(--text-main); font-size: 16px; height: 50px; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; transition: all 0.2s; border-radius: 8px;
+    }
+    .level-box::after { content: 'N-'; font-family: sans-serif; font-size: 8px; opacity: 0.5; }
+    .level-box.locked { background: rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.02); color: rgba(255,255,255,0.1); cursor: not-allowed; }
+    .level-box.locked::after { content: '🔒'; font-size: 9px; }
+    .level-box.locked .num-label { display: none; }
+    .level-box.completed { background: var(--primary); border-color: var(--text-main); }
+    .level-box.completed::after { content: '✓'; color: var(--primary-glow); }
+    .level-box:not(.locked):hover { border-color: var(--primary-glow); transform: translateY(-3px); }
+
+    /* --- MÓDULO MASCOTA INTERACTIVA --- */
+    .mascot-stats-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 15px 0; }
+    .stat-card { background: var(--card-bg); border: 1px solid var(--border-heavy); border-radius: 10px; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; font-family: sans-serif; }
+    .stat-info { display: flex; flex-direction: column; width: 65%; }
+    .stat-label { font-weight: bold; font-size: 11px; margin-bottom: 4px; color: var(--text-main); }
+    .stat-bar-container { background: rgba(0,0,0,0.3); height: 6px; border-radius: 5px; overflow: hidden; }
+    .stat-bar-fill { height: 100%; background: var(--primary-glow); width: 50%; transition: width 0.3s; }
+    .stat-val { font-size: 18px; color: var(--primary-glow); }
+    .mood-selector { display: flex; justify-content: space-around; background: var(--card-bg); border: 1px solid var(--border-heavy); padding: 6px; border-radius: 10px; margin: 12px 0; }
+    .mood-btn { background: none; border: none; font-size: 18px; cursor: pointer; filter: grayscale(1); transition: transform 0.2s; }
+    .mood-btn.active { filter: grayscale(0); transform: scale(1.15); }
+
+    /* --- NUEVO MODO DE JUEGO: RITMO (ESTILO OSU! / POU) --- */
+    .osu-playfield {
+        width: 100%; height: 260px; background: rgba(0, 0, 0, 0.5); border: 2px solid var(--border-heavy); border-radius: 12px; position: relative; overflow: hidden; margin: 15px 0; cursor: crosshair;
+    }
+    .osu-target-node {
+        position: absolute; width: 50px; height: 50px; background: radial-gradient(circle, var(--primary-glow) 20%, var(--primary) 80%); border: 3px solid #FFFFFF; border-radius: 50%; transform: translate(-50%, -50%); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px var(--primary-glow); animation: nodeShrink 1.5s linear forwards;
+    }
+    .osu-target-node::before {
+        content: ''; position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border: 2px solid var(--primary-glow); border-radius: 50%; animation: approachRing 1.5s linear forwards;
+    }
+    @keyframes nodeShrink { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 90% { opacity: 1; } 100% { transform: translate(-50%, -50%) scale(0); opacity: 0; } }
+    @keyframes approachRing { 0% { transform: scale(1.6); opacity: 0.8; } 100% { transform: scale(1); opacity: 0.2; } }
+    .osu-score-banner { display: flex; justify-content: space-between; font-family: sans-serif; font-size: 12px; color: var(--text-accent); font-weight: bold; }
+
+    /* --- SOPA DE LETRAS Y QUIZ --- */
+    .wordsearch-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin: 15px auto; max-width: 320px; }
+    .letter-cell { background: var(--card-bg); border: 1px solid var(--border-heavy); color: var(--text-main); font-size: 16px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; user-select: none; border-radius: 6px; }
+    .letter-cell.selected { background: var(--primary); border-color: var(--primary-glow); box-shadow: 0 0 8px var(--primary-glow); }
+    .word-target-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 10px 0; font-family: sans-serif; font-size: 12px; }
+    .word-badge { background: var(--card-bg); border: 1px solid var(--border-heavy); padding: 4px 10px; border-radius: 20px; color: var(--text-accent); }
+
+    .theme-selector-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 20px; }
+    .theme-btn-card { border: 1px solid var(--border-heavy); background: var(--card-bg); border-radius: 6px; padding: 8px 2px; cursor: pointer; text-align: center; font-family: sans-serif; font-size: 9px; font-weight: bold; color: var(--text-main); }
+    .theme-btn-card.active { border-color: var(--primary-glow); background: var(--primary); }
+    .swatch { width: 14px; height: 14px; border-radius: 50%; margin: 0 auto 4px auto; }
+
+    .btn-back-menu { font-family: 'Rajdhani', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; color: var(--primary-glow); background: none; border: none; margin-top: 18px; display: block; text-align: center; width: 100%; cursor: pointer; letter-spacing: 2px; }
+    .hidden { display: none !important; }
 </style>
 
-
-
-<!-- AGREGA ESTO ANTES DE </script> -->
-
-<script>
-
-/* ===== SISTEMA MONEDAS ===== */
-
-let monedas = parseInt(localStorage.getItem("monedas")) || 0;
-
-function guardarMonedas(){
-    localStorage.setItem("monedas", monedas);
-}
-
-function sumarMonedas(cantidad){
-    monedas += cantidad;
-    guardarMonedas();
-    actualizarMonedasUI();
-}
-
-function actualizarMonedasUI(){
-
-    let hud = document.getElementById("hud-coins");
-
-    if(!hud){
-
-        const box = document.createElement("div");
-
-        box.id = "hud-coins";
-
-        box.style.position = "fixed";
-        box.style.top = "12px";
-        box.style.left = "50%";
-        box.style.transform = "translateX(-50%)";
-        box.style.zIndex = "9999";
-        box.style.padding = "8px 16px";
-        box.style.borderRadius = "14px";
-        box.style.background = "rgba(0,0,0,.45)";
-        box.style.backdropFilter = "blur(12px)";
-        box.style.border = "1px solid rgba(255,255,255,.1)";
-        box.style.fontWeight = "bold";
-        box.style.fontFamily = "Orbitron";
-        box.style.color = "white";
-        box.innerHTML = "🪙 " + monedas;
-
-        document.body.appendChild(box);
-
-    }else{
-        hud.innerHTML = "🪙 " + monedas;
-    }
-}
-
-actualizarMonedasUI();
-
-/* ===== GUARDADO AUTOMÁTICO ===== */
-
-function guardarProgreso(){
-
-    localStorage.setItem(
-        "nivelesCompletados",
-        JSON.stringify(nivelesCompletados)
-    );
-
-    localStorage.setItem(
-        "mascotaState",
-        JSON.stringify(mascotaState)
-    );
-}
-
-function cargarProgreso(){
-
-    const nivelesGuardados =
-        localStorage.getItem("nivelesCompletados");
-
-    const mascotaGuardada =
-        localStorage.getItem("mascotaState");
-
-    if(nivelesGuardados){
-        nivelesCompletados =
-        JSON.parse(nivelesGuardados);
-    }
-
-    if(mascotaGuardada){
-        mascotaState =
-        JSON.parse(mascotaGuardada);
-    }
-
-    refreshMascotaUI();
-    refreshLevelsInterface();
-}
-
-window.onload = () => {
-    cargarProgreso();
-};
-
-/* ===== RECOMPENSAS ===== */
-
-const oldClear = triggClearScreen;
-
-triggClearScreen = function(){
-
-    sumarMonedas(25);
-
-    oldClear();
-
-    guardarProgreso();
-};
-
-/* ===== BONUS MODO RITMO ===== */
-
-const oldEnd = endOsuGame;
-
-endOsuGame = function(aborted){
-
-    if(!aborted){
-
-        sumarMonedas(
-            Math.floor(osuScore / 2)
-        );
-    }
-
-    oldEnd(aborted);
-};
-
-/* ===== PARTÍCULAS PREMIUM ===== */
-
-function crearParticula(x,y){
-
-    const p = document.createElement("div");
-
-    p.style.position = "fixed";
-    p.style.left = x + "px";
-    p.style.top = y + "px";
-    p.style.width = "8px";
-    p.style.height = "8px";
-    p.style.borderRadius = "50%";
-    p.style.background = "white";
-    p.style.pointerEvents = "none";
-    p.style.zIndex = "99999";
-    p.style.boxShadow = "0 0 12px white";
-
-    document.body.appendChild(p);
-
-    const angle = Math.random() * Math.PI * 2;
-    const dist = 40 + Math.random() * 40;
-
-    const tx = Math.cos(angle) * dist;
-    const ty = Math.sin(angle) * dist;
-
-    p.animate([
-        {
-            transform:"translate(0,0) scale(1)",
-            opacity:1
-        },
-        {
-            transform:`translate(${tx}px,${ty}px) scale(0)`,
-            opacity:0
-        }
-    ],{
-        duration:700
-    });
-
-    setTimeout(()=>p.remove(),700);
-}
-
-/* ===== CLICK FX ===== */
-
-document.addEventListener("click",(e)=>{
-
-    for(let i=0;i<6;i++){
-        crearParticula(
-            e.clientX,
-            e.clientY
-        );
-    }
-
-});
-
-/* ===== TIENDA SIMPLE ===== */
-
-function abrirTienda(){
-
-    alert(
-`🛒 TIENDA
-
-Próximamente:
-- skins
-- nuevos temas
-- mascotas
-- efectos
-- sonidos premium`
-    );
-}
-
-/* ===== LOGROS ===== */
-
-function verificarLogros(){
-
-    const completados =
-    Object.values(nivelesCompletados)
-    .filter(Boolean).length;
-
-    if(completados >= 5){
-
-        alert("🏆 LOGRO: Explorador");
-    }
-
-    if(completados >= 10){
-
-        alert("👑 LOGRO: Maestro");
-    }
-}
-
-/* ===== MÚSICA AMBIENTE ===== */
-
-let ambientStarted = false;
-
-function iniciarMusica(){
-
-    if(ambientStarted) return;
-
-    ambientStarted = true;
-
-    if(!audioCtx) initAudioEngine();
-
-    mainOsc.frequency.setValueAtTime(
-        90,
-        audioCtx.currentTime
-    );
-}
-
-document.body.addEventListener(
-    "click",
-    iniciarMusica,
-    { once:true }
-);
-
-</script>
-```
+    <div class="loading-center-meta">
+        <div class="quantum-pulse-loader"></div>
+        <div class="loading-progress-bar">
+            <div id="loading-fill" class="loading-fill"></div>
+        </div>
+        <div style="font-size: 14px; font-weight: bold;" id="loading-pct">0%</div>
+    </div>
+
+    <div class="loading-author-zone">
+        Desarrollado y estructurado por:
+        <b>Lucia Carolina Barcenas Rodriguez</b>
+    </div>
+</div>
+
+<!-- MÓDULO 1: MENÚ PRINCIPAL (REDISEÑADO) -->
+<div id="m-main-menu" class="panel-grunge">
+    <div class="system-tag">SYS_STATUS: ACTIVE</div>
+    
+    <div class="character-container">
+        <div class="vio-orbit-zone">
+            <div class="scanner-line"></div>
+            <svg id="vio-menu" class="vio-svg-body" viewBox="0 0 100 100" onclick="interactMascotaHome()">
+                <path class="main-core" d="M50,15 C25,15 15,35 15,60 C15,78 30,85 50,85 C70,85 85,78 85,60 C85,35 75,15 50,15 Z" />
+                <circle class="glow-core" cx="50" cy="50" r="22" opacity="0.3"/>
+                <g class="normal-eyes"><circle class="eyes" cx="38" cy="50" r="5" /><circle class="eyes" cx="62" cy="50" r="5" /></g>
+            </svg>
+        </div>
+        <div class="vio-shadow"></div>
+    </div>
+
+    <h1 class="title-game">PATRONES<br><span style="color:var(--primary-glow);">DE CRIANZA</span></h1>
+    
+    <div class="menu-list">
+        <button class="btn-grunge" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-levels'); refreshLevelsInterface();">
+            <span>Modo Historia (Mapa)</span>
+            <i class="fa-solid fa-compass btn-icon"></i>
+        </button>
+        <button class="btn-grunge" style="filter: brightness(0.95);" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-mascot'); refreshMascotaUI();">
+            <span>Santuario Mascota 🐾</span>
+            <i class="fa-solid fa-heart btn-icon"></i>
+        </button>
+        <button class="btn-grunge" style="filter: brightness(0.9);" onclick="initAudioEngine(); startOsuGameMode();">
+            <span>Modo Ritmo: ¡A jugar! ⚡</span>
+            <i class="fa-solid fa-bolt-lightning btn-icon"></i>
+        </button>
+        <button class="btn-grunge" style="filter: brightness(0.8); font-size:16px; padding:12px 18px;" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-settings');">
+            <span>Ajustes & Temas</span>
+            <i class="fa-solid fa-gears btn-icon"></i>
+        </button>
+    </div>
+</div>
+
+<!-- MÓDULO 2: MI MASCOTA (SANCTUARY) -->
+<div id="m-mascot" class="panel-grunge">
+    <div class="system-tag">VIO_HEART_CORE</div>
+    <h2 class="section-header">SANTUARIO</h2>
+    
+    <div class="character-container">
+        <div class="vio-orbit-zone">
+            <div class="scanner-line"></div>
+            <svg id="vio-sanctuary" class="vio-svg-body happy" viewBox="0 0 100 100" onclick="acariciarMascota()">
+                <path class="main-core" d="M50,15 C25,15 15,35 15,60 C15,78 30,85 50,85 C70,85 85,78 85,60 C85,35 75,15 50,15 Z" />
+                <g class="normal-eyes"><circle class="eyes" cx="38" cy="50" r="5" /><circle class="eyes" cx="62" cy="50" r="5" /></g>
+                <g class="happy-eyes">
+                    <path d="M32,52 Q38,46 44,52" stroke="#FFFFFF" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+                    <path d="M56,52 Q62,46 68,52" stroke="#FFFFFF" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+                </g>
+                <g class="cool-eyes">
+                    <rect x="28" y="44" width="20" height="8" rx="2" fill="#111" />
+                    <rect x="52" y="44" width="20" height="8" rx="2" fill="#111" />
+                </g>
+                <g class="surprised-eyes">
+                    <circle cx="38" cy="50" r="6" fill="#FFF" /><circle cx="62" cy="50" r="6" fill="#FFF" />
+                </g>
+            </svg>
+        </div>
+        <div class="vio-shadow"></div>
+    </div>
+
+    <div class="mascot-stats-grid">
+        <div class="stat-card">
+            <div class="stat-info">
+                <span class="stat-label">⚡ ENERGÍA</span>
+                <div class="stat-bar-container"><div id="bar-energy" class="stat-bar-fill"></div></div>
+            </div>
+            <div id="val-energy" class="stat-val">80%</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-info">
+                <span class="stat-label">❤️ AFECTO</span>
+                <div class="stat-bar-container"><div id="bar-love" class="stat-bar-fill"></div></div>
+            </div>
+            <div id="val-love" class="stat-val">50%</div>
+        </div>
+    </div>
+
+    <div class="mood-selector">
+        <button class="mood-btn active" id="m-happy" onclick="setMascotExpression('happy')">😊</button>
+        <button class="mood-btn" id="m-surprised" onclick="setMascotExpression('surprised')">😲</button>
+        <button class="mood-btn" id="m-cool" onclick="setMascotExpression('cool')">😎</button>
+    </div>
+
+    <button class="btn-grunge" style="font-size:16px; padding:12px; justify-content:center;" onclick="startOsuGameMode()">
+        Jugar Ritmo con Vio
+    </button>
+    <button class="btn-back-menu" onclick="changeModule('m-mascot', 'm-main-menu')">✖ VOLVER</button>
+</div>
+
+<!-- MÓDULO NUEVO: JUEGO DE RITMO (ESTILO OSU / POU) -->
+<div id="m-game-osu" class="panel-grunge hidden">
+    <h2 class="section-header" style="background: var(--primary-glow); color: #FFF;">MODO RITMO</h2>
+    <div class="osu-score-banner">
+        <div>PUNTOS: <span id="osu-score-val" style="color:#FFF;">0</span></div>
+        <div>TIEMPO: <span id="osu-timer-val" style="color:var(--primary-glow);">20</span>s</div>
+    </div>
+    
+    <div class="osu-playfield" id="osu-field">
+        <!-- Los nodos interactivos se inyectarán de forma dinámica aquí -->
+    </div>
+    
+    <p class="desc-text" style="font-size: 11px; text-align: center; font-family: sans-serif;">¡Presiona los círculos rápidamente antes de que se encojan!</p>
+    <button class="btn-disconnect-tactical" onclick="endOsuGame(true)">SALIR DEL MODO JUEGO</button>
+</div>
+
+<!-- MÓDULO 3: MAPA NODAL -->
+<div id="m-levels" class="panel-grunge hidden">
+    <h2 class="section-header">MAPA NODAL</h2>
+    <div class="progress-container-ui"><div id="progress-bar-fill" class="progress-bar-fill"></div></div>
+    <div class="levels-grid" id="grid-selector-niveles"></div>
+    <button class="btn-back-menu" onclick="changeModule('m-levels', 'm-main-menu')">✖ VOLVER AL MENÚ</button>
+</div>
+
+<!-- MÓDULO 4: AJUSTES & TEMAS -->
+<div id="m-settings" class="panel-grunge hidden">
+    <h2 class="section-header">AJUSTES</h2>
+    <div class="theme-selector-grid">
+        <div id="t-card-mystic" class="theme-btn-card active" onclick="updateAppTheme('mystic')"><div class="swatch" style="background:#520380;"></div>Místico</div>
+        <div id="t-card-cyber" class="theme-btn-card" onclick="updateAppTheme('cyber')"><div class="swatch" style="background:#00E676;"></div>Ciber</div>
+        <div id="t-card-crimson" class="theme-btn-card" onclick="updateAppTheme('crimson')"><div class="swatch" style="background:#FF1744;"></div>Carmesí</div>
+        <div id="t-card-cyan-white" class="theme-btn-card" onclick="updateAppTheme('cyan-white')"><div class="swatch" style="background:#0284C7; border:1px solid #fff;"></div>Aero</div>
+        <div id="t-card-amber" class="theme-btn-card" onclick="updateAppTheme('amber')"><div class="swatch" style="background:#D97706;"></div>Ámbar</div>
+    </div>
+    <button class="btn-grunge" style="justify-content:center; font-size:16px;" onclick="changeModule('m-settings', 'm-main-menu')">REGRESAR</button>
+</div>
+
+<!-- MÓDULO 5: MOTOR DE HISTORIA (QUIZ / SOPA) -->
+<div id="m-gameplay" class="panel-grunge hidden">
+    <div id="game-feedback" class="feedback-banner"></div>
+
+    <div id="mech-kahoot" class="hidden">
+        <p class="desc-text" id="kahoot-text" style="font-weight: bold; color: var(--text-main);"></p>
+        <div class="menu-list" id="kahoot-options"></div>
+    </div>
+
+    <div id="mech-sopa" class="hidden">
+        <div class="word-target-list" id="lista-palabras-buscar"></div>
+        <div class="wordsearch-grid" id="grid-letras"></div>
+        <button class="btn-grunge" style="font-size:16px;" onclick="verificarSopa()">VALIDAR SELECCIÓN</button>
+    </div>
+
+    <div id="mech-binary" class="hidden">
+        <p class="desc-text" id="binary-text" style="font-weight: bold; color: var(--text-main);"></p>
+        <div style="display:flex; gap:10px;">
+            <button class="btn-grunge" onclick="evaluarRespuestaDirecta(true)">✔ SÍ</button>
+            <button class="btn-grunge" style="background:none; border:2px solid var(--border-heavy);" onclick="evaluarRespuestaDirecta(false)">✖ NO</button>
+        </div>
+    </div>
+
+    <button class="btn-disconnect-tactical" onclick="abortarJuego()">✖ SALIR DEL MAPA</button>
+</div>
+
+<!-- PANTALLAS DE TRANCISION -->
+<div id="m-level-clear" class="panel-grunge hidden">
+    <h2 class="section-header" style="background:var(--primary); color:#FFF;">ÉXITO</h2>
+    <p class="desc-text" id="clear-level-summary" style="text-align:center;"></p>
+    <button class="btn-grunge" onclick="procederSiguienteNivel()">CONTINUAR ➔</button>
+</div>
+
+<div id="m-game-over" class="panel-grunge hidden">
+    <h2 class="section-header">FIN</h2>
+    <h3 style="text-align:center;">¡VICTORIA TOTAL!</h3>
+    <button class="btn-grunge" onclick="reiniciarTodoAlMenu()">VOLVER AL INICIO</button>
+</div>
