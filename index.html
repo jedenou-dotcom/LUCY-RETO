@@ -61,7 +61,7 @@
 
         body::before {
             content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.12) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.12) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 255, 0, 0.02));
             z-index: 10; background-size: 100% 4px, 6px 100%; pointer-events: none;
             animation: crtFlicker 0.2s infinite;
         }
@@ -69,6 +69,58 @@
         @keyframes crtFlicker {
             0% { opacity: 0.99; } 50% { opacity: 1; } 100% { opacity: 0.98; }
         }
+
+        /* --- PANTALLA DE CARGA --- */
+        .loading-wrapper {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #11001C; z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .loading-panel {
+            width: 100%; max-width: 400px; padding: 25px; text-align: center;
+            box-sizing: border-box; background: #1A0129; border: 3px solid #3A025B;
+            border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+        }
+        .art-container {
+            width: 100%; height: 190px; border-radius: 8px; overflow: hidden;
+            position: relative; border: 1px solid #520380; margin-bottom: 20px;
+            background: #09000e;
+        }
+        .loading-art {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .art-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent 50%, #1A0129);
+            pointer-events: none;
+        }
+        .loading-meta {
+            display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 12px;
+        }
+        .spinner-quantum {
+            width: 14px; height: 14px; border: 2px solid #b146ff;
+            border-top-color: transparent; border-radius: 50%;
+            animation: spinQuantum 0.8s linear infinite;
+        }
+        .loading-subtext {
+            font-family: sans-serif; font-size: 11px; color: #DFB6B2;
+            letter-spacing: 2px; font-weight: bold; text-transform: uppercase;
+        }
+        .loading-progress-bar {
+            width: 100%; height: 8px; background: rgba(0,0,0,0.6);
+            border: 1px solid #3A025B; border-radius: 10px; overflow: hidden; margin-bottom: 8px;
+        }
+        .loading-fill {
+            width: 0%; height: 100%;
+            background: linear-gradient(90deg, #520380, #b146ff);
+            box-shadow: 0 0 10px #b146ff;
+            transition: width 0.1s linear;
+        }
+        .loading-percentage {
+            font-family: 'Impact', sans-serif; font-size: 20px; color: #FFFFFF; letter-spacing: 1px;
+        }
+        @keyframes spinQuantum { to { transform: rotate(360deg); } }
 
         /* --- PANELES Y TRANSICIONES GLITCH --- */
         .wrapper-layout {
@@ -295,9 +347,26 @@
 </head>
 <body>
 
+<div id="m-loading-screen" class="loading-wrapper">
+    <div class="loading-panel">
+        <div class="art-container">
+            <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDQwMCAyMjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPgogICAgPCEtLSBGb25kbyBFc3BhY2lhbCBQcm9mdW5kbyAtLT4KICAgIDxkZWZzPgogICAgICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYmctZ3JhZCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CiAgICAgICAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMwOTAwMGUiIC8+CiAgICAgICAgICAgIDxzdG9wIG9mZnNldD0iNTAlIiBzdG9wLWNvbG9yPSIjMTQwMTIyIiAvPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwNTAwMGEiIC8+CiAgICAgICAgPC9saW5lYXJHcmFkaWVudD4KICAgICAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImNvcmUtZ3JhZCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjYjE0NmZmIiAvPgogICAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM1MjAzODAiIC8+CiAgICAgICAgPC9saW5lYXJHcmFkaWVudD4KICAgICAgICA8ZmlsdGVyIGlkPSJnbG93IiB4PSItMjAlIiB5PSItMjAlIiB3aWR0aD0iMTQwJSIgaGVpZ2h0PSIxNDAlIj4KICAgICAgICAgICAgPGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iOCIgcmVzdWx0PSJibHVyIiAvPgogICAgICAgICAgICA8ZmVDb21wb3NpdGUgaW49IlNvdXJjZUdyYXBoaWMiIGluMj0iYmx1ciIgb3BlcmF0b3I9Im92ZXIiIC8+CiAgICAgICAgPC9maWx0ZXI+CiAgICAgICAgPGZpbHRlciBpZD0iaGVhdnktZ2xvdyIgeD0iLTUwJSIgeT0iLTUwJSIgd2lkdGg9IjIwMCUiIGhlaWdodD0iMjAwJSI+CiAgICAgICAgICAgIDxmZUdhdXNzaWFuQmx1ciBzdGREZXZpYXRpb249IjE1IiByZXN1bHQ9ImJsdXIiIC8+CiAgICAgICAgICAgIDxmZUNvbXBvc2l0ZSBpbj0iU291cmNlR3JhcGhpYyIgaW4yPSJibHVyIiBvcGVyYXRvcj0ib3ZlciIgLz4KICAgICAgICA8L2ZpbHRlcj4KICAgIDwvZGVmcz4KCiAgICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2JnLWdyYWQpIiAvPgogICAgPCEtLSBSZWppbGxhIEFuYWxpdGljYSBUw6FjdGljYSBkZSBGb25kbyAtLT4KICAgIDxnIG9wYWNpdHk9IjAuMTUiPgogICAgICAgIDxwYXRoIGQ9Ik0gMCwyMCBMIDQwMCwyMCBNIDAsNDAgTCA0MDAsNDAgTSAwLDYwIEwgNDAwLDYwIE0gMCw4MCBMIDQwMCw4MCBNIDAsMTAwIEwgNDAwLDEwMCBNIDAsMTIwIEwgNDAwLDEyMCBNIDAsMTQwIEwgNDAwLDE0MCBNIDAsMTYwIEwgNDAwLDE2MCBNIDAsMTgwIEwgNDAwLDE4MCBNIDAsMjAwIEwgNDAwLDIwMCIgc3Ryb2tlPSIjYjE0NmZmIiBzdHJva2Utd2lkdGg9IjAuNSIgLz4KICAgICAgICA8cGF0aCBkPSJNIDQwLDAgTCA0MCwyMjAgTSA4MCwwIEwgODAsMjIwIE0gMTIwLDAgTCAxMjAsMjIwIE0gMTYwLDAgTCAxNjAsMjIwIE0gMjAwLDAgTCAyMDAsMjIwIE0gMjQwLDAgTCAyNDAsMjIwIE0gMjgwLDAgTCAyODAsMjIwIE0gMzIwLDAgTCAzMjAwLDIyMCBNIDM2MCwwIEwgMzYwLDIyMCIgc3Ryb2tlPSIjYjE0NmZmIiBzdHJva2Utd2lkdGg9IjAuNSIgLz4KICAgIDwvZz4KICAgIDxjaXJjbGUgY3g9IjIwMCIgY3k9IjExMCIgcj0iOTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzUyMDM4MCIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjQiIHN0cm9rZS1kYXNoYXJyYXk9IjQsOCIgLz4KICAgIDxjaXJjbGUgY3g9IjIwMCIgY3k9IjExMCIgcj0iMTMwIiBmaWxsPSJub25lIiBzdHJva2U9IiNiMTQ2ZmYiIHN0cm9rZS13aWR0aD0iMC41IiBvcGFjaXR5PSIwLjIiIC8+CiAgICA8ZyBmaWxsPSIjREZCNkIyIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjgiIG9wYWNpdHk9IjAuNCI+CiAgICAgICAgPHRleHQgeD0iMjUiIHk9IjQ1Ij5bTklWRUxfMDE6IEFDVElWT108L3RleHQ+CiAgICAgICAgPHRleHQgeD0iMjUiIHk9IjYwIj5QQVRSw5NFOiBBVVRPUklUQVJJTzwvdGV4dD4KICAgICAgICA8dGV4dCB4PSIyODAiIHk9IjE3MCI+Q0FMSUJSQUNSc046IE9LPC90leHQ+CiAgICAgICAgPHRleHQgeD0iMjgwIiB5PSIxODUiPlZJT19DT1JFX3YyLjY8L3RleHQ+CiAgICA8L2c+CiAgICA8ZWxsaXBzZSBjeD0iMjAwIiBjeT0iMTEwIiByeD0iMTEwIiByeT0iMzUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2IxQzZmZiIHN0cm9rZS13aWR0aD0iMS41IiBvcGFjaXR5PSIwLjYiIHRyYW5zZm9ybT0icm90YXRlKC0xNSwgMjAwLCAxMTApIiAvPgog   <ZWxsaXBzZSBjeD0iMjAwIiBjeT0iMTEwIiByeD0iODUiIHJ5PSIyNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjEiIG9wYWNpdHk9IjAuNCIgdHJhbnNmb3JtPSJyb3RhdGUoMjUsIDIwMCwgMTEwKSIgLz4KICAgIDxjaXJjbGUgY3g9IjExMCIgY3k9Ijg1IiByPSIzIiBmaWxsPSIjZmZmZmZmIiBmaWx0ZXI9InVybCgjZ2xvdykiIC8+CiAgICA8Y2lyY2xlIGN4PSIzMDAiIGN5PSIxMzAiIHI9IjQiIGZpbGw9IiNiMTQ2ZmYiIGZpbHRlcj0idXJsKCNnbG93KSIgLz4KICAgIDxjaXJjbGUgY3g9IjI0MCIgY3k9IjkyIiByPSIyIiBmaWxsPSIjZmZmZmZmIiAvPgogICAgPGVsbGlwc2UgY3g9IjIwMCIgY3k9IjE2NSIgcng9IjMwIiByeT0iNiIgZmlsbD0iIzAwMDAwMCIgb3BhY2l0eT0iMC43IiBmaWx0ZXI9InVybCgjZ2xvdykiIC8+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLCAtNSkiPgogICAgICAgIDxwYXRoIGQ9Ik0yMDAsNjUgQzE3NSw2NSAxNjUsODUgMTY1LDExMCBDMTY1LDEyOCAxODAsMTM1IDIwMCwxMzUgQzIyMCwxMzUgMjM1LDEyOCAyMzUsMTEwIEMyMzUsODUgMjI1LDY1IDIwMCw2NSBaIiBmaWxsPSIjNTIwMzgwIiBvcGFjaXR5PSIwLjUiIGZpbHRlcj0idXJsKCNoZWF2eS1nbG93KSIvPgogICAgICAgIDxwYXRoIGQ9Ik0yMDAsNjUgQzE3NSw2NSAxNjUsODUgMTY1LDExMCBDMTY1LDEyOCAxODAsMTM1IDIwMCwxMzUgQzIyMCwxMzUgMjM1LDEyOCAyMzUsMTEwIEMyMzUsODUgMjI1LDY1IDIwMCw2NSBaIiBmaWxsPSJ1cmwoI2NvcmUtZ3JhZCkiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIxIiAvPgogICAgICAgIDxjaXJjbGUgY3g9IjIwMCIgY3k9IjEwNSIgcj0iMTYiIGZpbGw9IiNiMTQ2ZmYiIG9wYWNpdHk9IjAuNCIgZmlsdGVyPSJ1cmwoI2dsb3cpIiAvPgogICAgICAgIDxjaXJjbGUgY3g9IjE4OCIgY3k9IjEwMiIgcj0iNC41IiBmaWxsPSIjZmZmZmZmIiAvPgogICAgICAgIDxjaXJjbGUgY3g9IjE4OSIgY3k9IjEwMSIgcj0iMS41IiBmaWxsPSIjMDAwMDAwIiAvPgogICAgICAgIDxjaXJjbGUgY3g9IjIxMiIgY3k9IjEwMiIgcj0iNC41IiBmaWxsPSIjZmZmZmZmIiAvPgogICAgICAgIDxjaXJjbGUgY3g9IjIxMSIgY3k9IjEwMSIgcj0iMS41IiBmaWxsPSIjMDAwMDAwIiAvPgogICAgICAgIDxlbGxpcHNlIGN4PSIxODIiIGN5PSIxMTAiIHJ4PSIzIiByeT0iMS41IiBmaWxsPSIjZmY2MTdmIiBvcGFjaXR5PSIwLjYiIC8+CiAgICAgICAgPGVsbGlwc2UgY3g9IjIxOCIgY3k9IjExMCIgcng9IjMiIHJ5PSIxLjUiIGZpbGw9IiNmZjYxN2YiIG9wYWNpdHk9IjAuNiIgLz4KICAgIDwvZz4KICAgIDxjaXJjbGUgY3g9IjE1MCIgY3k9IjE1MCIgcj0iMiIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC44IiBmaWx0ZXI9InVybCgjZ2xvdykiIC8+CiAgICA8Y2lyY2xlIGN4PSIyNjAiIGN5PSI3MCIgcj0iMyIgZmlsbD0iI2IxNDZmZiIgb3BhY2l0eT0iMC45IiBmaWx0ZXI9InVybCgjZ2xvdykiIC8+CiAgICA8Y2lyY2xlIGN4PSIyMzAiIGN5PSIxNjAiIHI9IjEuNSIgZmlsbD0iI2ZmZmZmZiIgb3BhY2l0eT0iMC41IiAvPgogICAgY2lyY2xlIGN4PSIxNjUiIGN5PSI3NSIgcj0iMiIgZmlsbD0iI2IxNDZmZiIgb3BhY2l0eT0iMC42IiAvPgo8L3N2Zz4=" alt="Vio Calibrando Entornos" class="loading-art">
+            <div class="art-overlay"></div>
+        </div>
+
+        <div class="loading-meta">
+            <div class="spinner-quantum"></div>
+            <div id="loading-text" class="loading-subtext">INICIALIZANDO MATRIZ CONDUCTUAL...</div>
+        </div>
+        <div class="loading-progress-bar">
+            <div id="loading-fill" class="loading-fill"></div>
+        </div>
+        <div class="loading-percentage" id="loading-pct">0%</div>
+    </div>
+</div>
+
 <div class="wrapper-layout">
     
-    <!-- MÓDULO 1: MENÚ PRINCIPAL -->
     <div id="m-main-menu" class="panel-grunge">
         <div class="character-container">
             <div class="vio-orbit-zone">
@@ -325,7 +394,6 @@
         </div>
     </div>
 
-    <!-- MÓDULO 2: SELECCIÓN DE NIVELES -->
     <div id="m-levels" class="panel-grunge hidden">
         <h2 class="section-header">MAPA NODAL</h2>
         <div class="meta-progress-text" id="global-progress-lbl">Progreso Global: 0%</div>
@@ -338,7 +406,6 @@
         <button class="btn-back-menu" onclick="changeModule('m-levels', 'm-main-menu')">✖ VOLVER AL MENÚ</button>
     </div>
 
-    <!-- MÓDULO 3: CÓMO JUGAR -->
     <div id="m-howtoplay" class="panel-grunge hidden">
         <h2 class="section-header">MANUAL</h2>
         <p class="desc-text">¡Hola! Soy <b>Vio</b>. Estaré acompañándote a través de los cuadrantes analíticos familiares. Tu meta es detectar malas conductas y aplicar métodos asertivos.</p>
@@ -346,7 +413,6 @@
         <button class="btn-grunge" style="font-size: 18px; padding: 8px;" onclick="changeModule('m-howtoplay', 'm-main-menu')">ENTENDIDO</button>
     </div>
 
-    <!-- MÓDULO 4: CRÉDITOS -->
     <div id="m-credits" class="panel-grunge hidden">
         <h2 class="section-header">CREDITS</h2>
         <p class="desc-text" style="text-align:center; font-size:15px;">Estructuración Modular y Fluidos Visuales:</p>
@@ -357,7 +423,6 @@
         <button class="btn-back-menu" onclick="changeModule('m-credits', 'm-main-menu')">✖ VOLVER</button>
     </div>
 
-    <!-- MÓDULO 5: AJUSTES -->
     <div id="m-settings" class="panel-grunge hidden">
         <h2 class="section-header">AJUSTES</h2>
         <div style="color:var(--text-accent); font-size:12px; margin-bottom:10px; font-family:sans-serif; font-weight:bold;">TEMA INTERFAZ:</div>
@@ -393,7 +458,6 @@
         <button class="btn-grunge" style="font-size:18px; padding: 10px;" onclick="changeModule('m-settings', 'm-main-menu')">GUARDAR</button>
     </div>
 
-    <!-- MÓDULO 6: MOTOR DE JUEGO PRINCIPAL -->
     <div id="m-gameplay" class="panel-grunge hidden">
         <div class="character-container" style="margin-bottom: 12px;">
             <div class="vio-orbit-zone" style="width:70px; height:70px;">
@@ -417,14 +481,12 @@
 
         <div id="game-feedback" class="feedback-banner"></div>
 
-        <!-- MODO: QUIZ -->
         <div id="mech-kahoot" class="hidden">
             <div class="timer-container"><div id="kahoot-bar" class="timer-bar"></div></div>
             <p class="desc-text" id="kahoot-text" style="font-weight: bold; color: #FFFFFF;"></p>
             <div class="menu-list" id="kahoot-options"></div>
         </div>
 
-        <!-- MODO: SOPAS DE LETRAS MULTIPALABRA (6X6 EXTREMA) -->
         <div id="mech-sopa" class="hidden">
             <p class="desc-text" id="sopa-instruccion" style="text-align:center; font-weight: bold; color: #FFFFFF; margin-bottom:5px;"></p>
             <div class="word-target-list" id="lista-palabras-buscar"></div>
@@ -432,7 +494,6 @@
             <button class="btn-grunge" style="font-size:16px; padding: 10px;" onclick="verificarSopa()">VALIDAR SELECCIÓN</button>
         </div>
 
-        <!-- MODO: BINARIO -->
         <div id="mech-binary" class="hidden">
             <p class="desc-text" id="binary-text" style="font-weight: bold; color: #FFFFFF;"></p>
             <div style="display:flex; gap:10px;">
@@ -444,7 +505,6 @@
         <button class="btn-back-menu" style="color:#FF1744;" onclick="abortarJuego()">❌ DESCONECTARSE DEL MAPA</button>
     </div>
 
-    <!-- MÓDULO 7: PANTALLA INTERMEDIA -->
     <div id="m-level-clear" class="panel-grunge hidden">
         <div class="character-container">
             <div class="vio-orbit-zone">
@@ -462,7 +522,6 @@
         <button class="btn-grunge" onclick="procederSiguienteNivel()">SIGUIENTE ENTORNO ➔</button>
     </div>
 
-    <!-- MÓDULO 8: PANTALLA FIN DEL JUEGO -->
     <div id="m-game-over" class="panel-grunge hidden">
         <div class="character-container">
             <div class="vio-orbit-zone" style="transform: scale(1.2);">
@@ -482,6 +541,47 @@
 </div>
 
 <script>
+    // --- LÓGICA DE PRE-CARGA DE PANTALLA ---
+    document.addEventListener("DOMContentLoaded", () => {
+        let pct = 0;
+        const fill = document.getElementById('loading-fill');
+        const pctLbl = document.getElementById('loading-pct');
+        const txtLbl = document.getElementById('loading-text');
+        
+        const logFrases = [
+            "Analizando lazos de apego familiar...",
+            "Mapeando estilos autoritarios...",
+            "Estructurando rejillas extremas 6x6...",
+            "Inyectando partículas asertivas...",
+            "Calibrando entornos de Vio..."
+        ];
+
+        let intervalLoading = setInterval(() => {
+            pct += Math.floor(Math.random() * 4) + 1;
+            if (pct > 100) pct = 100;
+
+            fill.style.width = pct + "%";
+            pctLbl.innerText = pct + "%";
+
+            if(pct === 20) txtLbl.innerText = logFrases[0];
+            if(pct === 45) txtLbl.innerText = logFrases[1];
+            if(pct === 65) txtLbl.innerText = logFrases[2];
+            if(pct === 85) txtLbl.innerText = logFrases[3];
+
+            if (pct >= 100) {
+                clearInterval(intervalLoading);
+                txtLbl.innerText = "¡SISTEMA CALIBRADO!";
+                setTimeout(() => {
+                    const loader = document.getElementById('m-loading-screen');
+                    loader.style.opacity = "0";
+                    loader.style.transform = "scale(1.05)";
+                    setTimeout(() => loader.style.display = "none", 500);
+                }, 500);
+            }
+        }, 60);
+    });
+
+    // --- MOTOR DEL JUEGO Y AUDIO ---
     let audioCtx = null; let mainOsc = null; let mainGain = null;
     let volMusic = 0.6; let volSfx = 0.8;
     let currentLevel = 1; let tiempoKahoot = 20; let intervaloKahoot; let celdasSeleccionadasSopa = [];
@@ -491,7 +591,7 @@
         6: false, 7: false, 8: false, 9: false, 10: false
     };
 
-    // BASE DE DATOS ACTUALIZADA CON SOPAS DE LETRAS DIFICULTAD EXTREMA (6X6, 3 PALABRAS MÍNIMO)
+    // BASE DE DATOS DE NIVELES (SOPAS DE LETRAS 6x6 CON MÍNIMO 3 PALABRAS)
     const dbNiveles = {
         1: { mech: 'kahoot', text: "Un padre le grita fuertemente a su hijo exigiéndole obediencia inmediata y ciega sin derecho a réplica. ¿Qué patrón es?", opt: ["Estilo Permisivo", "Estilo Autoritario", "Estilo Negligente"], ans: 1 },
         2: { 
@@ -534,11 +634,10 @@
                 'R','S','T','U','V','X',
                 'K','L','M','N','O','P'
             ], 
-            // Nota: DIALOGO toma de la fila 1 (index 6 al 11) + la 'O' inicial en fila 2 index 12
             targets: [0,1,2,3, 6,7,8,9,10,11,12, 18,19,20,21,22] 
         },
         8: { mech: 'kahoot', text: "El hijo tiene derecho a opinar sobre las normas del hogar bajo un esquema de respeto y asertividad mutua. ¿Qué es?", opt: ["Estilo Autoritario", "Estilo Democrático", "Estilo Negligente"], ans: 1 },
-        9: { mech: 'binary', text: "El diálogo y el soporte emocional activo son herramientas ajenas al estilo de crianza autoritario.", ans: true },
+        9: { mech: 'binary', text: "El diálogo y el soporte emotional activo son herramientas ajenas al estilo de crianza autoritario.", ans: true },
         10: { mech: 'kahoot', text: "Estilo que genera baja autoestima, sumisión o conductas agresivas severas por el exceso de castigo coercitivo:", opt: ["Estilo Democrático", "Estilo Permisivo", "Estilo Autoritario"], ans: 2 }
     };
 
@@ -720,7 +819,6 @@
             document.getElementById('mech-sopa').classList.remove('hidden');
             document.getElementById('sopa-instruccion').innerHTML = `Vio requiere mapear los constructos:`;
             
-            // Render de palabras objetivo en la interfaz
             let badgeZone = document.getElementById('lista-palabras-buscar');
             badgeZone.innerHTML = "";
             data.palabras.forEach(p => {
@@ -765,7 +863,6 @@
         let data = dbNiveles[currentLevel]; 
         let targets = data.targets;
         
-        // Verifica si la selección del usuario contiene exactamente las celdas mapeadas de las 3 palabras
         let esCorrecto = celdasSeleccionadasSopa.length === targets.length && 
                          celdasSeleccionadasSopa.every(v => targets.includes(v));
 
