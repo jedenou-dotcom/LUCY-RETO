@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RETO: PATRONES DE CRIANZA</title>
     <style>
-        /* Estilo Base basado en la paleta exacta de image_28bd9e.png */
+        /* Estilo Base Sólido (Paleta exacta de image_28bd9e.png) */
         body {
-            background-color: #11001C; /* Fondo Sólido de la imagen */
+            background-color: #11001C; /* Dark Purple */
             color: #FFFFFF;
             font-family: 'Impact', 'Arial Black', sans-serif;
             margin: 0;
@@ -27,8 +27,8 @@
 
         .panel-grunge {
             width: 100%; max-width: 420px;
-            background: #1A0129; /* Siguiente tono de la paleta */
-            border: 3px solid #3A025B; /* Tono intermedio */
+            background: #1A0129; /* Siguiente tono de paleta */
+            border: 3px solid #3A025B; /* Tono intermedio violeta */
             box-shadow: 0 0 0 4px #11001C, 0 15px 35px rgba(0,0,0,0.9);
             padding: 35px 20px; border-radius: 2px; box-sizing: border-box; position: relative;
         }
@@ -42,6 +42,7 @@
         /* --- TIPOGRAFÍAS --- */
         h1.title-game { font-size: 44px; color: #FFFFFF; margin: 0 0 25px 0; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; line-height: 0.95; text-align: center; }
         h2.section-header { font-size: 22px; color: #11001C; background: #FFFFFF; margin: -50px auto 25px auto; padding: 5px 15px; width: fit-content; text-transform: uppercase; letter-spacing: 2px; border: 2px solid #3A025B; font-family: sans-serif; font-weight: bold; }
+        h3.victory-title { font-size: 28px; color: #FFFFFF; text-align: center; text-transform: uppercase; margin: 10px 0; letter-spacing: 1px; }
         p.desc-text { font-family: sans-serif; color: #DFB6B2; font-size: 14.5px; line-height: 1.5; margin-bottom: 20px; font-weight: 300; }
 
         /* --- BOTONES DE ACCIÓN (Estilo Dead Days con tonos image_28bd9e.png) --- */
@@ -53,7 +54,7 @@
         .btn-grunge:active { background: #3A025B; transform: scale(0.98); }
         .btn-grunge.secondary { background: #220135; border: 2px solid #520380; font-size: 18px; }
 
-        /* --- MAPA DE NIVELES MODIFICADO (Muestra Completados y Disponibles) --- */
+        /* --- MAPA DE NIVELES (Estilo Levels de image_2925a4.jpg) --- */
         .levels-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
         .level-box {
             background: transparent; border: 2px solid #520380; color: #FFFFFF; font-size: 20px; height: 65px; display: flex; justify-content: center; align-items: center; cursor: pointer; font-family: 'Impact', sans-serif; transition: all 0.1s; position: relative;
@@ -61,18 +62,23 @@
         .level-box.locked { background: rgba(26, 1, 41, 0.6); border-color: #220135; color: rgba(255,255,255,0.2); cursor: not-allowed; }
         .level-box.locked::before { content: "🔒"; font-size: 14px; }
         
-        /* Estado completado pedido */
         .level-box.completed { background: #520380; border-color: #FFFFFF; color: #FFFFFF; }
         .level-box.completed::after { content: "✔"; position: absolute; bottom: 2px; right: 4px; font-size: 11px; color: #FFFFFF; }
-        
         .level-box:not(.locked):active { background: #FFFFFF; color: #11001C; }
 
-        /* --- SOPAS DE LETRAS DINÁMICAS --- */
+        /* --- SOPAS DE LETRAS --- */
         .wordsearch-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 15px auto; max-width: 240px; }
         .letter-cell { background: #220135; border: 2px solid #3A025B; color: #FFFFFF; font-size: 20px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; user-select: none; }
         .letter-cell.selected { background: #520380; color: #FFFFFF; border-color: #FFFFFF; }
 
-        /* --- OTROS COMPONENTES --- */
+        /* --- CONTROLES DE DESLIZAMIENTO (Ajustes de image_2925a4.jpg) --- */
+        .setting-row { display: flex; align-items: center; margin-bottom: 25px; font-family: sans-serif; font-weight: bold; font-size: 14px; letter-spacing: 1px; }
+        .setting-label { width: 70px; color: #DFB6B2; text-transform: uppercase; }
+        .slider-container { flex-grow: 1; height: 14px; background: #220135; border: 1px solid #3A025B; position: relative; cursor: pointer; }
+        .slider-bar { height: 100%; background: #520380; width: 60%; pointer-events: none; }
+        .slider-handle { position: absolute; top: -3px; width: 14px; height: 20px; background: #FFFFFF; border: 1px solid #11001C; transform: translateX(-50%); pointer-events: none; }
+
+        /* --- COMPONENTES AUXILIARES --- */
         .timer-container { width: 100%; background: #220135; height: 8px; margin-bottom: 15px; border: 1px solid #3A025B; }
         .timer-bar { width: 100%; height: 100%; background: #520380; transition: width 1s linear; }
         .feedback-banner { font-family: sans-serif; margin-bottom: 15px; padding: 10px; font-size: 12px; font-weight: bold; display: none; text-align: center; border: 1px solid #bf616a; color: #ff8888; background: rgba(191, 97, 106, 0.15); }
@@ -89,27 +95,25 @@
     <div id="m-main-menu" class="panel-grunge">
         <h1 class="title-game">PATRONES<br><span style="color:#520380;">DE CRIANZA</span></h1>
         <div class="menu-list">
-            <button class="btn-grunge" onclick="tryStartAudio(); changeModule('m-main-menu', 'm-levels'); refreshLevelsInterface();">Iniciar Juego</button>
-            <button class="btn-grunge" style="background:#3A025B;" onclick="tryStartAudio(); changeModule('m-main-menu', 'm-howtoplay');">Cómo Jugar</button>
-            <button class="btn-grunge" style="background:#220135;" onclick="tryStartAudio(); changeModule('m-main-menu', 'm-credits');">Créditos</button>
-            <button class="btn-grunge" style="background:#11001C; border: 2px solid #3A025B; font-size:16px; padding:8px;" onclick="tryStartAudio(); changeModule('m-main-menu', 'm-settings');">Ajustes ⚙️</button>
+            <button class="btn-grunge" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-levels'); refreshLevelsInterface();">Iniciar Juego</button>
+            <button class="btn-grunge" style="background:#3A025B;" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-howtoplay');">Cómo Jugar</button>
+            <button class="btn-grunge" style="background:#220135;" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-credits');">Créditos</button>
+            <button class="btn-grunge" style="background:#11001C; border: 2px solid #3A025B; font-size:16px; padding:8px;" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-settings');">Ajustes ⚙️</button>
         </div>
     </div>
 
     <!-- MÓDULO 2: SELECCIÓN DE NIVELES CON HISTORIAL -->
     <div id="m-levels" class="panel-grunge hidden">
         <h2 class="section-header">NIVELES</h2>
-        <div class="levels-grid" id="grid-selector-niveles">
-            <!-- Construido dinámicamente en JS para reflejar estados "completado", "bloqueado" o "jugable" -->
-        </div>
+        <div class="levels-grid" id="grid-selector-niveles"></div>
         <button class="btn-back-menu" onclick="changeModule('m-levels', 'm-main-menu')">✖ VOLVER AL MENÚ</button>
     </div>
 
     <!-- MÓDULO 3: CÓMO JUGAR -->
     <div id="m-howtoplay" class="panel-grunge hidden">
         <h2 class="section-header">MANUAL</h2>
-        <p class="desc-text">Analiza las situaciones familiares y resuelve los desafíos de forma asertiva. Las celdas marcadas con un gancho (✔) representan tus zonas seguras ya superadas.</p>
-        <p class="desc-text" style="color: #520380; font-weight: bold;">Supera las nuevas matrices de sopas de letras distribuidas a lo largo de la ruta crítica.</p>
+        <p class="desc-text">Analiza críticamente los escenarios familiares presentados y dictamina la resolución idónea antes de que expire el tiempo.</p>
+        <p class="desc-text" style="color: #520380; font-weight: bold;">Los niveles completados guardarán su progreso con un gancho (✔).</p>
         <button class="btn-back-menu" onclick="changeModule('m-howtoplay', 'm-main-menu')">✖ ENTENDIDO</button>
     </div>
 
@@ -131,8 +135,8 @@
         <div class="setting-row">
             <div class="setting-label">MÚSICA</div>
             <div class="slider-container" onclick="setVolume('music', event)">
-                <div id="slider-bar-music" class="slider-bar" style="width: 50%;"></div>
-                <div id="handle-music" class="slider-handle" style="left: 50%;"></div>
+                <div id="slider-bar-music" class="slider-bar" style="width: 60%;"></div>
+                <div id="handle-music" class="slider-handle" style="left: 60%;"></div>
             </div>
         </div>
 
@@ -159,7 +163,7 @@
             <div class="menu-list" id="kahoot-options"></div>
         </div>
 
-        <!-- MODO: SOPAS DE LETRAS (SOPORTA DIFERENTES PALABRAS) -->
+        <!-- MODO: SOPAS DE LETRAS -->
         <div id="mech-sopa" class="hidden">
             <div style="font-size: 11px; color:#FFFFFF; margin-bottom:6px; font-weight:bold;">MODO: MATRIZ DE LETRAS</div>
             <p class="desc-text" id="sopa-instruccion"></p>
@@ -180,6 +184,22 @@
         <button class="btn-back-menu" style="color:#bf616a;" onclick="abortarJuego()">❌ ABORTAR MAPA</button>
     </div>
 
+    <!-- MÓDULO 7: PANTALLA INTERMEDIA DE NIVEL TERMINADO -->
+    <div id="m-level-clear" class="panel-grunge hidden">
+        <h2 class="section-header" style="background:#520380; color:#FFFFFF;">ÉXITO</h2>
+        <h3 class="victory-title" style="color:#DFB6B2;">¡CUADRANTE ESTABILIZADO!</h3>
+        <p class="desc-text" id="clear-level-summary" style="text-align:center;">Has diagnosticado correctamente el escenario del nivel.</p>
+        <button class="btn-grunge" onclick="procederSiguienteNivel()">SIGUIENTE NIVEL ➔</button>
+    </div>
+
+    <!-- MÓDULO 8: PANTALLA FIN DEL JUEGO (VICTORIA TOTAL) -->
+    <div id="m-game-over" class="panel-grunge hidden">
+        <h2 class="section-header" style="background:#FFFFFF; color:#11001C;">COMPLETO</h2>
+        <h3 class="victory-title">¡SIMULACIÓN FINALIZADA!</h3>
+        <p class="desc-text" style="text-align:center;">Excelente trabajo. Has completado con éxito los 10 niveles y restablecido las pautas de crianza asertiva en todos los entornos estudiados.</p>
+        <button class="btn-grunge" onclick="reiniciarTodoAlMenu()">VOLVER AL INICIO</button>
+    </div>
+
 </div>
 
 <script>
@@ -187,7 +207,7 @@
     let mainOsc = null;
     let mainGain = null;
     
-    let volMusic = 0.5;
+    let volMusic = 0.6;
     let volSfx = 0.8;
     
     let currentLevel = 1;
@@ -195,13 +215,11 @@
     let intervaloKahoot;
     let palabraSopa = [];
 
-    // Estructura de niveles completados en memoria
     let nivelesCompletados = {
         1: false, 2: false, 3: false, 4: false, 5: false,
         6: false, 7: false, 8: false, 9: false, 10: false
     };
 
-    // Base de datos expandida con más tipos de sopas de letras intercaladas
     const dbNiveles = {
         1: { mech: 'kahoot', text: "Un padre le grita fuertemente a su hijo exigiéndole obediencia inmediata y ciega sin derecho a réplica. ¿Qué patrón es?", opt: ["Permisivo", "Autoritario", "Negligente"], ans: 1 },
         2: { mech: 'sopa', palabra: 'AMOR', letras: ['A','X','B','Z','M','P','Q','W','O','R','S','Y','R','K','L','M'], targets: [0,4,8,12] }, 
@@ -215,7 +233,8 @@
         10: { mech: 'kahoot', text: "Estilo que genera baja autoestima, sumisión o conductas agresivas severas por el exceso de castigo coercitivo:", opt: ["Democrático", "Permisivo", "Autoritario"], ans: 2 }
     };
 
-    function tryStartAudio() {
+    // Inicializa el AudioEngine al interactuar por primera vez desde el menú de inicio
+    function initAudioEngine() {
         if (!audioCtx) {
             audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             startAmbientMusic();
@@ -227,14 +246,14 @@
         mainOsc = audioCtx.createOscillator();
         mainGain = audioCtx.createGain();
         mainOsc.type = 'triangle';
-        mainOsc.frequency.setValueAtTime(115, audioCtx.currentTime);
+        mainOsc.frequency.setValueAtTime(110, audioCtx.currentTime); // Melodía grave atmosférica violeta
         
         setInterval(() => {
             if(mainOsc && audioCtx) {
-                let frq = 110 + Math.random() * 20;
-                mainOsc.frequency.exponentialRampToValueAtTime(frq, audioCtx.currentTime + 1.5);
+                let frq = 100 + Math.random() * 25;
+                mainOsc.frequency.exponentialRampToValueAtTime(frq, audioCtx.currentTime + 1.8);
             }
-        }, 2500);
+        }, 3000);
 
         mainGain.gain.setValueAtTime(volMusic * 0.15, audioCtx.currentTime);
         mainOsc.connect(mainGain);
@@ -248,7 +267,6 @@
         document.getElementById(toId).classList.remove('hidden');
     }
 
-    // Refresca la UI de niveles mostrando cuáles ya están completados y cuáles jugables
     function refreshLevelsInterface() {
         let contenedor = document.getElementById('grid-selector-niveles');
         contenedor.innerHTML = "";
@@ -257,7 +275,6 @@
             let box = document.createElement('div');
             box.innerText = i;
 
-            // Determinar si está bloqueado, completado o disponible
             let estaBloqueado = false;
             if (i > 1 && !nivelesCompletados[i - 1] && !nivelesCompletados[i]) {
                 estaBloqueado = true;
@@ -268,7 +285,7 @@
             } else if (nivelesCompletados[i]) {
                 box.className = "level-box completed";
             } else {
-                box.className = "level-box"; // Disponible para jugar
+                box.className = "level-box"; 
             }
 
             box.onclick = () => { startLevel(i, estaBloqueado); };
@@ -304,14 +321,15 @@
             gain.gain.setValueAtTime(0.08 * volSfx, audioCtx.currentTime);
             osc.start(); osc.stop(audioCtx.currentTime + 0.08);
         } else if (tipo === 'confirmar') {
-            osc.type = 'square'; osc.frequency.setValueAtTime(240, audioCtx.currentTime);
-            osc.frequency.setValueAtTime(480, audioCtx.currentTime + 0.06);
-            gain.gain.setValueAtTime(0.06 * volSfx, audioCtx.currentTime);
-            osc.start(); osc.stop(audioCtx.currentTime + 0.16);
+            // Sonido de éxito ascendente
+            osc.type = 'triangle'; osc.frequency.setValueAtTime(280, audioCtx.currentTime);
+            osc.frequency.setValueAtTime(560, audioCtx.currentTime + 0.08);
+            gain.gain.setValueAtTime(0.1 * volSfx, audioCtx.currentTime);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.25);
         } else if (tipo === 'error') {
-            osc.type = 'sawtooth'; osc.frequency.setValueAtTime(100, audioCtx.currentTime);
-            gain.gain.setValueAtTime(0.14 * volSfx, audioCtx.currentTime);
-            osc.start(); osc.stop(audioCtx.currentTime + 0.22);
+            osc.type = 'sawtooth'; osc.frequency.setValueAtTime(90, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.15 * volSfx, audioCtx.currentTime);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.3);
         }
     }
 
@@ -344,13 +362,13 @@
                 let btn = document.createElement('button');
                 btn.className = "btn-grunge secondary";
                 btn.innerText = "• " + o;
-                btn.onclick = () => { if(i === data.ans) levelPassed(); else failAction(); };
+                btn.onclick = () => { if(i === data.ans) triggClearScreen(); else failAction(); };
                 optZone.appendChild(btn);
             });
             runKahootTimer();
         } else if(data.mech === 'sopa') {
             document.getElementById('mech-sopa').classList.remove('hidden');
-            document.getElementById('sopa-instruccion').innerHTML = `Selecciona en orden vertical la palabra clave: <b>"${data.palabra}"</b>`;
+            document.getElementById('sopa-instruccion').innerHTML = `Selecciona secuencialmente la palabra: <b>"${data.palabra}"</b>`;
             buildSopaGrid(data);
         } else if(data.mech === 'binary') {
             document.getElementById('mech-binary').classList.remove('hidden');
@@ -392,23 +410,33 @@
         let data = dbNiveles[currentLevel];
         let targets = data.targets;
         let win = palabraSopa.length === targets.length && palabraSopa.every((v, i) => v === targets[i]);
-        if(win) levelPassed(); else failAction();
+        if(win) triggClearScreen(); else failAction();
     }
 
     function evaluarRespuestaDirecta(userVal) {
-        if(userVal === dbNiveles[currentLevel].ans) levelPassed(); else failAction();
+        if(userVal === dbNiveles[currentLevel].ans) triggClearScreen(); else failAction();
     }
 
-    function levelPassed() {
+    // Pantalla intermedia al terminar un nivel de forma exitosa
+    function triggClearScreen() {
+        clearInterval(intervaloKahoot);
         reproducirEfecto('confirmar');
-        nivelesCompletados[currentLevel] = true; // Marcar nivel como completado
+        nivelesCompletados[currentLevel] = true;
         
+        document.getElementById('m-gameplay').classList.add('hidden');
+        document.getElementById('clear-level-summary').innerText = `Has completado el escenario del Nivel ${currentLevel} con éxito. Avanza en la ruta crítica violeta.`;
+        document.getElementById('m-level-clear').classList.remove('hidden');
+    }
+
+    function procederSiguienteNivel() {
+        document.getElementById('m-level-clear').classList.add('hidden');
         if(currentLevel < 10) {
             currentLevel++;
+            document.getElementById('m-gameplay').classList.remove('hidden');
             loadLevelStructure();
         } else {
-            alert("¡PERFECTO! Has completado con éxito la totalidad de los 10 cuadrantes.");
-            abortarJuego();
+            // Si termina el nivel 10, avisa con la pantalla de fin de juego total
+            document.getElementById('m-game-over').classList.remove('hidden');
         }
     }
 
@@ -419,7 +447,7 @@
         playPanel.classList.remove('interface-error');
         void playPanel.offsetWidth;
         playPanel.classList.add('interface-error');
-        feed.innerText = "❌ CORRECCIÓN REQUERIDA EN EL DIAGNÓSTICO.";
+        feed.innerText = "❌ ERROR: DESESTABILIZACIÓN CRÍTICA EN EL ENTÖRNO.";
         feed.style.display = "block";
         if(dbNiveles[currentLevel].mech === 'kahoot') loadLevelStructure();
     }
@@ -428,7 +456,14 @@
         clearInterval(intervaloKahoot);
         document.getElementById('m-gameplay').classList.add('hidden');
         document.getElementById('m-levels').classList.remove('hidden');
-        refreshLevelsInterface(); // Actualiza la UI para ver marcas de gancho (✔)
+        refreshLevelsInterface();
+    }
+
+    function reiniciarTodoAlMenu() {
+        nivelesCompletados = { 1:false, 2:false, 3:false, 4:false, 5:false, 6:false, 7:false, 8:false, 9:false, 10:false };
+        currentLevel = 1;
+        document.getElementById('m-game-over').classList.add('hidden');
+        document.getElementById('m-main-menu').classList.remove('hidden');
     }
 </script>
 
