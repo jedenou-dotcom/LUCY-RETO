@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RETO: PATRONES DE CRIANZA</title>
     <style>
-        /* Estilo Base Atmosférico */
+        /* Estilo Base Atmosférico con Paleta de image_2931ff.png */
         body {
-            background-color: #020406;
-            color: #babcbf;
+            background-color: #190019; /* Fondo Base Ultra Oscuro */
+            color: #DFB6B2; /* Texto Secundario Platino */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
@@ -20,14 +20,14 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* --- AMBIENTACIÓN: TORMENTA OPTIMIZADA --- */
+        /* --- AMBIENTACIÓN: TORMENTA CROMÁTICA OPTIMIZADA --- */
         .background-ambience {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, #04060a 0%, #090d14 60%, #010204 100%);
+            background: linear-gradient(to bottom, #190019 0%, #2B124C 60%, #190019 100%);
             z-index: 1;
             pointer-events: none;
         }
@@ -36,7 +36,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background-image: linear-gradient(108deg, transparent 45%, rgba(255,255,255,0.05) 48%, transparent 52%);
+            background-image: linear-gradient(108deg, transparent 45%, rgba(251, 228, 216, 0.05) 48%, transparent 52%);
             background-size: 65px 280px;
             animation: rain-mobile 0.4s linear infinite;
         }
@@ -46,8 +46,8 @@
         }
         @keyframes lightning-flash {
             0%, 93%, 95%, 100% { background-color: transparent; }
-            94% { background-color: rgba(230, 242, 255, 0.15); }
-            96% { background-color: rgba(230, 242, 255, 0.08); }
+            94% { background-color: rgba(251, 228, 216, 0.12); }
+            96% { background-color: rgba(251, 228, 216, 0.06); }
         }
         .lightning-active { animation: lightning-flash 7s infinite; }
 
@@ -75,13 +75,13 @@
         .game-center-layout {
             width: 100%;
             max-width: 440px;
-            background: rgba(6, 10, 18, 0.94);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-top: 3px solid #4c566a;
+            background: rgba(43, 18, 76, 0.92); /* Capa Base Transparente Ciruela */
+            border: 1px solid rgba(133, 79, 108, 0.3); /* Bordes Malva */
+            border-top: 3px solid #854F6C; /* Acento Superior Malva Intenso */
             padding: 24px 20px;
             border-radius: 8px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 15px 35px rgba(25, 0, 25, 0.8);
             box-sizing: border-box;
             transition: all 0.2s ease;
         }
@@ -89,7 +89,7 @@
         .interface-error {
             border-top-color: #bf616a !important;
             animation: shake 0.3s ease-in-out;
-            background: rgba(28, 12, 16, 0.95) !important;
+            background: rgba(40, 10, 25, 0.96) !important;
         }
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
@@ -97,17 +97,17 @@
             40%, 80% { transform: translateX(6px); }
         }
 
-        h1 { font-size: 28px; color: #fff; margin: 0 0 6px 0; font-weight: 300; letter-spacing: 2px; }
-        .subtitle { color: #4c566a; font-size: 10px; letter-spacing: 1.5px; margin-bottom: 40px; text-transform: uppercase; }
-        p { color: #d8dee9; font-size: 14.5px; line-height: 1.5; margin-bottom: 15px; }
+        h1 { font-size: 28px; color: #FBE4D8; margin: 0 0 6px 0; font-weight: 300; letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .subtitle { color: #854F6C; font-size: 10px; letter-spacing: 1.5px; margin-bottom: 40px; text-transform: uppercase; font-weight: bold; }
+        p { color: #FBE4D8; font-size: 14.5px; line-height: 1.5; margin-bottom: 15px; }
 
         /* --- BOTONES MECÁNICOS --- */
         .menu-list { display: flex; flex-direction: column; gap: 10px; width: 100%; }
         
         .btn-menu {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            color: #9aa2af;
+            background: rgba(82, 43, 91, 0.25); /* Tono Ceniza Sutil */
+            border: 1px solid rgba(133, 79, 108, 0.25);
+            color: #DFB6B2;
             font-size: 15px;
             padding: 14px;
             cursor: pointer;
@@ -118,12 +118,13 @@
             transition: all 0.2s ease;
         }
         .btn-menu:active {
-            color: #ffffff;
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.2);
+            color: #FBE4D8;
+            background: rgba(133, 79, 108, 0.4);
+            border-color: #DFB6B2;
         }
 
-        #pantalla-menu .btn-menu { background: none; border: none; padding: 8px 0; width: fit-content; }
+        #pantalla-menu .btn-menu { background: none; border: none; padding: 8px 0; width: fit-content; color: #854F6C; }
+        #pantalla-menu .btn-menu:active { color: #FBE4D8; background: none; padding-left: 6px; }
 
         /* --- MECÁNICA: SOPA DE LETRAS --- */
         .wordsearch-grid {
@@ -134,9 +135,9 @@
             max-width: 240px;
         }
         .letter-cell {
-            background: #1e222b;
-            border: 1px solid #3b4252;
-            color: #eceff4;
+            background: #522B5B; /* Tono Ceniza Puro */
+            border: 1px solid rgba(133, 79, 108, 0.4);
+            color: #FBE4D8;
             font-size: 18px;
             font-weight: bold;
             height: 50px;
@@ -146,28 +147,31 @@
             border-radius: 4px;
             cursor: pointer;
             user-select: none;
+            transition: all 0.15s ease;
         }
         .letter-cell.selected {
-            background: #81a1c1;
-            color: #2e3440;
-            border-color: #88c0d0;
+            background: #854F6C; /* Selección con Malva */
+            color: #FBE4D8;
+            border-color: #DFB6B2;
+            transform: scale(0.95);
         }
 
         /* --- BARRA DE TIEMPO (KAHOOT STYLE) --- */
-        .timer-container { width: 100%; background: #2e3440; height: 6px; border-radius: 3px; margin-bottom: 15px; overflow: hidden; }
-        .timer-bar { width: 100%; height: 100%; background: #ebcb8b; transition: width 1s linear; }
+        .timer-container { width: 100%; background: #190019; height: 6px; border-radius: 3px; margin-bottom: 15px; overflow: hidden; border: 1px solid rgba(133, 79, 108, 0.2); }
+        .timer-bar { width: 100%; height: 100%; background: #854F6C; transition: width 1s linear; }
 
         /* --- BOTONES BINARIOS --- */
         .binary-zone { display: flex; gap: 10px; }
-        .btn-true { background: rgba(163, 190, 140, 0.15); border-color: #a3be8c; color: #a3be8c; text-align: center;}
-        .btn-false { background: rgba(191, 97, 106, 0.15); border-color: #bf616a; color: #bf616a; text-align: center;}
+        .btn-true { background: rgba(133, 79, 108, 0.2); border-color: #854F6C; color: #FBE4D8; text-align: center;}
+        .btn-false { background: rgba(82, 43, 91, 0.2); border-color: #522B5B; color: #DFB6B2; text-align: center;}
 
         /* Banners e informes */
-        .feedback-banner { margin-top: 15px; padding: 10px; font-size: 12px; border-radius: 4px; font-weight: bold; display: none; }
-        .feedback-error { background: rgba(191, 97, 106, 0.15); border: 1px solid #bf616a; color: #bf616a; display: block; }
-        .quiz-box { background: rgba(46, 52, 64, 0.4); padding: 15px; border-radius: 4px; margin: 15px 0; border: 1px solid #3b4252; }
-        .footer-desc { position: absolute; bottom: 20px; left: 20px; color: #434c5e; font-size: 11px; }
-        .btn-abort { position: absolute; bottom: 20px; right: 20px; background: none; border: none; color: #4c566a; font-size: 11px; text-transform: uppercase; z-index: 10; }
+        .feedback-banner { margin-top: 15px; padding: 10px; font-size: 12px; border-radius: 4px; font-weight: bold; display: none; text-align: center; }
+        .feedback-error { background: rgba(191, 97, 106, 0.15); border: 1px solid #bf616a; color: #ff8888; display: block; }
+        .quiz-box { background: rgba(25, 0, 25, 0.4); padding: 15px; border-radius: 4px; margin: 15px 0; border: 1px solid rgba(133, 79, 108, 0.3); }
+        .footer-desc { position: absolute; bottom: 20px; left: 20px; color: #854F6C; font-size: 11px; opacity: 0.7; }
+        .btn-abort { position: absolute; bottom: 20px; right: 20px; background: none; border: none; color: #854F6C; font-size: 11px; text-transform: uppercase; z-index: 10; letter-spacing: 1px; font-weight: bold; cursor: pointer; }
+        .btn-abort:active { color: #FBE4D8; }
         .hidden { display: none !important; }
     </style>
 </head>
@@ -177,6 +181,7 @@
 
 <div class="wrapper-layout">
     
+    <!-- MENÚ PRINCIPAL -->
     <div id="pantalla-menu" class="menu-left-layout">
         <h1>PATRONES DE CRIANZA</h1>
         <div class="subtitle">BATALLA DE GAMIFICACIÓN / 5TO SECUNDARIA</div>
@@ -188,12 +193,15 @@
         <div class="footer-desc">Analiza los casos de supervivencia familiar.</div>
     </div>
 
+    <!-- MONITOR DE RESPUESTAS CENTRAL -->
     <div id="zona-juego" class="game-center-layout hidden">
         
+        <!-- ENTRADA DE FEEDBACK DE ERRORES -->
         <div id="game-feedback" class="feedback-banner"></div>
 
+        <!-- FASE 1: DESAFÍO CONTRA RELOJ (ESTILO KAHOOT) -->
         <div id="fase-kahoot" class="hidden">
-            <div style="font-size: 10px; color:#ebcb8b; letter-spacing:1px; margin-bottom:6px; font-weight:bold;">FASE 01 / QUIZ VELOZ</div>
+            <div style="font-size: 10px; color:#DFB6B2; letter-spacing:1px; margin-bottom:6px; font-weight:bold;">FASE 01 / QUIZ VELOZ</div>
             <div class="timer-container"><div id="kahoot-bar" class="timer-bar"></div></div>
             <p>Un padre de familia le grita fuertemente a su hijo exigiéndole obediencia ciega e inmediata sin derecho a réplica. ¿Qué patrón es?</p>
             <div class="menu-list">
@@ -203,16 +211,19 @@
             </div>
         </div>
 
+        <!-- FASE 2: SOPA DE LETRAS INTERACTIVA -->
         <div id="fase-sopa" class="hidden">
-            <div style="font-size: 10px; color:#88c0d0; letter-spacing:1px; margin-bottom:6px; font-weight:bold;">FASE 02 / SOPA DE LETRAS</div>
+            <div style="font-size: 10px; color:#DFB6B2; letter-spacing:1px; margin-bottom:6px; font-weight:bold;">FASE 02 / SOPA DE LETRAS</div>
             <p>Encuentra e ingresa en orden de lectura el pilar afectivo del Patrón Democrático (Palabra: <b>AMOR</b>):</p>
             <div class="wordsearch-grid" id="grid-letras">
-                </div>
-            <button class="btn-menu" style="text-align:center; color:#81a1c1;" onclick="verificarSopa()">[ VALIDAR PALABRA ]</button>
+                <!-- Generado dinámicamente -->
+            </div>
+            <button class="btn-menu" style="text-align:center; color:#FBE4D8; background: rgba(133, 79, 108, 0.3);" onclick="verificarSopa()">[ VALIDAR PALABRA ]</button>
         </div>
 
+        <!-- FASE 3: VERDADERO O FALSO -->
         <div id="fase-binary" class="hidden">
-            <div style="font-size: 10px; color:#a3be8c; letter-spacing:1px; margin-bottom:6px; font-weight:bold;">FASE 03 / DIAGNÓSTICO BINARIO</div>
+            <div style="font-size: 10px; color:#DFB6B2; letter-spacing:1px; margin-bottom:6px; font-weight:bold;">FASE 03 / DIAGNÓSTICO BINARIO</div>
             <p>"Los tutores de Luis muestran desinterés sistemático por su salud y educación, delegando su cuidado a terceros." ¿Esto describe un Patrón Negligente?</p>
             <div class="binary-zone">
                 <button class="btn-menu btn-true" onclick="evaluarBinario(true)">VERDADERO</button>
@@ -220,9 +231,10 @@
             </div>
         </div>
 
+        <!-- FASE 4: ANÁLISIS DE CASO COMPLEJO -->
         <div id="fase-analisis" class="hidden">
-            <div style="font-size: 10px; color:#b48ead; letter-spacing:1px; margin-bottom:6px; font-weight:bold;">FASE 04 / CASO CLÍNICO</div>
-            <p>Una madre es muy afectuosa pero evita a toda costa colocar normas o límites, cediendo inmediatamente a caprichos:</p>
+            <div style="font-size: 10px; color:#DFB6B2; letter-spacing:1px; margin-bottom:6px; font-weight:bold;">FASE 04 / CASO CLÍNICO</div>
+            <p>Una madre es muy afectuosa pero evita a toda costa colocar normas o límites, ceding inmediatamente a caprichos:</p>
             <div class="menu-list">
                 <button class="btn-menu" onclick="evaluarAnalisis(false)">• Patrón Demócrata</button>
                 <button class="btn-menu" onclick="evaluarAnalisis(true)">• Patrón Permisivo</button>
@@ -230,8 +242,9 @@
             </div>
         </div>
 
+        <!-- FASE 5: EXAMEN DE EMPAREJAMIENTO CONCEPTUAL -->
         <div id="fase-match" class="hidden">
-            <div style="font-size: 10px; color:#81a1c1; letter-spacing:1px; margin-bottom:6px; font-weight:bold;">FASE 05 / MATRIZ CONCEPTUAL</div>
+            <div style="font-size: 10px; color:#DFB6B2; letter-spacing:1px; margin-bottom:6px; font-weight:bold;">FASE 05 / MATRIZ CONCEPTUAL</div>
             <p>Selecciona la opción que refleje la combinación exacta del <b>Patrón Democrático / Asertivo</b>:</p>
             <div class="menu-list">
                 <button class="btn-menu" onclick="evaluarMatch(false)">• Cero afecto + Castigo físico estricto</button>
@@ -240,14 +253,15 @@
             </div>
         </div>
 
+        <!-- PANTALLA FINAL -->
         <div id="pantalla-final" class="hidden">
-            <h1 style="font-size:24px; color:#a3be8c;">SISTEMA CONCLUIDO</h1>
+            <h1 style="font-size:24px; color:#DFB6B2;">SISTEMA CONCLUIDO</h1>
             <p>Todas las variables dinámicas de crianza han sido resueltas.</p>
             <div class="quiz-box">
-                <span style="display:block; margin: 4px 0; font-size:12px;">• Modos: Quiz, Sopa de letras, Binario y Análisis.</span>
-                <span style="display:block; margin: 4px 0; font-size:12px;">• Registro de 5 entornos completado con éxito.</span>
+                <span style="display:block; margin: 4px 0; font-size:12px; color: #FBE4D8;">• Modos: Quiz, Sopa, Binario y Matriz de Análisis.</span>
+                <span style="display:block; margin: 4px 0; font-size:12px; color: #FBE4D8;">• Registro de 5 entornos completado con éxito.</span>
             </div>
-            <button class="btn-menu" style="color:#81a1c1; text-align: center;" onclick="regresarAlMenu()">[ REINICIAR ]</button>
+            <button class="btn-menu" style="color:#FBE4D8; text-align: center; background: rgba(133, 79, 108, 0.4);" onclick="regresarAlMenu()">[ REINICIAR ]</button>
         </div>
 
     </div>
@@ -255,21 +269,22 @@
     <button id="abort-trigger" class="btn-abort hidden" onclick="reproducirEfecto('error'); regresarAlMenu();">× Abortar</button>
 </div>
 
-<div id="modal-instrucciones" class="modal" style="display:none; position:fixed; z-index:100; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.9); backdrop-filter:blur(5px);">
-    <div style="background-color:#0b0e14; height:100vh; padding:40px 24px; box-sizing:border-box; color:#d8dee9; overflow-y:auto;">
-        <span style="float:right; font-size:30px; color:#4c566a; cursor:pointer;" onclick="cerrarModal('modal-instrucciones')">&times;</span>
-        <h2 style="color:#fff; margin-top:0; font-weight:300;">MANUAL</h2>
+<!-- MODALES (Sincronizados cromáticamente) -->
+<div id="modal-instrucciones" class="modal" style="display:none; position:fixed; z-index:100; left:0; top:0; width:100%; height:100%; background:rgba(25,0,25,0.95); backdrop-filter:blur(5px);">
+    <div style="background-color:#190019; height:100vh; padding:40px 24px; box-sizing:border-box; color:#DFB6B2; overflow-y:auto; border-right: 1px solid rgba(133, 79, 108, 0.3);">
+        <span style="float:right; font-size:30px; color:#854F6C; cursor:pointer;" onclick="cerrarModal('modal-instrucciones')">&times;</span>
+        <h2 style="color:#FBE4D8; margin-top:0; font-weight:300;">MANUAL</h2>
         <p>Cada fase cuenta con mecánicas de juego asimétricas: desde responder rápido contra reloj hasta interactuar directamente con una cuadrícula de sopa de letras táctil.</p>
     </div>
 </div>
 
-<div id="modal-creditos" class="modal" style="display:none; position:fixed; z-index:100; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.9); backdrop-filter:blur(5px);">
-    <div style="background-color:#0b0e14; height:100vh; padding:40px 24px; box-sizing:border-box; color:#d8dee9; overflow-y:auto;">
-        <span style="float:right; font-size:30px; color:#4c566a; cursor:pointer;" onclick="cerrarModal('modal-creditos')">&times;</span>
-        <h2 style="color:#fff; margin-top:0; font-weight:300;">CRÉDITOS</h2>
+<div id="modal-creditos" class="modal" style="display:none; position:fixed; z-index:100; left:0; top:0; width:100%; height:100%; background:rgba(25,0,25,0.95); backdrop-filter:blur(5px);">
+    <div style="background-color:#190019; height:100vh; padding:40px 24px; box-sizing:border-box; color:#DFB6B2; overflow-y:auto; border-right: 1px solid rgba(133, 79, 108, 0.3);">
+        <span style="float:right; font-size:30px; color:#854F6C; cursor:pointer;" onclick="cerrarModal('modal-creditos')">&times;</span>
+        <h2 style="color:#FBE4D8; margin-top:0; font-weight:300;">CRÉDITOS</h2>
         <p>Lógica de juego interactiva:</p>
-        <div style="font-size:16px; color:#fff; padding:12px 0; border-top:1px solid #3b4252; border-bottom:1px solid #3b4252; margin:15px 0;">Lucia Carolina Barcenas Rodriguez</div>
-        <p style="font-size:11px; color:#4c566a;">© 2026 - SIMULACIÓN EDUCATIVA.</p>
+        <div style="font-size:16px; color:#FBE4D8; padding:12px 0; border-top:1px solid #522B5B; border-bottom:1px solid #522B5B; margin:15px 0;">Lucia Carolina Barcenas Rodriguez</div>
+        <p style="font-size:11px; color:#854F6C;">© 2026 - SIMULACIÓN EDUCATIVA.</p>
     </div>
 </div>
 
@@ -279,14 +294,12 @@
     let intervaloKahoot;
     let palabraSeleccionadaSopa = [];
 
-    // Matriz Sopa de letras de 4x4 fija conteniendo "AMOR"
     const letrasSopa = [
         'A', 'X', 'B', 'Z',
         'M', 'P', 'Q', 'W',
         'O', 'R', 'S', 'Y',
         'R', 'K', 'L', 'M'
     ];
-    // Coordenadas correctas para la palabra AMOR en orden secuencial
     const indicesCorrectosSopa = [0, 4, 8, 12]; 
 
     function reproducirEfecto(tipo) {
@@ -321,7 +334,7 @@
         interfaz.classList.remove('interface-error');
         void interfaz.offsetWidth;
         interfaz.classList.add('interface-error');
-        feedback.innerText = "⚠️ ERROR EN MATRIZ REINTENTE LA ACCIÓN.";
+        feedback.innerText = "⚠️ DETECTADA INCONSISTENCIA EN DIAGNÓSTICO.";
         feedback.classList.add('feedback-error');
     }
 
@@ -332,7 +345,6 @@
         ejecutarFase1();
     }
 
-    // --- MANEJO FASE 1: KAHOOT CONTRA RELOJ ---
     function ejecutarFase1() {
         document.getElementById('fase-kahoot').classList.remove('hidden');
         let barra = document.getElementById('kahoot-bar');
@@ -362,7 +374,6 @@
         }
     }
 
-    // --- MANEJO FASE 2: SOPA DE LETRAS INTERACTIVA ---
     function ejecutarFase2() {
         document.getElementById('game-feedback').className = "feedback-banner";
         document.getElementById('fase-sopa').classList.remove('hidden');
@@ -389,7 +400,6 @@
     }
 
     function verificarSopa() {
-        // Validar si el arreglo de seleccionados es exactamente igual al arreglo de respuestas correctas
         let correcto = palabraSeleccionadaSopa.length === indicesCorrectosSopa.length &&
                        palabraSeleccionadaSopa.every((val, i) => val === indicesCorrectosSopa[i]);
 
@@ -404,7 +414,6 @@
         }
     }
 
-    // --- MANEJO FASE 3: BINARIO ---
     function evaluarBinario(esCorrecto) {
         if(esCorrecto) {
             reproducirEfecto('confirmar');
@@ -416,7 +425,6 @@
         }
     }
 
-    // --- MANEJO FASE 4: ANÁLISIS ---
     function evaluarAnalisis(esCorrecto) {
         if(esCorrecto) {
             reproducirEfecto('confirmar');
@@ -428,7 +436,6 @@
         }
     }
 
-    // --- MANEJO FASE 5: MATCH CONCEPTUAL ---
     function evaluarMatch(esCorrecto) {
         if(esCorrecto) {
             reproducirEfecto('confirmar');
