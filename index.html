@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RETO: PATRONES DE CRIANZA</title>
     <style>
-        /* Estilo Base Sólido y Atmosférico (image_2931ff.png + Estilo image_2925a4.jpg) */
+        /* Estilo Base basado en la paleta exacta de image_28bd9e.png */
         body {
-            background-color: #190019; /* Color sólido absoluto de fondo */
-            color: #DFB6B2;
+            background-color: #11001C; /* Fondo Sólido de la imagen */
+            color: #FFFFFF;
             font-family: 'Impact', 'Arial Black', sans-serif;
             margin: 0;
             padding: 0;
@@ -27,57 +27,56 @@
 
         .panel-grunge {
             width: 100%; max-width: 420px;
-            background: rgba(25, 0, 25, 0.98);
-            border: 3px solid #854F6C;
-            box-shadow: 0 0 0 4px #190019, 0 15px 35px rgba(0,0,0,0.9);
+            background: #1A0129; /* Siguiente tono de la paleta */
+            border: 3px solid #3A025B; /* Tono intermedio */
+            box-shadow: 0 0 0 4px #11001C, 0 15px 35px rgba(0,0,0,0.9);
             padding: 35px 20px; border-radius: 2px; box-sizing: border-box; position: relative;
         }
-        /* Borde lineal rasgado simulado */
         .panel-grunge::after {
-            content: ''; position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px; border: 1px dashed rgba(223, 182, 178, 0.25); pointer-events: none;
+            content: ''; position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px; border: 1px dashed rgba(82, 3, 128, 0.4); pointer-events: none;
         }
 
         .interface-error { animation: shake 0.3s ease-in-out; border-color: #bf616a !important; }
         @keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
 
         /* --- TIPOGRAFÍAS --- */
-        h1.title-game { font-size: 44px; color: #FBE4D8; margin: 0 0 25px 0; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; line-height: 0.95; text-align: center; }
-        h2.section-header { font-size: 22px; color: #190019; background: #FBE4D8; margin: -50px auto 25px auto; padding: 5px 15px; width: fit-content; text-transform: uppercase; letter-spacing: 2px; border: 2px solid #854F6C; font-family: sans-serif; font-weight: bold; }
-        p.desc-text { font-family: sans-serif; color: #FBE4D8; font-size: 14.5px; line-height: 1.5; margin-bottom: 20px; font-weight: 300; }
+        h1.title-game { font-size: 44px; color: #FFFFFF; margin: 0 0 25px 0; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; line-height: 0.95; text-align: center; }
+        h2.section-header { font-size: 22px; color: #11001C; background: #FFFFFF; margin: -50px auto 25px auto; padding: 5px 15px; width: fit-content; text-transform: uppercase; letter-spacing: 2px; border: 2px solid #3A025B; font-family: sans-serif; font-weight: bold; }
+        p.desc-text { font-family: sans-serif; color: #DFB6B2; font-size: 14.5px; line-height: 1.5; margin-bottom: 20px; font-weight: 300; }
 
-        /* --- BOTONES DE ACCIÓN (Estilo Dead Days) --- */
+        /* --- BOTONES DE ACCIÓN (Estilo Dead Days con tonos image_28bd9e.png) --- */
         .menu-list { display: flex; flex-direction: column; gap: 12px; width: 100%; }
         .btn-grunge {
-            background: #854F6C; color: #FBE4D8; border: none; font-family: 'Impact', sans-serif; font-size: 22px; padding: 12px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; width: 100%; border-radius: 0; box-sizing: border-box; text-align: center; transition: all 0.1s ease; clip-path: polygon(1% 2%, 99% 0%, 100% 96%, 0% 100%);
+            background: #520380; /* Tono Indigo Destacado */
+            color: #FFFFFF; border: none; font-family: 'Impact', sans-serif; font-size: 22px; padding: 12px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; width: 100%; border-radius: 0; box-sizing: border-box; text-align: center; transition: all 0.1s ease; clip-path: polygon(1% 2%, 99% 0%, 100% 96%, 0% 100%);
         }
-        .btn-grunge:active { background: #522B5B; color: #DFB6B2; transform: scale(0.98); }
-        .btn-grunge.secondary { background: #2B124C; border: 2px solid #854F6C; font-size: 18px; }
+        .btn-grunge:active { background: #3A025B; transform: scale(0.98); }
+        .btn-grunge.secondary { background: #220135; border: 2px solid #520380; font-size: 18px; }
 
-        /* --- MAPA DE 10 NIVELES (LEVELS STYLE) --- */
+        /* --- MAPA DE NIVELES MODIFICADO (Muestra Completados y Disponibles) --- */
         .levels-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
         .level-box {
-            background: transparent; border: 2px solid #854F6C; color: #FBE4D8; font-size: 20px; height: 65px; display: flex; justify-content: center; align-items: center; cursor: pointer; font-family: 'Impact', sans-serif; transition: all 0.1s; position: relative;
+            background: transparent; border: 2px solid #520380; color: #FFFFFF; font-size: 20px; height: 65px; display: flex; justify-content: center; align-items: center; cursor: pointer; font-family: 'Impact', sans-serif; transition: all 0.1s; position: relative;
         }
-        .level-box.locked { background: rgba(82, 43, 91, 0.2); border-color: rgba(133, 79, 108, 0.3); color: rgba(223, 182, 178, 0.3); cursor: not-allowed; }
+        .level-box.locked { background: rgba(26, 1, 41, 0.6); border-color: #220135; color: rgba(255,255,255,0.2); cursor: not-allowed; }
         .level-box.locked::before { content: "🔒"; font-size: 14px; }
-        .level-box:not(.locked):active { background: #FBE4D8; color: #190019; border-color: #FBE4D8; }
+        
+        /* Estado completado pedido */
+        .level-box.completed { background: #520380; border-color: #FFFFFF; color: #FFFFFF; }
+        .level-box.completed::after { content: "✔"; position: absolute; bottom: 2px; right: 4px; font-size: 11px; color: #FFFFFF; }
+        
+        .level-box:not(.locked):active { background: #FFFFFF; color: #11001C; }
 
-        /* --- AJUSTES DESLIZADORES (image_2925a4.jpg) --- */
-        .setting-row { display: flex; align-items: center; margin-bottom: 25px; font-family: sans-serif; font-weight: bold; font-size: 14px; letter-spacing: 1px; }
-        .setting-label { width: 70px; color: #DFB6B2; text-transform: uppercase; }
-        .slider-container { flex-grow: 1; height: 14px; background: #2B124C; border: 1px solid #854F6C; position: relative; cursor: pointer; }
-        .slider-bar { height: 100%; background: #854F6C; width: 50%; pointer-events: none; }
-        .slider-handle { position: absolute; top: -3px; width: 14px; height: 20px; background: #FBE4D8; border: 1px solid #190019; transform: translateX(-50%); pointer-events: none; }
-
-        /* --- JUEGO INTERACTIVO --- */
+        /* --- SOPAS DE LETRAS DINÁMICAS --- */
         .wordsearch-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 15px auto; max-width: 240px; }
-        .letter-cell { background: #2B124C; border: 2px solid #854F6C; color: #FBE4D8; font-size: 20px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; user-select: none; }
-        .letter-cell.selected { background: #FBE4D8; color: #190019; border-color: #FBE4D8; }
+        .letter-cell { background: #220135; border: 2px solid #3A025B; color: #FFFFFF; font-size: 20px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; user-select: none; }
+        .letter-cell.selected { background: #520380; color: #FFFFFF; border-color: #FFFFFF; }
 
-        .timer-container { width: 100%; background: #2B124C; height: 8px; margin-bottom: 15px; border: 1px solid #854F6C; }
-        .timer-bar { width: 100%; height: 100%; background: #854F6C; transition: width 1s linear; }
+        /* --- OTROS COMPONENTES --- */
+        .timer-container { width: 100%; background: #220135; height: 8px; margin-bottom: 15px; border: 1px solid #3A025B; }
+        .timer-bar { width: 100%; height: 100%; background: #520380; transition: width 1s linear; }
         .feedback-banner { font-family: sans-serif; margin-bottom: 15px; padding: 10px; font-size: 12px; font-weight: bold; display: none; text-align: center; border: 1px solid #bf616a; color: #ff8888; background: rgba(191, 97, 106, 0.15); }
-        .btn-back-menu { font-family: sans-serif; font-size: 11px; text-transform: uppercase; color: #854F6C; background: none; border: none; font-weight: bold; margin-top: 25px; display: block; text-align: center; width: 100%; letter-spacing: 1px; cursor: pointer; }
+        .btn-back-menu { font-family: sans-serif; font-size: 11px; text-transform: uppercase; color: #520380; background: none; border: none; font-weight: bold; margin-top: 25px; display: block; text-align: center; width: 100%; letter-spacing: 1px; cursor: pointer; }
         
         .hidden { display: none !important; }
     </style>
@@ -86,31 +85,22 @@
 
 <div class="wrapper-layout">
     
-    <!-- MÓDULO 1: MENÚ PRINCIPAL ORDENADO -->
+    <!-- MÓDULO 1: MENÚ PRINCIPAL -->
     <div id="m-main-menu" class="panel-grunge">
-        <h1 class="title-game">PATRONES<br><span style="color:#854F6C;">DE CRIANZA</span></h1>
+        <h1 class="title-game">PATRONES<br><span style="color:#520380;">DE CRIANZA</span></h1>
         <div class="menu-list">
-            <button class="btn-grunge" onclick="tryStartAudio(); changeModule('m-main-menu', 'm-levels');">Iniciar Juego</button>
-            <button class="btn-grunge" style="background:#522B5B;" onclick="tryStartAudio(); changeModule('m-main-menu', 'm-howtoplay');">Cómo Jugar</button>
-            <button class="btn-grunge" style="background:#2B124C;" onclick="tryStartAudio(); changeModule('m-main-menu', 'm-credits');">Créditos</button>
-            <button class="btn-grunge" style="background:#190019; border: 2px solid #854F6C; font-size:16px; padding:8px;" onclick="tryStartAudio(); changeModule('m-main-menu', 'm-settings');">Ajustes ⚙️</button>
+            <button class="btn-grunge" onclick="tryStartAudio(); changeModule('m-main-menu', 'm-levels'); refreshLevelsInterface();">Iniciar Juego</button>
+            <button class="btn-grunge" style="background:#3A025B;" onclick="tryStartAudio(); changeModule('m-main-menu', 'm-howtoplay');">Cómo Jugar</button>
+            <button class="btn-grunge" style="background:#220135;" onclick="tryStartAudio(); changeModule('m-main-menu', 'm-credits');">Créditos</button>
+            <button class="btn-grunge" style="background:#11001C; border: 2px solid #3A025B; font-size:16px; padding:8px;" onclick="tryStartAudio(); changeModule('m-main-menu', 'm-settings');">Ajustes ⚙️</button>
         </div>
     </div>
 
-    <!-- MÓDULO 2: SELECCIÓN DE 10 NIVELES -->
+    <!-- MÓDULO 2: SELECCIÓN DE NIVELES CON HISTORIAL -->
     <div id="m-levels" class="panel-grunge hidden">
         <h2 class="section-header">NIVELES</h2>
-        <div class="levels-grid">
-            <div class="level-box" onclick="startLevel(1)">1</div>
-            <div class="level-box" id="lv2" onclick="startLevel(2)">2</div>
-            <div class="level-box" id="lv3" onclick="startLevel(3)">3</div>
-            <div class="level-box" id="lv4" onclick="startLevel(4)">4</div>
-            <div class="level-box locked" id="lv5" onclick="startLevel(5)"></div>
-            <div class="level-box locked" id="lv6" onclick="startLevel(6)"></div>
-            <div class="level-box locked" id="lv7" onclick="startLevel(7)"></div>
-            <div class="level-box locked" id="lv8" onclick="startLevel(8)"></div>
-            <div class="level-box locked" id="lv9" onclick="startLevel(9)"></div>
-            <div class="level-box locked" id="lv10" onclick="startLevel(10)"></div>
+        <div class="levels-grid" id="grid-selector-niveles">
+            <!-- Construido dinámicamente en JS para reflejar estados "completado", "bloqueado" o "jugable" -->
         </div>
         <button class="btn-back-menu" onclick="changeModule('m-levels', 'm-main-menu')">✖ VOLVER AL MENÚ</button>
     </div>
@@ -118,8 +108,8 @@
     <!-- MÓDULO 3: CÓMO JUGAR -->
     <div id="m-howtoplay" class="panel-grunge hidden">
         <h2 class="section-header">MANUAL</h2>
-        <p class="desc-text">Analiza las situaciones de convivencia familiar y selecciona la solución correcta. Te enfrentarás a exámenes rápidos de tiempo, sopas de letras interactivas y matrices críticas de diagnóstico binario.</p>
-        <p class="desc-text" style="color: #854F6C; font-weight: bold;">Tu objetivo es completar los 10 niveles y equilibrar los núcleos familiares.</p>
+        <p class="desc-text">Analiza las situaciones familiares y resuelve los desafíos de forma asertiva. Las celdas marcadas con un gancho (✔) representan tus zonas seguras ya superadas.</p>
+        <p class="desc-text" style="color: #520380; font-weight: bold;">Supera las nuevas matrices de sopas de letras distribuidas a lo largo de la ruta crítica.</p>
         <button class="btn-back-menu" onclick="changeModule('m-howtoplay', 'm-main-menu')">✖ ENTENDIDO</button>
     </div>
 
@@ -127,14 +117,14 @@
     <div id="m-credits" class="panel-grunge hidden">
         <h2 class="section-header">CREDITS</h2>
         <p class="desc-text" style="text-align:center; font-size:16px;">Estructuración Modular Dinámica:</p>
-        <div style="font-size:22px; color:#FBE4D8; text-align:center; margin:15px 0; border-top:1px solid #854F6C; border-bottom:1px solid #854F6C; padding:10px 0;">
+        <div style="font-size:22px; color:#FFFFFF; text-align:center; margin:15px 0; border-top:1px solid #520380; border-bottom:1px solid #520380; padding:10px 0;">
             Lucia Carolina Barcenas Rodriguez
         </div>
-        <p class="desc-text" style="text-align:center; font-size:11px; opacity:0.5;">© 2026 - MODELADO FORMATIVO.</p>
+        <p class="desc-text" style="text-align:center; font-size:11px; opacity:0.5;">© 2026 - MODELADO FORMATIVO VIOLETA.</p>
         <button class="btn-back-menu" onclick="changeModule('m-credits', 'm-main-menu')">✖ VOLVER</button>
     </div>
 
-    <!-- MÓDULO 5: AJUSTES (INTERACTIVO CON MÚSICA) -->
+    <!-- MÓDULO 5: AJUSTES -->
     <div id="m-settings" class="panel-grunge hidden">
         <h2 class="section-header">AJUSTES</h2>
         
@@ -163,27 +153,27 @@
 
         <!-- MODO: QUIZ KAHOOT -->
         <div id="mech-kahoot" class="hidden">
-            <div style="font-size: 11px; color:#DFB6B2; margin-bottom:6px; font-weight:bold;">MODO: ANÁLISIS EXTREMO</div>
+            <div style="font-size: 11px; color:#FFFFFF; margin-bottom:6px; font-weight:bold;">MODO: ANÁLISIS EXTREMO</div>
             <div class="timer-container"><div id="kahoot-bar" class="timer-bar"></div></div>
             <p class="desc-text" id="kahoot-text"></p>
             <div class="menu-list" id="kahoot-options"></div>
         </div>
 
-        <!-- MODO: SOPA DE LETRAS -->
+        <!-- MODO: SOPAS DE LETRAS (SOPORTA DIFERENTES PALABRAS) -->
         <div id="mech-sopa" class="hidden">
-            <div style="font-size: 11px; color:#DFB6B2; margin-bottom:6px; font-weight:bold;">MODO: MATRIZ DE LETRAS</div>
-            <p class="desc-text">Ordena de corrido la palabra clave fundamental <b>"AMOR"</b> de forma vertical:</p>
+            <div style="font-size: 11px; color:#FFFFFF; margin-bottom:6px; font-weight:bold;">MODO: MATRIZ DE LETRAS</div>
+            <p class="desc-text" id="sopa-instruccion"></p>
             <div class="wordsearch-grid" id="grid-letras"></div>
             <button class="btn-grunge" style="font-size:16px;" onclick="verificarSopa()">COMPROBAR PALABRA</button>
         </div>
 
         <!-- MODO: BINARIO -->
         <div id="mech-binary" class="hidden">
-            <div style="font-size: 11px; color:#DFB6B2; margin-bottom:6px; font-weight:bold;">MODO: VERIFICACIÓN INMEDIATA</div>
+            <div style="font-size: 11px; color:#FFFFFF; margin-bottom:6px; font-weight:bold;">MODO: VERIFICACIÓN INMEDIATA</div>
             <p class="desc-text" id="binary-text"></p>
             <div style="display:flex; gap:10px;">
-                <button class="btn-grunge" style="background:#522B5B;" onclick="evaluarRespuestaDirecta(true)">VERDADERO</button>
-                <button class="btn-grunge" style="background:#2B124C;" onclick="evaluarRespuestaDirecta(false)">FALSO</button>
+                <button class="btn-grunge" style="background:#3A025B;" onclick="evaluarRespuestaDirecta(true)">VERDADERO</button>
+                <button class="btn-grunge" style="background:#220135;" onclick="evaluarRespuestaDirecta(false)">FALSO</button>
             </div>
         </div>
 
@@ -193,7 +183,6 @@
 </div>
 
 <script>
-    // inicialización del Contexto de Audio Web
     let audioCtx = null;
     let mainOsc = null;
     let mainGain = null;
@@ -206,14 +195,21 @@
     let intervaloKahoot;
     let palabraSopa = [];
 
+    // Estructura de niveles completados en memoria
+    let nivelesCompletados = {
+        1: false, 2: false, 3: false, 4: false, 5: false,
+        6: false, 7: false, 8: false, 9: false, 10: false
+    };
+
+    // Base de datos expandida con más tipos de sopas de letras intercaladas
     const dbNiveles = {
         1: { mech: 'kahoot', text: "Un padre le grita fuertemente a su hijo exigiéndole obediencia inmediata y ciega sin derecho a réplica. ¿Qué patrón es?", opt: ["Permisivo", "Autoritario", "Negligente"], ans: 1 },
-        2: { mech: 'sopa' },
+        2: { mech: 'sopa', palabra: 'AMOR', letras: ['A','X','B','Z','M','P','Q','W','O','R','S','Y','R','K','L','M'], targets: [0,4,8,12] }, 
         3: { mech: 'binary', text: "El patrón desapegado o negligente se destaca por un alto nivel de control estricto y castigos físicos constantes.", ans: false },
-        4: { mech: 'kahoot', text: "Una madre es sumamente afectuosa pero evita colocar cualquier norma en el hogar, cediendo a caprichos. ¿Qué patrón es?", opt: ["Democrático", "Permisivo", "Autoritario"], ans: 1 },
+        4: { mech: 'sopa', palabra: 'GUIA', letras: ['G','K','J','F','U','W','P','N','I','O','L','M','A','E','S','T'], targets: [0,4,8,12] },
         5: { mech: 'binary', text: "El patrón Democrático equilibra de manera óptima las muestras de afecto mutuo con límites claros y dialogados.", ans: true },
         6: { mech: 'kahoot', text: "Los tutores muestran desinterés sistemático por la salud, educación y alimentación de los menores. ¿Qué es?", opt: ["Negligente", "Sobreprotector", "Permisivo"], ans: 0 },
-        7: { mech: 'binary', text: "La sobreprotección excesiva ayuda al desarrollo de la autonomía e independencia del adolescente.", ans: false },
+        7: { mech: 'sopa', palabra: 'LAZO', letras: ['L','V','N','Q','A','Z','S','W','Z','X','D','E','O','R','F','V'], targets: [0,4,8,12] },
         8: { mech: 'kahoot', text: "El hijo tiene derecho a opinar sobre las normas del hogar bajo un esquema de respeto y asertividad mutua. ¿Qué es?", opt: ["Autoritario", "Democrático", "Negligente"], ans: 1 },
         9: { mech: 'binary', text: "El diálogo y el soporte emocional activo son herramientas ajenas al estilo de crianza autoritario.", ans: true },
         10: { mech: 'kahoot', text: "Estilo que genera baja autoestima, sumisión o conductas agresivas severas por el exceso de castigo coercitivo:", opt: ["Democrático", "Permisivo", "Autoritario"], ans: 2 }
@@ -224,26 +220,21 @@
             audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             startAmbientMusic();
         }
-        if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
-        }
+        if (audioCtx.state === 'suspended') { audioCtx.resume(); }
     }
 
-    // Generador de Música de Fondo Ambiental
     function startAmbientMusic() {
         mainOsc = audioCtx.createOscillator();
         mainGain = audioCtx.createGain();
-        
         mainOsc.type = 'triangle';
-        mainOsc.frequency.setValueAtTime(120, audioCtx.currentTime); // Tono grave atmosférico
+        mainOsc.frequency.setValueAtTime(115, audioCtx.currentTime);
         
-        // Modulación leve de frecuencia para dar efecto místico/sintetizador
         setInterval(() => {
             if(mainOsc && audioCtx) {
-                let frq = 110 + Math.random() * 25;
+                let frq = 110 + Math.random() * 20;
                 mainOsc.frequency.exponentialRampToValueAtTime(frq, audioCtx.currentTime + 1.5);
             }
-        }, 2000);
+        }, 2500);
 
         mainGain.gain.setValueAtTime(volMusic * 0.15, audioCtx.currentTime);
         mainOsc.connect(mainGain);
@@ -255,6 +246,34 @@
         reproducirEfecto('seleccionar');
         document.getElementById(fromId).classList.add('hidden');
         document.getElementById(toId).classList.remove('hidden');
+    }
+
+    // Refresca la UI de niveles mostrando cuáles ya están completados y cuáles jugables
+    function refreshLevelsInterface() {
+        let contenedor = document.getElementById('grid-selector-niveles');
+        contenedor.innerHTML = "";
+
+        for (let i = 1; i <= 10; i++) {
+            let box = document.createElement('div');
+            box.innerText = i;
+
+            // Determinar si está bloqueado, completado o disponible
+            let estaBloqueado = false;
+            if (i > 1 && !nivelesCompletados[i - 1] && !nivelesCompletados[i]) {
+                estaBloqueado = true;
+            }
+
+            if (estaBloqueado) {
+                box.className = "level-box locked";
+            } else if (nivelesCompletados[i]) {
+                box.className = "level-box completed";
+            } else {
+                box.className = "level-box"; // Disponible para jugar
+            }
+
+            box.onclick = () => { startLevel(i, estaBloqueado); };
+            contenedor.appendChild(box);
+        }
     }
 
     function setVolume(type, event) {
@@ -270,9 +289,7 @@
             volMusic = percentage;
             if(mainGain) mainGain.gain.setValueAtTime(volMusic * 0.15, audioCtx.currentTime);
         }
-        if(type === 'sfx') {
-            volSfx = percentage;
-        }
+        if(type === 'sfx') volSfx = percentage;
         reproducirEfecto('seleccionar');
     }
 
@@ -298,9 +315,8 @@
         }
     }
 
-    function startLevel(num) {
-        let box = document.getElementById(`lv${num}`);
-        if (box && box.classList.contains('locked')) {
+    function startLevel(num, blocked) {
+        if (blocked) {
             reproducirEfecto('error');
             return;
         }
@@ -334,7 +350,8 @@
             runKahootTimer();
         } else if(data.mech === 'sopa') {
             document.getElementById('mech-sopa').classList.remove('hidden');
-            buildSopaGrid();
+            document.getElementById('sopa-instruccion').innerHTML = `Selecciona en orden vertical la palabra clave: <b>"${data.palabra}"</b>`;
+            buildSopaGrid(data);
         } else if(data.mech === 'binary') {
             document.getElementById('mech-binary').classList.remove('hidden');
             document.getElementById('binary-text').innerText = data.text;
@@ -351,12 +368,11 @@
         }, 1000);
     }
 
-    function buildSopaGrid() {
+    function buildSopaGrid(data) {
         palabraSopa = [];
-        let letters = ['A', 'X', 'B', 'Z', 'M', 'P', 'Q', 'W', 'O', 'R', 'S', 'Y', 'R', 'K', 'L', 'M'];
         let grid = document.getElementById('grid-letras');
         grid.innerHTML = "";
-        letters.forEach((l, idx) => {
+        data.letras.forEach((l, idx) => {
             let cell = document.createElement('div');
             cell.className = "letter-cell"; cell.innerText = l;
             cell.onclick = () => {
@@ -373,7 +389,8 @@
     }
 
     function verificarSopa() {
-        let targets = [0, 4, 8, 12]; // AMOR vertical
+        let data = dbNiveles[currentLevel];
+        let targets = data.targets;
         let win = palabraSopa.length === targets.length && palabraSopa.every((v, i) => v === targets[i]);
         if(win) levelPassed(); else failAction();
     }
@@ -384,13 +401,13 @@
 
     function levelPassed() {
         reproducirEfecto('confirmar');
-        currentLevel++;
-        if(currentLevel <= 10) {
-            let nextBox = document.getElementById(`lv${currentLevel}`);
-            if(nextBox) nextBox.classList.remove('locked');
+        nivelesCompletados[currentLevel] = true; // Marcar nivel como completado
+        
+        if(currentLevel < 10) {
+            currentLevel++;
             loadLevelStructure();
         } else {
-            alert("¡EXCELENTE! Has estabilizado y diagnosticado correctamente los 10 cuadrantes.");
+            alert("¡PERFECTO! Has completado con éxito la totalidad de los 10 cuadrantes.");
             abortarJuego();
         }
     }
@@ -402,7 +419,7 @@
         playPanel.classList.remove('interface-error');
         void playPanel.offsetWidth;
         playPanel.classList.add('interface-error');
-        feed.innerText = "❌ RESPUESTA ERRÓNEA: CORRECCIÓN DE PATRÓN REQUERIDA.";
+        feed.innerText = "❌ CORRECCIÓN REQUERIDA EN EL DIAGNÓSTICO.";
         feed.style.display = "block";
         if(dbNiveles[currentLevel].mech === 'kahoot') loadLevelStructure();
     }
@@ -411,6 +428,7 @@
         clearInterval(intervaloKahoot);
         document.getElementById('m-gameplay').classList.add('hidden');
         document.getElementById('m-levels').classList.remove('hidden');
+        refreshLevelsInterface(); // Actualiza la UI para ver marcas de gancho (✔)
     }
 </script>
 
