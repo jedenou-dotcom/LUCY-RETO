@@ -25,7 +25,6 @@
         h1 { color: #2b6cb0; margin-bottom: 20px; font-size: 28px; }
         p { color: #4a5568; font-size: 16px; line-height: 1.6; }
         
-        /* Botones del menú principal */
         .btn {
             background-color: #3182ce;
             color: white;
@@ -76,7 +75,6 @@
         .opcion-btn:hover { background-color: #ebf8ff; border-color: #3182ce; color: #2b6cb0; }
         .resultados { background: #edf2f7; padding: 20px; border-radius: 8px; text-align: left; margin-top: 20px; }
 
-        /* Estilos para Ventanas Emergentes (Modales) */
         .modal {
             display: none;
             position: fixed;
@@ -107,6 +105,7 @@
             cursor: pointer;
         }
         .close-btn:hover { color: #333; }
+        .fase-badge { background-color: #edf2f7; color: #4a5568; padding: 4px 10px; border-radius: 20px; font-size: 14px; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -117,31 +116,43 @@
         <h1>Desafío Educativo:<br>Patrones de Crianza</h1>
         <p style="margin-bottom: 30px;">Selecciona una opción para continuar</p>
         
-        <button class="btn btn-green" onclick="siguientePantalla('pantalla-menu', 'pantalla-mision1')">🚀 INICIAR ESCAPE ROOM</button>
+        <button class="btn btn-green" onclick="siguientePantalla('pantalla-menu', 'pantalla-fase1')">🚀 INICIAR ESCAPE ROOM (5 FASES)</button>
         <button class="btn" onclick="abrirModal('modal-instrucciones')">📖 ¿CÓMO JUGAR?</button>
         <button class="btn btn-gray" onclick="abrirModal('modal-creditos')">👥 CRÉDITOS</button>
     </div>
 
-    <div id="pantalla-mision1" class="hidden">
-        <h1>Reto 1: Descubre el Patrón</h1>
-        <p>Lee la descripción y escribe el estilo de crianza correspondiente:</p>
-        
+    <div id="pantalla-fase1" class="hidden">
+        <span class="fase-badge">Fase 1 de 5</span>
+        <h1>Descubre el Patrón A</h1>
+        <p>Escribe el estilo de crianza correspondiente a la descripción:</p>
         <div class="quiz-box">
             <p style="font-size: 18px; font-weight: 600; color: #2d3748; margin: 0;">
-                "Es el estilo familiar donde los padres imponen reglas estrictas, exigen obediencia absoluta, pero casi no muestran afecto ni dialogan con sus hijos."
+                "Padres que imponen reglas estrictas, exigen obediencia absoluta, utilizan el castigo y casi no muestran afecto ni diálogo."
             </p>
         </div>
-        
-        <input type="text" id="input-ia" placeholder="Escribe tu respuesta aquí...">
-        <button class="btn" onclick="verificarConcepto()">VERIFICAR RESPUESTA</button>
+        <input type="text" id="input-fase1" placeholder="Escribe tu respuesta aquí...">
+        <button class="btn" onclick="verificarFase1()">VERIFICAR RESPUESTA</button>
     </div>
 
-    <div id="pantalla-mision2" class="hidden">
-        <h1>Reto 2: Análisis de Casos</h1>
-        <p>Selecciona el tipo de patrón de crianza que corresponde a cada ejemplo familiar.</p>
+    <div id="pantalla-fase2" class="hidden">
+        <span class="fase-badge">Fase 2 de 5</span>
+        <h1>Descubre el Patrón B</h1>
+        <p>Escribe el estilo de crianza correspondiente a la descripción:</p>
+        <div class="quiz-box">
+            <p style="font-size: 18px; font-weight: 600; color: #2d3748; margin: 0;">
+                "Padres muy afectuosos que evitan poner límites o normas claras. Ceden fácilmente a todos los deseos y demandas de sus hijos."
+            </p>
+        </div>
+        <input type="text" id="input-fase2" placeholder="Escribe tu respuesta aquí...">
+        <button class="btn" onclick="verificarFase2()">VERIFICAR RESPUESTA</button>
+    </div>
+
+    <div id="pantalla-casos" class="hidden">
+        <span class="fase-badge">Fase <span id="num-fase">3</span> de 5</span>
+        <h1>Análisis de Casos Reales</h1>
+        <p>Selecciona el tipo de patrón de crianza que corresponde al ejemplo familiar.</p>
         
         <div class="quiz-box" id="quiz-zona">
-            <p style="color: #4a5568; font-weight: bold;">Caso <span id="num-pregunta">1</span> de 3:</p>
             <p id="texto-pregunta" style="color: #2d3748; font-size: 17px; font-weight: 500; margin-bottom: 20px;"></p>
             <div id="opciones-zona"></div>
         </div>
@@ -149,14 +160,14 @@
 
     <div id="pantalla-final" class="hidden">
         <h1 style="color: #38a169;">¡Juego Completado! 🎉</h1>
-        <p style="font-size: 18px;">Han superado con éxito todos los retos sobre los Patrones de Crianza.</p>
+        <p style="font-size: 18px;">Han superado con éxito las 5 fases sobre los Patrones de Crianza.</p>
         
         <div class="resultados">
             <p style="font-weight: bold; color: #2b6cb0; text-align: center; margin-top: 0; font-size: 18px;">Resumen de Parámetros</p>
             <ul>
-                <li><strong>Claridad:</strong> Interfaz limpia y navegación sencilla por menús.</li>
-                <li><strong>Evaluación:</strong> Preguntas de análisis sobre dinámicas familiares reales.</li>
-                <li><strong>Innovación/IA:</strong> Respuestas interactivas que se validan al instante.</li>
+                <li><strong>Claridad:</strong> 5 fases estructuradas y directas sin texto de relleno.</li>
+                <li><strong>Evaluación:</strong> Combinación de conceptos directos y análisis de casos reales.</li>
+                <li><strong>Innovación/IA:</strong> Validación dinámica de respuestas en tiempo real.</li>
             </ul>
         </div>
         <button class="btn btn-green" onclick="location.reload()" style="margin-top: 20px;">VOLVER AL MENÚ</button>
@@ -167,12 +178,12 @@
     <div class="modal-content">
         <span class="close-btn" onclick="cerrarModal('modal-instrucciones')">&times;</span>
         <h2 style="color: #3182ce; margin-top: 0;">📖 Instrucciones de Juego</h2>
-        <p>El juego es muy sencillo y directo:</p>
+        <p>El juego cuenta con <strong>5 fases rápidas</strong>:</p>
         <ul>
-            <li><strong>Fase 1:</strong> Lee el concepto que aparece en pantalla y escribe la respuesta correcta en la caja de texto. Si fallas, lee la pista e intenta de nuevo.</li>
-            <li><strong>Fase 2:</strong> Se te presentarán 3 casos de la vida real sobre diferentes familias. Elige con un clic cuál de los 4 patrones de crianza se está aplicando.</li>
+            <li><strong>Fases 1 y 2:</strong> Lee la definición teórica y escribe el nombre del patrón de crianza correcto.</li>
+            <li><strong>Fases 3, 4 y 5:</strong> Analiza las situaciones familiares de la vida real y elige la opción correcta entre las 4 alternativas.</li>
         </ul>
-        <p style="font-weight: 500; color: #2d3748;">¡Trabajen en equipo para completarlo lo más rápido posible!</p>
+        <p style="font-weight: 500; color: #2d3748;">¡Completen las 5 fases para ganar la batalla académica!</p>
     </div>
 </div>
 
@@ -180,88 +191,92 @@
     <div class="modal-content">
         <span class="close-btn" onclick="cerrarModal('modal-creditos')">&times;</span>
         <h2 style="color: #4a5568; margin-top: 0;">👥 Créditos del Proyecto</h2>
-        <p>Este Escape Room Educativo ha sido diseñado como una herramienta de evaluación interactiva para la Batalla de Gamificación.</p>
-        <p><strong>Desarrollado por:</strong></p>
-        <ul>
-            <li>Estudiantes de 5to de Secundaria</li>
-            <li>Diseño de Retos y Lógica Web Interactiva</li>
-        </ul>
+        <p>Este Escape Room Educativo ha sido diseñado como una herramienta interactiva para la Batalla de Gamificación.</p>
+        <p><strong>Diseño y Contenido Original por:</strong></p>
+        <p style="font-size: 18px; font-weight: bold; color: #2b6cb0; text-align: center; background: #ebf8ff; padding: 10px; border-radius: 6px;">
+            Lucia Carolina Barcenas Rodriguez
+        </p>
         <p style="font-size: 13px; color: #718096; text-align: center; margin-top: 20px;">© 2026 - Todos los derechos reservados.</p>
     </div>
 </div>
 
 <script>
-    const preguntas = [
+    // Banco de preguntas para las fases 3, 4 y 5
+    const preguntasCasos = [
         {
+            faseNum: 3,
             caso: "Los padres de Carlos no le ponen horarios, permiten que haga lo que quiera sin supervisión y nunca hay consecuencias cuando rompe las normas de la casa.",
             opciones: ["Patrón Autoritario", "Patrón Permisivo", "Patrón Democrático / Asertivo", "Patrón Negligente"],
             correcta: 1
         },
         {
+            faseNum: 4,
             caso: "En la casa de Ana, las reglas se conversan en familia. Sus padres escuchan sus opiniones, ponen límites claros y le brindan mucho apoyo y afecto.",
             opciones: ["Patrón Negligente", "Patrón Autoritario", "Patrón Democrático / Asertivo", "Patrón Permisivo"],
             correcta: 2
         },
         {
+            faseNum: 5,
             caso: "Los padres de Luis muestran total desinterés por sus actividades escolares y emociones. Hay una ausencia total de cuidado, normas y afecto.",
             opciones: ["Patrón Negligente", "Patrón Autoritario", "Patrón Permisivo", "Patrón Democrático / Asertivo"],
             correcta: 0
         }
     ];
 
-    let preguntaActual = 0;
+    let indiceCasoActual = 0;
 
-    // Funciones de navegación
     function siguientePantalla(actual, siguiente) {
         document.getElementById(actual).classList.add('hidden');
         document.getElementById(siguiente).classList.remove('hidden');
-        if(siguiente === 'pantalla-mision2') {
-            cargarPregunta();
+        if(siguiente === 'pantalla-casos') {
+            cargarCaso();
         }
     }
 
-    // Funciones para Ventanas Emergentes (Modales)
-    function abrirModal(id) {
-        document.getElementById(id).style.display = "block";
-    }
-
-    function cerrarModal(id) {
-        document.getElementById(id).style.display = "none";
-    }
-
-    // Cerrar modales si se hace clic fuera de la caja blanca
+    function abrirModal(id) { document.getElementById(id).style.display = "block"; }
+    function cerrarModal(id) { document.getElementById(id).style.display = "none"; }
+    
     window.onclick = function(event) {
-        if (event.target.classList.contains('modal')) {
-            event.target.style.display = "none";
-        }
+        if (event.target.classList.contains('modal')) { event.target.style.display = "none"; }
     }
 
-    // Lógica del Reto 1
-    function verificarConcepto() {
-        let resp = document.getElementById('input-ia').value.toLowerCase().trim();
-        
+    // Lógica Fase 1
+    function verificarFase1() {
+        let resp = document.getElementById('input-fase1').value.toLowerCase().trim();
         if(resp.includes('autoritario') || resp.includes('autoritaria')) {
-            alert("¡Correcto! Es el patrón autoritario. Pasamos al siguiente reto.");
-            siguientePantalla('pantalla-mision1', 'pantalla-mision2');
+            alert("¡Correcto! Completada la Fase 1.");
+            siguientePantalla('pantalla-fase1', 'pantalla-fase2');
         } else {
-            alert("Respuesta incorrecta. Lee bien la descripción e intenta de nuevo.");
+            alert("Incorrecto. Revisa las características e intenta de nuevo.");
         }
     }
 
-    // Lógica del Reto 2
-    function cargarPregunta() {
-        if(preguntaActual >= preguntas.length) {
-            siguientePantalla('pantalla-mision2', 'pantalla-final');
+    // Lógica Fase 2
+    function verificarFase2() {
+        let resp = document.getElementById('input-fase2').value.toLowerCase().trim();
+        if(resp.includes('permisivo') || resp.includes('permisiva')) {
+            alert("¡Correcto! Completada la Fase 2. Pasamos a los casos prácticos.");
+            siguientePantalla('pantalla-fase2', 'pantalla-casos');
+        } else {
+            alert("Incorrecto. Recuerda qué pasa cuando hay mucho afecto pero cero límites.");
+        }
+    }
+
+    // Lógica Fases 3, 4 y 5
+    function cargarCaso() {
+        if(indiceCasoActual >= preguntasCasos.length) {
+            siguientePantalla('pantalla-casos', 'pantalla-final');
             return;
         }
         
-        document.getElementById('num-pregunta').innerText = preguntaActual + 1;
-        document.getElementById('texto-pregunta').innerText = preguntas[preguntaActual].caso;
+        let casoActual = preguntasCasos[indiceCasoActual];
+        document.getElementById('num-fase').innerText = casoActual.faseNum;
+        document.getElementById('texto-pregunta').innerText = casoActual.caso;
         
         let zonaOpciones = document.getElementById('opciones-zona');
         zonaOpciones.innerHTML = "";
         
-        preguntas[preguntaActual].opciones.forEach((opcion, indice) => {
+        casoActual.opciones.forEach((opcion, indice) => {
             let boton = document.createElement('button');
             boton.className = "btn opcion-btn";
             boton.innerText = opcion;
@@ -271,12 +286,13 @@
     }
 
     function evaluarRespuesta(indiceSeleccionado) {
-        if(indiceSeleccionado === preguntas[preguntaActual].correcta) {
-            alert("¡Correcto!");
-            preguntaActual++;
-            cargarPregunta();
+        let casoActual = preguntasCasos[indiceCasoActual];
+        if(indiceSeleccionado === casoActual.correcta) {
+            alert("¡Correcto! Fase " + casoActual.faseNum + " superada.");
+            indiceCasoActual++;
+            cargarCaso();
         } else {
-            alert("Incorrecto. Analicen el caso familiar de nuevo.");
+            alert("Incorrecto. Vuelvan a analizar los comportamientos de la familia.");
         }
     }
 </script>
