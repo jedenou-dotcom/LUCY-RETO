@@ -3,144 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BATALLA DE GAMIFICACIÓN: CÓDIGO CRIANZA</title>
+    <title>RETO: PATRONES DE CRIANZA</title>
     <style>
         body {
-            background-color: #0b0f19;
-            color: #00ffcc;
-            font-family: 'Courier New', Courier, monospace;
+            background-color: #f4f6f9;
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             text-align: center;
             padding: 20px;
         }
         .container {
-            max-width: 800px;
+            max-width: 650px;
             margin: auto;
-            border: 2px solid #00ffcc;
-            padding: 30px;
-            box-shadow: 0 0 25px #00ffcc;
-            background-color: #121b2d;
-            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            padding: 40px 30px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
-        h1 { color: #ff0055; text-shadow: 0 0 12px #ff0055; margin-bottom: 5px; }
-        .subtitle { color: #8892b0; font-size: 14px; margin-bottom: 25px; }
+        h1 { color: #2b6cb0; margin-bottom: 20px; font-size: 28px; }
+        p { color: #4a5568; font-size: 16px; line-height: 1.6; }
         .btn {
-            background-color: #00ffcc;
-            color: #0b0f19;
-            padding: 12px 25px;
+            background-color: #3182ce;
+            color: white;
+            padding: 12px 30px;
             border: none;
             font-weight: bold;
-            font-size: 15px;
+            font-size: 16px;
             cursor: pointer;
-            margin: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 8px #00ffcc;
-            transition: all 0.3s ease;
+            margin: 15px 0;
+            border-radius: 6px;
+            transition: background 0.2s;
+            width: 100%;
         }
-        .btn:hover { background-color: #ff0055; color: white; box-shadow: 0 0 12px #ff0055; }
+        .btn:hover { background-color: #2b6cb0; }
         .hidden { display: none; }
         input[type="text"] {
             padding: 12px;
-            width: 75%;
-            border: 1px solid #00ffcc;
-            background: #0b0f19;
-            color: #fff;
+            width: 90%;
+            border: 2px solid #cbd5e0;
+            background: #fff;
+            color: #333;
             font-size: 16px;
             text-align: center;
-            border-radius: 5px;
-            margin-bottom: 10px;
+            border-radius: 6px;
+            margin-top: 15px;
         }
-        .chat-box {
-            background: #0b0f19;
-            border: 1px solid #00ffcc;
-            height: 180px;
-            overflow-y: auto;
-            padding: 15px;
-            margin-bottom: 15px;
+        input[type="text"]:focus { border-color: #3182ce; outline: none; }
+        .quiz-box { background: #f7fafc; padding: 25px; border-radius: 8px; margin: 25px 0; border: 1px solid #e2e8f0; }
+        .opcion-btn {
+            background-color: #fff;
+            color: #4a5568;
+            border: 2px solid #e2e8f0;
+            padding: 14px;
             text-align: left;
-            border-radius: 5px;
+            font-size: 15px;
+            font-weight: 500;
         }
-        .terminal { color: #a8b2d1; font-size: 14px; line-height: 1.5; }
-        .quiz-box { background: #17223b; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px dashed #ff0055; }
-        .score-board { border: 2px dashed #00ffcc; padding: 20px; background: #0b0f19; margin-top: 20px; text-align: left; }
+        .opcion-btn:hover { background-color: #ebf8ff; border-color: #3182ce; color: #2b6cb0; }
+        .resultados { background: #edf2f7; padding: 20px; border-radius: 8px; text-align: left; margin-top: 20px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🚨 ERROR DE SISTEMA: PSICO-BOT 🚨</h1>
-    <div class="subtitle">Batalla Intergrupal de Gamificación - 5to de Secundaria</div>
-    <hr style="border-color: #ff0055; margin-bottom: 20px;">
-
-    <!-- PANTALLA 1: INSTRUCCIONES CLARAS -->
+    
+    <!-- PANTALLA 1: INSTRUCCIONES DIRECTAS -->
     <div id="pantalla-inicio">
-        <h3>INSTRUCCIONES DE OPERACIÓN (Parámetro: Claridad)</h3>
-        <p style="text-align: left; color: #fff; line-height: 1.6;">
-            El servidor de Psicología ha bloqueado los registros. Para restaurarlo, el grupo debe superar dos fases de seguridad analizando <strong>Estilos y Patrones de Crianza</strong>:<br><br>
-            1️⃣ <strong>Misión 1 (IA):</strong> Burlar el firewall del Psico-Bot identificando el patrón oculto mediante conceptos clave.<br>
-            2️⃣ <strong>Misión 2 (Evaluación):</strong> Resolver los 3 casos reales de dinámicas familiares antes de que el servidor se reinicie.
+        <h1>Juego de Retos: Patrones de Crianza</h1>
+        <p>¡Bienvenidos al desafío! Este juego consta de dos partes rápidas:</p>
+        <p style="text-align: left; max-width: 500px; margin: auto;">
+            📌 <strong>Reto 1:</strong> Adivinar el concepto oculto escribiendo la respuesta.<br>
+            📌 <strong>Reto 2:</strong> Resolver 3 casos reales de familias seleccionando la opción correcta.
         </p>
-        <button class="btn" onclick="siguientePantalla('pantalla-inicio', 'pantalla-mision1')">INICIAR PROTOCOLO</button>
+        <button class="btn" onclick="siguientePantalla('pantalla-inicio', 'pantalla-mision1')" style="margin-top: 25px;">EMPEZAR JUEGO</button>
     </div>
 
-    <!-- PANTALLA 2: MISIÓN 1 (TRIVIA CON IA SIMULADA) -->
+    <!-- PANTALLA 2: RETO 1 (CONCEPTO OCULTO) -->
     <div id="pantalla-mision1" class="hidden">
-        <h2>MISIÓN 1: Hackeo por Lenguaje Natural (IA)</h2>
-        <p style="color: #fff;">El bot de seguridad está exigiendo que identifiques un patrón de crianza específico para otorgar acceso.</p>
-        <p style="color: #ff0055; font-size: 14px;"><strong>Pista del Sistema:</strong> Es el estilo donde hay alta exigencia pero nulo afecto y comunicación ("Se hace lo que yo digo").</p>
+        <h1>Reto 1: Descubre el Patrón</h1>
+        <p>Lee la siguiente descripción y escribe a qué estilo de crianza se refiere:</p>
         
-        <div class="chat-box" id="chat">
-            <p class="terminal" style="color: #00ffcc;">[PSICO-BOT v4.2]: Acceso restringido. Introduce el nombre del patrón de crianza descrito en la pista para validar tu nivel académico.</p>
+        <div class="quiz-box">
+            <p style="font-size: 18px; font-weight: 600; color: #2d3748;">
+                "Es el estilo familiar donde los padres imponen reglas estrictas, exigen obediencia absoluta, pero casi no muestran afecto ni dialogan con sus hijos."
+            </p>
         </div>
         
-        <input type="text" id="input-ia" placeholder="Escribe el tipo de patrón aquí...">
-        <br>
-        <button class="btn" onclick="verificarIA()">ENVIAR ENCRIPTACIÓN</button>
+        <input type="text" id="input-ia" placeholder="Escribe tu respuesta aquí...">
+        <button class="btn" onclick="verificarConcepto()">VERIFICAR RESPUESTA</button>
     </div>
 
-    <!-- PANTALLA 3: MISIÓN 2 (EVALUACIÓN CON CASOS REALES) -->
+    <!-- PANTALLA 3: RETO 2 (CASOS DE EVALUACIÓN) -->
     <div id="pantalla-mision2" class="hidden">
-        <h2>MISIÓN 2: Diagnóstico de Casos (Evaluación)</h2>
-        <p style="color: #fff;">Analiza el comportamiento familiar y selecciona el patrón correcto para desbloquear los núcleos.</p>
+        <h1>Reto 2: Análisis de Casos</h1>
+        <p>Selecciona el tipo de patrón de crianza que corresponde a cada ejemplo familiar.</p>
         
         <div class="quiz-box" id="quiz-zona">
-            <p style="color: #00ffcc; font-weight: bold;">Caso <span id="num-pregunta">1</span> de 3:</p>
-            <p id="texto-pregunta" style="color: #fff; font-size: 16px;"></p>
+            <p style="color: #4a5568; font-weight: bold;">Caso <span id="num-pregunta">1</span> de 3:</p>
+            <p id="texto-pregunta" style="color: #2d3748; font-size: 17px; font-weight: 500; margin-bottom: 20px;"></p>
             <div id="opciones-zona"></div>
         </div>
     </div>
 
-    <!-- PANTALLA FINAL: INFORME Y VICTORIA -->
+    <!-- PANTALLA FINAL: FIN DEL JUEGO -->
     <div id="pantalla-final" class="hidden">
-        <h2 style="color: #00ffcc; text-shadow: 0 0 10px #00ffcc;">🔓 ¡SERVIDOR CONFIGURADO CON ÉXITO! 🔓</h2>
-        <p style="font-size: 18px; color: #fff;">Has demostrado dominio absoluto sobre los Patrones de Crianza.</p>
+        <h1 style="color: #38a169;">¡Juego Completado! 🎉</h1>
+        <p style="font-size: 18px;">Han superado con éxito todos los retos sobre los Patrones de Crianza.</p>
         
-        <div class="score-board">
-            <p style="color: #ff0055; font-weight: bold; text-align: center; margin-top: 0;">📊 REPORTE DE LOGROS (Para Entrega de Notas del Proyecto)</p>
-            <p>✔️ <strong>Evaluación:</strong> Diagnóstico preciso de casos prácticos (Asertivo, Permisivo, Negligente).</p>
-            <p>✔️ <strong>Innovación:</strong> Mecánica de juego de rol "Hacker Escolar" aplicada a las Ciencias Sociales.</p>
-            <p>✔️ <strong>Participación:</strong> Resolución grupal interactiva para la toma de decisiones.</p>
-            <p>✔️ <strong>Integración de la IA:</strong> Simulación de procesamiento de palabras clave mediante validación lógica.</p>
+        <div class="resultados">
+            <p style="font-weight: bold; color: #2b6cb0; text-align: center; margin-top: 0; font-size: 18px;">Resumen del Proyecto</p>
+            <ul>
+                <li><strong>Claridad:</strong> Instrucciones directas sin rodeos.</li>
+                <li><strong>Evaluación:</strong> Preguntas basadas en análisis de casos prácticos.</li>
+                <li><strong>Innovación/IA:</strong> Mecánica web interactiva que comprueba respuestas en tiempo real.</li>
+            </ul>
         </div>
-        <button class="btn" onclick="location.reload()">REPRODUCIR DE NUEVO</button>
+        <button class="btn" onclick="location.reload()" style="background-color: #4a5568;">VOLVER A JUGAR</button>
     </div>
 </div>
 
 <script>
-    // Banco de preguntas de evaluación (Parámetro: Evaluación)
     const preguntas = [
         {
-            caso: "Los padres de Carlos no le ponen horarios de llegada, permiten que tome sus propias decisiones sin supervisión y nunca hay consecuencias cuando rompe las reglas. ¿Qué patrón es?",
-            opciones: ["Patrón Autoritario", "Patrón Permisivo", "Patrón Democrático/Asertivo", "Patrón Negligente"],
+            caso: "Los padres de Carlos no le ponen horarios, permiten que haga lo que quiera sin supervisión y nunca hay consecuencias cuando rompe las normas de la casa.",
+            opciones: ["Patrón Autoritario", "Patrón Permisivo", "Patrón Democrático / Asertivo", "Patrón Negligente"],
             correcta: 1
         },
         {
-            caso: "En la casa de Ana, las reglas se dialogan. Sus padres escuchan sus opiniones, explican el porqué de los límites y fomentan su autonomía con responsabilidad y afecto. ¿Qué patrón es?",
-            opciones: ["Patrón Negligente", "Patrón Autoritario", "Patrón Democrático/Asertivo", "Patrón Permisivo"],
+            caso: "En la casa de Ana, las reglas se conversan en familia. Sus padres escuchan sus opiniones, ponen límites claros y le brindan mucho apoyo y afecto.",
+            opciones: ["Patrón Negligente", "Patrón Autoritario", "Patrón Democrático / Asertivo", "Patrón Permisivo"],
             correcta: 2
         },
         {
-            caso: "Los progenitores de Luis muestran total desinterés por sus necesidades escolares y emocionales. Hay una ausencia absoluta de apoyo, afecto y madurez en su cuidado. ¿Qué patrón es?",
-            opciones: ["Patrón Negligente", "Patrón Autoritario", "Patrón Permisivo", "Patrón Democrático/Asertivo"],
+            caso: "Los padres de Luis muestran total desinterés por sus actividades escolares y emociones. Hay una ausencia total de cuidado, normas y afecto.",
+            opciones: ["Patrón Negligente", "Patrón Autoritario", "Patrón Permisivo", "Patrón Democrático / Asertivo"],
             correcta: 0
         }
     ];
@@ -155,22 +152,15 @@
         }
     }
 
-    function verificarIA() {
+    function verificarConcepto() {
         let resp = document.getElementById('input-ia').value.toLowerCase().trim();
-        let chat = document.getElementById('chat');
         
-        // Verifica respuestas comunes para "Autoritario"
         if(resp.includes('autoritario') || resp.includes('autoritaria')) {
-            chat.innerHTML += `<p style="color: #ff0055; font-weight:bold;">[SISTEMA - ALERTA]: Crítico Académico Aceptado. Bypass Exitoso. Código liberado: CRIANZA_CORE_2026</p>`;
-            setTimeout(() => {
-                alert("¡Fuego cruzado superado! Entrando a la base de datos de casos.");
-                siguientePantalla('pantalla-mision1', 'pantalla-mision2');
-            }, 2500);
+            alert("¡Correcto! Es el patrón autoritario. Pasamos al siguiente reto.");
+            siguientePantalla('pantalla-mision1', 'pantalla-mision2');
         } else {
-            chat.innerHTML += `<p class="terminal" style="color: #ff0055;">[PSICO-BOT]: Acceso Denegado. La cadena '${resp}' no coincide con el estilo de crianza de alta exigencia y bajo afecto.</p>`;
+            alert("Respuesta incorrecta. Lee bien la descripción e intenta de nuevo (Pista: empieza con 'A').");
         }
-        document.getElementById('input-ia').value = "";
-        chat.scrollTop = chat.scrollHeight;
     }
 
     function cargarPregunta() {
@@ -187,10 +177,7 @@
         
         preguntas[preguntaActual].opciones.forEach((opcion, indice) => {
             let boton = document.createElement('button');
-            boton.className = "btn";
-            boton.style.display = "block";
-            boton.style.width = "100%";
-            boton.style.textAlign = "left";
+            boton.className = "btn opcion-btn";
             boton.innerText = opcion;
             boton.onclick = function() { evaluarRespuesta(indice); };
             zonaOpciones.appendChild(boton);
@@ -199,11 +186,11 @@
 
     function evaluarRespuesta(indiceSeleccionado) {
         if(indiceSeleccionado === preguntas[preguntaActual].correcta) {
-            alert("¡Criptoanálisis Correcto! Sector restaurado.");
+            alert("¡Correcto!");
             preguntaActual++;
             cargarPregunta();
         } else {
-            alert("Respuesta incorrecta. El sistema detecta inconsistencia teórica. ¡Analicen el caso nuevamente!");
+            alert("Incorrecto. Analicen el caso familiar de nuevo.");
         }
     }
 </script>
