@@ -49,7 +49,6 @@
             position: relative;
         }
 
-        /* FONDO GEOMÉTRICO (DIBUJO POR CUADRÍCULA) */
         body::after {
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-image: 
@@ -60,7 +59,6 @@
             transition: background-image var(--speed-fluid);
         }
 
-        /* FILTRO CRT */
         body::before {
             content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.12) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
@@ -72,7 +70,7 @@
             0% { opacity: 0.99; } 50% { opacity: 1; } 100% { opacity: 0.98; }
         }
 
-        /* --- PANELES CON DETALLES DE ESQUINA DE INTERFAZ --- */
+        /* --- PANELES Y TRANSICIONES GLITCH --- */
         .wrapper-layout {
             width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 2; padding: 20px; box-sizing: border-box;
         }
@@ -86,8 +84,17 @@
             animation: containerEntrance var(--speed-fluid) cubic-bezier(0.19, 1, 0.22, 1) both;
             transition: background var(--speed-fluid), border var(--speed-fluid), box-shadow var(--speed-fluid);
         }
-        
-        /* Detalles de corchetes angulares en esquinas (UI Tech) */
+
+        .panel-grunge.glitch-flash {
+            animation: glitchEffect 0.25s steps(2) infinite;
+        }
+
+        @keyframes glitchEffect {
+            0% { transform: translate(2px, -1px) skewX(2deg); filter: blur(1px); }
+            50% { transform: translate(-1px, 2px) skewX(-3deg); filter: grayscale(0.5); }
+            100% { transform: translate(0, 0) skewX(0); }
+        }
+
         .panel-grunge::before {
             content: ''; position: absolute; top: 8px; left: 8px; width: 12px; height: 12px;
             border-top: 2px solid var(--primary-glow); border-left: 2px solid var(--primary-glow); opacity: 0.6; pointer-events: none;
@@ -98,11 +105,11 @@
         }
 
         @keyframes containerEntrance {
-            from { opacity: 0; transform: scale(0.96) translateY(10px); filter: blur(2px); }
+            from { opacity: 0; transform: scale(0.95) translateY(15px); filter: blur(4px); }
             to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
         }
 
-        /* --- SVALES E ILUSTRACIONES DE VIO (SVG DYNAMIC) --- */
+        /* --- PERSONAJE VIO (MEJORADO) --- */
         .character-container {
             display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; position: relative;
         }
@@ -110,31 +117,28 @@
             position: relative; width: 110px; height: 110px; display: flex; justify-content: center; align-items: center;
         }
         
-        /* Renderizado SVG del personaje Vio */
         .vio-svg-body {
-            width: 75px; height: 75px; z-index: 3;
-            filter: drop-shadow(0 0 15px var(--primary));
-            animation: floatSpirit 2.5s ease-in-out infinite;
+            width: 80px; height: 80px; z-index: 3;
+            filter: drop-shadow(0 0 12px var(--primary));
+            animation: floatSpirit 3s ease-in-out infinite;
             transition: filter var(--speed-fluid);
         }
         .vio-svg-body .main-core { fill: var(--primary); transition: fill var(--speed-fluid); }
         .vio-svg-body .glow-core { fill: var(--primary-glow); transition: fill var(--speed-fluid); }
         .vio-svg-body .eyes { fill: #FFFFFF; }
 
-        /* Estelas Orbitantes de Partículas */
         .vio-particle {
-            position: absolute; width: 5px; height: 5px; background: #FFFFFF; border-radius: 50%; opacity: 0.8;
-            box-shadow: 0 0 8px var(--primary-glow); pointer-events: none;
+            position: absolute; width: 6px; height: 6px; background: #FFFFFF; border-radius: 50%; opacity: 0.8;
+            box-shadow: 0 0 10px var(--primary-glow); pointer-events: none;
         }
-        .p1 { animation: orbitQuantum1 3s infinite linear; }
-        .p2 { animation: orbitQuantum2 2.5s infinite linear; }
+        .p1 { animation: orbitQuantum1 2.2s infinite linear; }
+        .p2 { animation: orbitQuantum2 1.8s infinite linear; }
 
         .vio-shadow {
-            width: 50px; height: 6px; background: rgba(0, 0, 0, 0.6); border-radius: 50%;
-            margin-top: 5px; animation: shadowPulse 2.5s ease-in-out infinite;
+            width: 52px; height: 6px; background: rgba(0, 0, 0, 0.6); border-radius: 50%;
+            margin-top: 5px; animation: shadowPulse 3s ease-in-out infinite;
         }
 
-        /* Modificadores de Estado de Ánimo */
         .sad-eyes, .happy-eyes { display: none; }
         .vio-svg-body.happy .normal-eyes { display: none; }
         .vio-svg-body.happy .happy-eyes { display: block; }
@@ -142,37 +146,80 @@
         .vio-svg-body.sad .sad-eyes { display: block; }
 
         @keyframes floatSpirit {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(2deg); }
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-12px) scale(1.03); }
         }
         @keyframes shadowPulse {
             0%, 100% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(0.7); opacity: 0.25; }
+            50% { transform: scale(0.6); opacity: 0.2; }
         }
         @keyframes orbitQuantum1 {
-            0% { transform: rotate(0deg) translateX(46px); opacity: 1; }
-            100% { transform: rotate(360deg) translateX(46px); opacity: 1; }
+            0% { transform: rotate(0deg) translateX(48px) scale(1); }
+            50% { transform: rotate(180deg) translateX(48px) scale(0.6); opacity: 0.4; }
+            100% { transform: rotate(360deg) translateX(48px) scale(1); }
         }
         @keyframes orbitQuantum2 {
-            0% { transform: rotate(180deg) translateX(40px); opacity: 0.5; }
-            100% { transform: rotate(540deg) translateX(40px); opacity: 0.5; }
+            0% { transform: rotate(180deg) translateX(42px) scale(0.5); }
+            50% { transform: rotate(360deg) translateX(42px) scale(1); }
+            100% { transform: rotate(540deg) translateX(42px) scale(0.5); }
         }
 
-        .interface-error { animation: structuralShake 0.35s both; border-color: #FF1744 !important; }
+        .interface-error { animation: structuralShake 0.4s both; border-color: #FF1744 !important; }
         @keyframes structuralShake {
-            10%, 90% { transform: translate3d(-1px, 0, 0); }
-            20%, 80% { transform: translate3d(2px, 0, 0); }
-            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-            40%, 60% { transform: translate3d(4px, 0, 0); }
+            10%, 90% { transform: translate3d(-2px, 0, 0); }
+            20%, 80% { transform: translate3d(3px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-5px, 0, 0); }
+            40%, 60% { transform: translate3d(5px, 0, 0); }
+        }
+
+        /* --- APARTADO DE NIVELES (UPGRADED) --- */
+        .progress-container-ui {
+            width: 100%; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border-heavy); height: 14px; border-radius: 20px; padding: 2px; box-sizing: border-box; margin-bottom: 25px; position: relative;
+        }
+        .progress-bar-fill {
+            height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--primary-glow)); border-radius: 20px; transition: width 0.5s cubic-bezier(0.1, 0.8, 0.2, 1); box-shadow: 0 0 8px var(--primary-glow);
+        }
+
+        .levels-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 15px; }
+        
+        .level-box {
+            background: rgba(255, 255, 255, 0.02); border: 2px solid var(--border-heavy); color: #FFFFFF; font-size: 16px; height: 52px; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; font-family: 'Impact', sans-serif; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); position: relative; border-radius: 8px; overflow: hidden;
+        }
+        .level-box::after {
+            content: 'N-' ; font-family: sans-serif; font-size: 8px; opacity: 0.5; font-weight: bold; margin-bottom: -2px;
+        }
+        .level-box .num-label { font-size: 18px; line-height: 1; }
+
+        /* Estados de Niveles */
+        .level-box.locked { background: rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.04); color: rgba(255,255,255,0.15); cursor: not-allowed; }
+        .level-box.locked::after { content: '🔒'; font-size: 10px; margin-top: 2px; }
+        .level-box.locked .num-label { display: none; }
+
+        .level-box.available {
+            border-color: var(--primary-glow);
+            animation: pulseAvailable 2s infinite ease-in-out;
+        }
+        .level-box.completed { 
+            background: linear-gradient(135deg, var(--primary), var(--bg-panel)); border-color: #FFFFFF; color: #FFFFFF; box-shadow: 0 0 12px var(--primary);
+        }
+        .level-box.completed::after { content: '✓'; color: var(--primary-glow); font-size: 10px; font-family: sans-serif; }
+
+        .level-box:not(.locked):hover { 
+            border-color: #FFFFFF; transform: translateY(-4px) scale(1.05); box-shadow: 0 6px 15px rgba(255,255,255,0.1), 0 0 10px var(--primary-glow); z-index: 5;
+        }
+
+        @keyframes pulseAvailable {
+            0%, 100% { box-shadow: 0 0 4px rgba(255,255,255,0.1); }
+            50% { box-shadow: 0 0 12px var(--primary-glow); border-color: #FFFFFF; }
         }
 
         /* --- TIPOGRAFÍAS --- */
         h1.title-game { font-size: 38px; color: #FFFFFF; margin: 0 0 25px 0; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; line-height: 0.95; text-align: center; }
         h2.section-header { font-size: 18px; color: var(--bg-base); background: #FFFFFF; margin: -52px auto 25px auto; padding: 5px 16px; width: fit-content; text-transform: uppercase; letter-spacing: 2px; border: 2px solid var(--border-heavy); font-weight: bold; transition: all var(--speed-fluid); }
         p.desc-text { font-family: sans-serif; color: var(--text-accent); font-size: 14px; line-height: 1.5; margin-bottom: 22px; font-weight: 300; }
-        .meta-progress-text { font-family: sans-serif; font-size: 11px; text-transform: uppercase; color: var(--text-accent); opacity: 0.9; letter-spacing: 1px; text-align: center; margin-bottom: 15px; font-weight: bold; }
+        .meta-progress-text { font-family: sans-serif; font-size: 11px; text-transform: uppercase; color: var(--text-accent); opacity: 0.9; letter-spacing: 1px; text-align: center; margin-bottom: 6px; font-weight: bold; }
 
-        /* --- BOTONES CON DESPLAZAMIENTO FLUIDO (HOVER MICRO-DETAIL) --- */
+        /* --- BOTONES --- */
         .menu-list { display: flex; flex-direction: column; gap: 12px; width: 100%; }
         .btn-grunge {
             background: var(--primary); color: #FFFFFF; border: none; font-family: 'Impact', sans-serif; font-size: 21px; padding: 13px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; width: 100%; text-align: center; transition: all 0.2s ease; clip-path: polygon(1% 2%, 99% 0%, 100% 95%, 0% 100%);
@@ -186,23 +233,14 @@
         .btn-grunge.secondary:hover { border-color: var(--primary); background: var(--bg-panel); }
         .btn-grunge.secondary:hover .prefix { transform: translateX(4px); }
 
-        /* --- REJILLAS --- */
-        .levels-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
-        .level-box {
-            background: transparent; border: 2px solid var(--border-heavy); color: #FFFFFF; font-size: 20px; height: 56px; display: flex; justify-content: center; align-items: center; cursor: pointer; font-family: 'Impact', sans-serif; transition: all 0.2s; position: relative; border-radius: 8px;
-        }
-        .level-box.locked { background: rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.03); color: rgba(255,255,255,0.1); cursor: not-allowed; }
-        .level-box.completed { background: var(--primary); border-color: #FFFFFF; color: #FFFFFF; box-shadow: 0 0 8px var(--primary); }
-        .level-box:not(.locked):hover { border-color: var(--primary); transform: scale(1.05); }
-
-        /* REJILLA SOPA CON ESQUINAS REFORZADAS */
+        /* SOPA DE LETRAS */
         .wordsearch-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 15px auto; max-width: 240px; }
         .letter-cell { background: rgba(0,0,0,0.3); border: 1px solid var(--border-heavy); color: #FFFFFF; font-size: 19px; height: 46px; display: flex; justify-content: center; align-items: center; cursor: pointer; user-select: none; border-radius: 4px; transition: all 0.15s; }
         .letter-cell.selected { background: linear-gradient(135deg, var(--primary), var(--border-heavy)); border-color: #FFFFFF; transform: scale(1.05); box-shadow: 0 0 10px var(--primary-glow); animation: cellPulse 0.2s ease; }
         
         @keyframes cellPulse { 0% { transform: scale(0.9); } 100% { transform: scale(1.05); } }
 
-        /* --- SELECTORES DE TEMA EN AJUSTES --- */
+        /* SELECTORES DE TEMA */
         .theme-selector-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 25px; }
         .theme-btn-card {
             border: 2px solid var(--border-heavy); background: rgba(0,0,0,0.2); border-radius: 8px; padding: 12px 5px; cursor: pointer; text-align: center; font-family: sans-serif; font-size: 11px; font-weight: bold; transition: all 0.2s;
@@ -236,7 +274,6 @@
                 <div class="vio-particle p1"></div>
                 <div class="vio-particle p2"></div>
                 
-                <!-- DIBUJO VECTORIAL COMPLETO DE VIO -->
                 <svg id="vio-menu" class="vio-svg-body" viewBox="0 0 100 100">
                     <path class="main-core" d="M50,15 C25,15 15,35 15,60 C15,78 30,85 50,85 C70,85 85,78 85,60 C85,35 75,15 50,15 Z" />
                     <circle class="glow-core" cx="50" cy="50" r="22" opacity="0.3"/>
@@ -245,7 +282,6 @@
                         <circle class="eyes" cx="62" cy="50" r="5" />
                     </g>
                 </svg>
-
             </div>
             <div class="vio-shadow"></div>
         </div>
@@ -261,8 +297,14 @@
 
     <!-- MÓDULO 2: SELECCIÓN DE NIVELES -->
     <div id="m-levels" class="panel-grunge hidden">
-        <h2 class="section-header">NIVELES</h2>
+        <h2 class="section-header">MAPA NODAL</h2>
         <div class="meta-progress-text" id="global-progress-lbl">Progreso Global: 0%</div>
+        
+        <!-- BARRA DE PROGRESO DE CONTROL VISUAL -->
+        <div class="progress-container-ui">
+            <div id="progress-bar-fill" class="progress-bar-fill"></div>
+        </div>
+
         <div class="levels-grid" id="grid-selector-niveles"></div>
         <button class="btn-back-menu" onclick="changeModule('m-levels', 'm-main-menu')">✖ VOLVER AL MENÚ</button>
     </div>
@@ -286,10 +328,9 @@
         <button class="btn-back-menu" onclick="changeModule('m-credits', 'm-main-menu')">✖ VOLVER</button>
     </div>
 
-    <!-- MÓDULO 5: AJUSTES & SELECCIÓN DE ENTORNO (COLOR) -->
+    <!-- MÓDULO 5: AJUSTES -->
     <div id="m-settings" class="panel-grunge hidden">
         <h2 class="section-header">AJUSTES</h2>
-        
         <div style="color:var(--text-accent); font-size:12px; margin-bottom:10px; font-family:sans-serif; font-weight:bold;">TEMA INTERFAZ:</div>
         <div class="theme-selector-grid">
             <div id="t-card-mystic" class="theme-btn-card active" onclick="updateAppTheme('mystic')">
@@ -327,7 +368,6 @@
     <div id="m-gameplay" class="panel-grunge hidden">
         <div class="character-container" style="margin-bottom: 12px;">
             <div class="vio-orbit-zone" style="width:80px; height:80px;">
-                
                 <svg id="vio-gameplay" class="vio-svg-body" viewBox="0 0 100 100">
                     <path class="main-core" d="M50,15 C25,15 15,35 15,60 C15,78 30,85 50,85 C70,85 85,78 85,60 C85,35 75,15 50,15 Z" />
                     <g class="normal-eyes">
@@ -343,7 +383,6 @@
                         <path d="M57,48 Q62,54 67,48" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round"/>
                     </g>
                 </svg>
-
             </div>
         </div>
 
@@ -375,7 +414,7 @@
         <button class="btn-back-menu" style="color:#FF1744;" onclick="abortarJuego()">❌ DESCONECTARSE DEL MAPA</button>
     </div>
 
-    <!-- MÓDULO 7: PANTALLA INTERMEDIA DE NIVEL TERMINADO -->
+    <!-- MÓDULO 7: PANTALLA INTERMEDIA -->
     <div id="m-level-clear" class="panel-grunge hidden">
         <div class="character-container">
             <div class="vio-orbit-zone">
@@ -474,10 +513,19 @@
         mainOsc.start();
     }
 
+    // TRANSICIÓN GLITCH DE MÓDULOS EN INTERFAZ
     function changeModule(fromId, toId) {
         reproducirEfecto('seleccionar');
-        document.getElementById(fromId).classList.add('hidden');
-        document.getElementById(toId).classList.remove('hidden');
+        const activePanel = document.getElementById(fromId);
+        const targetPanel = document.getElementById(toId);
+        
+        activePanel.classList.add('glitch-flash');
+        
+        setTimeout(() => {
+            activePanel.classList.remove('glitch-flash');
+            activePanel.classList.add('hidden');
+            targetPanel.classList.remove('hidden');
+        }, 150);
     }
 
     function calculateProgress() {
@@ -485,19 +533,28 @@
         return Math.round((completadosCount / 10) * 100);
     }
 
+    // REGENERACIÓN DE LA INTERFAZ DE NIVELES AVANZADA
     function refreshLevelsInterface() {
-        document.getElementById('global-progress-lbl').innerText = `Progreso Global: ${calculateProgress()}%`;
+        let progreso = calculateProgress();
+        document.getElementById('global-progress-lbl').innerText = `Progreso Global: ${progreso}%`;
+        document.getElementById('progress-bar-fill').style.width = `${progreso}%`;
+
         let contenedor = document.getElementById('grid-selector-niveles');
         contenedor.innerHTML = "";
         
         for (let i = 1; i <= 10; i++) {
             let box = document.createElement('div');
-            box.innerText = i;
+            box.innerHTML = `<span class="num-label">${i}</span>`;
+            
             let estaBloqueado = (i > 1 && !nivelesCompletados[i - 1] && !nivelesCompletados[i]);
             
-            if (estaBloqueado) box.className = "level-box locked";
-            else if (nivelesCompletados[i]) box.className = "level-box completed";
-            else box.className = "level-box"; 
+            if (estaBloqueado) {
+                box.className = "level-box locked";
+            } else if (nivelesCompletados[i]) {
+                box.className = "level-box completed";
+            } else {
+                box.className = "level-box available";
+            }
 
             box.onclick = () => { startLevel(i, estaBloqueado); };
             contenedor.appendChild(box);
@@ -521,24 +578,49 @@
         reproducirEfecto('seleccionar');
     }
 
+    // MOTOR DE SÍNTESIS DE AUDIO ADSR MEJORADO
     function reproducirEfecto(tipo) {
         if (!audioCtx) return;
-        const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
-        osc.connect(gain); gain.connect(audioCtx.destination);
-
+        let now = audioCtx.currentTime;
+        
         if (tipo === 'seleccionar') {
-            osc.type = 'sine'; osc.frequency.setValueAtTime(210, audioCtx.currentTime);
-            gain.gain.setValueAtTime(0.07 * volSfx, audioCtx.currentTime);
-            osc.start(); osc.stop(audioCtx.currentTime + 0.07);
-        } else if (tipo === 'confirmar') {
-            osc.type = 'triangle'; osc.frequency.setValueAtTime(320, audioCtx.currentTime);
-            osc.frequency.setValueAtTime(640, audioCtx.currentTime + 0.07);
-            gain.gain.setValueAtTime(0.09 * volSfx, audioCtx.currentTime);
-            osc.start(); osc.stop(audioCtx.currentTime + 0.22);
-        } else if (tipo === 'error') {
-            osc.type = 'sawtooth'; osc.frequency.setValueAtTime(80, audioCtx.currentTime);
-            gain.gain.setValueAtTime(0.14 * volSfx, audioCtx.currentTime);
-            osc.start(); osc.stop(audioCtx.currentTime + 0.28);
+            let osc = audioCtx.createOscillator();
+            let gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(580, now);
+            osc.frequency.exponentialRampToValueAtTime(280, now + 0.08);
+            gain.gain.setValueAtTime(0.12 * volSfx, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.start(now); osc.stop(now + 0.08);
+        } 
+        else if (tipo === 'confirmar') {
+            // Arpeggio polifónico cristalino ascendente
+            let notas = [440, 554.37, 659.25, 880];
+            notas.forEach((freq, idx) => {
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                let delay = idx * 0.06;
+                osc.frequency.setValueAtTime(freq, now + delay);
+                gain.gain.setValueAtTime(0, now);
+                gain.gain.linearRampToValueAtTime(0.14 * volSfx, now + delay + 0.01);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + delay + 0.18);
+                osc.connect(gain); gain.connect(audioCtx.destination);
+                osc.start(now + delay); osc.stop(now + delay + 0.18);
+            });
+        } 
+        else if (tipo === 'error') {
+            // Caída de frecuencia sucia (Onda de sierra desajustada)
+            let osc = audioCtx.createOscillator();
+            let gain = audioCtx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(170, now);
+            osc.frequency.linearRampToValueAtTime(50, now + 0.28);
+            gain.gain.setValueAtTime(0.18 * volSfx, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.start(now); osc.stop(now + 0.28);
         }
     }
 
