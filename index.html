@@ -14,9 +14,9 @@
             --primary-glow: #b146ff;
             --text-accent: #DFB6B2;
             --speed-fluid: 0.35s;
+            --grid-opacity: 0.07;
         }
 
-        /* Variables Temas Opcionales */
         [data-theme="cyber"] {
             --bg-base: #000B05;
             --bg-panel: #021F0F;
@@ -24,6 +24,7 @@
             --primary: #00E676;
             --primary-glow: #66FFA6;
             --text-accent: #B2DFDB;
+            --grid-opacity: 0.12;
         }
 
         [data-theme="crimson"] {
@@ -33,9 +34,10 @@
             --primary: #FF1744;
             --primary-glow: #FF617F;
             --text-accent: #FFE0E2;
+            --grid-opacity: 0.09;
         }
 
-        /* --- ESTILO BASE & CAPAS --- */
+        /* --- ESTILO BASE & MALLA TÁCTICA --- */
         body {
             background-color: var(--bg-base);
             color: #FFFFFF;
@@ -44,21 +46,33 @@
             display: flex; justify-content: center; align-items: center;
             overflow: hidden; -webkit-tap-highlight-color: transparent;
             transition: background-color var(--speed-fluid) ease;
+            position: relative;
         }
 
-        /* FILTRO DIGITAL VIVO AVANZADO */
+        /* FONDO GEOMÉTRICO (DIBUJO POR CUADRÍCULA) */
+        body::after {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255, var(--grid-opacity)) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255, var(--grid-opacity)) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: 1; pointer-events: none;
+            transition: background-image var(--speed-fluid);
+        }
+
+        /* FILTRO CRT */
         body::before {
             content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.12) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
             z-index: 10; background-size: 100% 4px, 6px 100%; pointer-events: none;
-            animation: crtFlicker 0.15s infinite;
+            animation: crtFlicker 0.2s infinite;
         }
 
         @keyframes crtFlicker {
-            0% { opacity: 0.98; } 50% { opacity: 1; } 100% { opacity: 0.99; }
+            0% { opacity: 0.99; } 50% { opacity: 1; } 100% { opacity: 0.98; }
         }
 
-        /* --- ESTRUCTURA DE CONTENEDORES FLUIDOS --- */
+        /* --- PANELES CON DETALLES DE ESQUINA DE INTERFAZ --- */
         .wrapper-layout {
             width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 2; padding: 20px; box-sizing: border-box;
         }
@@ -72,144 +86,141 @@
             animation: containerEntrance var(--speed-fluid) cubic-bezier(0.19, 1, 0.22, 1) both;
             transition: background var(--speed-fluid), border var(--speed-fluid), box-shadow var(--speed-fluid);
         }
+        
+        /* Detalles de corchetes angulares en esquinas (UI Tech) */
+        .panel-grunge::before {
+            content: ''; position: absolute; top: 8px; left: 8px; width: 12px; height: 12px;
+            border-top: 2px solid var(--primary-glow); border-left: 2px solid var(--primary-glow); opacity: 0.6; pointer-events: none;
+        }
         .panel-grunge::after {
-            content: ''; position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px; border: 1px dashed var(--primary); opacity: 0.4; pointer-events: none; transition: border var(--speed-fluid);
+            content: ''; position: absolute; bottom: 8px; right: 8px; width: 12px; height: 12px;
+            border-bottom: 2px solid var(--primary-glow); border-right: 2px solid var(--primary-glow); opacity: 0.6; pointer-events: none;
         }
 
         @keyframes containerEntrance {
-            from { opacity: 0; transform: scale(0.95) translateY(15px); filter: blur(4px); }
+            from { opacity: 0; transform: scale(0.96) translateY(10px); filter: blur(2px); }
             to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
         }
 
-        /* --- SISTEMA DE SELECCIÓN DE TEMAS (UI AJUSTES) --- */
-        .theme-selector-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 25px;
-        }
-        .theme-btn-card {
-            border: 2px solid var(--border-heavy); background: rgba(0,0,0,0.2); border-radius: 6px;
-            padding: 10px; cursor: pointer; text-align: center; font-family: sans-serif; font-size: 11px; font-weight: bold; transition: all 0.2s ease;
-        }
-        .theme-btn-card.active {
-            border-color: var(--primary); background: var(--primary); color: #FFFFFF; box-shadow: 0 0 10px var(--primary);
-        }
-        .swatch { width: 20px; height: 20px; border-radius: 50%; margin: 0 auto 6px auto; border: 1px solid rgba(255,255,255,0.3); }
-
-        /* --- ENTORNO ENÉRGICO DEL PERSONAJE VIO --- */
+        /* --- SVALES E ILUSTRACIONES DE VIO (SVG DYNAMIC) --- */
         .character-container {
-            display: flex; flex-direction: column; align-items: center; margin-bottom: 25px; position: relative;
+            display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; position: relative;
         }
         .vio-orbit-zone {
-            position: relative; width: 95px; height: 95px; display: flex; justify-content: center; align-items: center;
+            position: relative; width: 110px; height: 110px; display: flex; justify-content: center; align-items: center;
         }
-        .vio-spirit {
-            width: 65px; height: 65px;
-            background: radial-gradient(circle at 35% 35%, var(--primary-glow) 0%, var(--primary) 50%, var(--bg-panel) 100%);
-            border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
-            box-shadow: 0 0 30px var(--primary), inset 0 -6px 12px rgba(0,0,0,0.6);
-            display: flex; justify-content: center; align-items: center;
-            animation: floatSpirit 2.4s ease-in-out infinite;
-            transition: all var(--speed-fluid) ease; z-index: 3;
-        }
-        .vio-eyes { display: flex; gap: 14px; transition: transform 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .vio-eye { width: 9px; height: 9px; background: #FFFFFF; border-radius: 50%; position: relative; animation: blinkEyes 3.8s infinite; }
         
-        /* Estelas Orbitantes Cinemáticas */
-        .vio-particle {
-            position: absolute; width: 6px; height: 6px; background: #FFFFFF; border-radius: 50%; opacity: 0.8;
-            box-shadow: 0 0 10px var(--primary-glow); pointer-events: none;
+        /* Renderizado SVG del personaje Vio */
+        .vio-svg-body {
+            width: 75px; height: 75px; z-index: 3;
+            filter: drop-shadow(0 0 15px var(--primary));
+            animation: floatSpirit 2.5s ease-in-out infinite;
+            transition: filter var(--speed-fluid);
         }
-        .p1 { animation: orbitQuantum1 3.2s infinite linear; }
-        .p2 { animation: orbitQuantum2 2.8s infinite linear; }
+        .vio-svg-body .main-core { fill: var(--primary); transition: fill var(--speed-fluid); }
+        .vio-svg-body .glow-core { fill: var(--primary-glow); transition: fill var(--speed-fluid); }
+        .vio-svg-body .eyes { fill: #FFFFFF; }
+
+        /* Estelas Orbitantes de Partículas */
+        .vio-particle {
+            position: absolute; width: 5px; height: 5px; background: #FFFFFF; border-radius: 50%; opacity: 0.8;
+            box-shadow: 0 0 8px var(--primary-glow); pointer-events: none;
+        }
+        .p1 { animation: orbitQuantum1 3s infinite linear; }
+        .p2 { animation: orbitQuantum2 2.5s infinite linear; }
 
         .vio-shadow {
-            width: 45px; height: 5px; background: rgba(0, 0, 0, 0.6); border-radius: 50%;
-            margin-top: 8px; animation: shadowPulse 2.4s ease-in-out infinite; transition: all var(--speed-fluid);
+            width: 50px; height: 6px; background: rgba(0, 0, 0, 0.6); border-radius: 50%;
+            margin-top: 5px; animation: shadowPulse 2.5s ease-in-out infinite;
         }
 
-        /* Estados dinámicos de Vio */
-        .vio-spirit.happy { background: radial-gradient(circle, #FFFFFF 0%, var(--primary-glow) 40%, var(--primary) 80%); box-shadow: 0 0 40px var(--primary-glow); }
-        .vio-spirit.happy .vio-eye { height: 4px; border-radius: 12px 12px 0 0; transform: scale(1.1); }
-        .vio-spirit.sad { background: radial-gradient(circle, #611A24 0%, #150104 100%); box-shadow: 0 0 25px #FF1744; }
-        .vio-spirit.sad .vio-eye { height: 3px; opacity: 0.7; transform: translateY(2.5px); }
+        /* Modificadores de Estado de Ánimo */
+        .sad-eyes, .happy-eyes { display: none; }
+        .vio-svg-body.happy .normal-eyes { display: none; }
+        .vio-svg-body.happy .happy-eyes { display: block; }
+        .vio-svg-body.sad .normal-eyes { display: none; }
+        .vio-svg-body.sad .sad-eyes { display: block; }
 
-        /* --- ANIMACIONES AVANZADAS (KEYFRAMES) --- */
         @keyframes floatSpirit {
-            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
-            50% { transform: translateY(-14px) rotate(3deg) scale(1.02); }
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
         }
         @keyframes shadowPulse {
             0%, 100% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(0.65); opacity: 0.25; }
-        }
-        @keyframes blinkEyes {
-            0%, 93%, 100% { transform: scaleY(1); }
-            96% { transform: scaleY(0.05); }
+            50% { transform: scale(0.7); opacity: 0.25; }
         }
         @keyframes orbitQuantum1 {
-            0% { transform: rotate(0deg) translateX(44px) scale(1); opacity: 1; }
-            50% { opacity: 0.3; transform: rotate(180deg) translateX(44px) scale(0.7); }
-            100% { transform: rotate(360deg) translateX(44px) scale(1); opacity: 1; }
+            0% { transform: rotate(0deg) translateX(46px); opacity: 1; }
+            100% { transform: rotate(360deg) translateX(46px); opacity: 1; }
         }
         @keyframes orbitQuantum2 {
-            0% { transform: rotate(180deg) translateX(38px) scale(0.6); opacity: 0.4; }
-            50% { opacity: 1; transform: rotate(360deg) translateX(38px) scale(1.1); }
-            100% { transform: rotate(540deg) translateX(38px) scale(0.6); opacity: 0.4; }
-        }
-        .interface-error { animation: structuralShake 0.35s cubic-bezier(.36,.07,.19,.97) both; border-color: #FF1744 !important; }
-        @keyframes structuralShake {
-            10%, 90% { transform: translate3d(-2px, 0, 0); }
-            20%, 80% { transform: translate3d(4px, 0, 0); }
-            30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
-            40%, 60% { transform: translate3d(6px, 0, 0); }
+            0% { transform: rotate(180deg) translateX(40px); opacity: 0.5; }
+            100% { transform: rotate(540deg) translateX(40px); opacity: 0.5; }
         }
 
-        /* --- TIPOGRAFÍAS Y ROTULACIÓN --- */
-        h1.title-game { font-size: 40px; color: #FFFFFF; margin: 0 0 25px 0; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; line-height: 0.95; text-align: center; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-        h2.section-header { font-size: 19px; color: var(--bg-base); background: #FFFFFF; margin: -52px auto 25px auto; padding: 6px 18px; width: fit-content; text-transform: uppercase; letter-spacing: 2px; border: 2px solid var(--border-heavy); font-weight: bold; transition: all var(--speed-fluid); }
-        p.desc-text { font-family: sans-serif; color: var(--text-accent); font-size: 14px; line-height: 1.5; margin-bottom: 25px; font-weight: 300; transition: color var(--speed-fluid); }
+        .interface-error { animation: structuralShake 0.35s both; border-color: #FF1744 !important; }
+        @keyframes structuralShake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        /* --- TIPOGRAFÍAS --- */
+        h1.title-game { font-size: 38px; color: #FFFFFF; margin: 0 0 25px 0; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; line-height: 0.95; text-align: center; }
+        h2.section-header { font-size: 18px; color: var(--bg-base); background: #FFFFFF; margin: -52px auto 25px auto; padding: 5px 16px; width: fit-content; text-transform: uppercase; letter-spacing: 2px; border: 2px solid var(--border-heavy); font-weight: bold; transition: all var(--speed-fluid); }
+        p.desc-text { font-family: sans-serif; color: var(--text-accent); font-size: 14px; line-height: 1.5; margin-bottom: 22px; font-weight: 300; }
         .meta-progress-text { font-family: sans-serif; font-size: 11px; text-transform: uppercase; color: var(--text-accent); opacity: 0.9; letter-spacing: 1px; text-align: center; margin-bottom: 15px; font-weight: bold; }
 
-        /* --- BOTONES CON TRANSICIÓN TRIDIMENSIONAL EXTREMA --- */
+        /* --- BOTONES CON DESPLAZAMIENTO FLUIDO (HOVER MICRO-DETAIL) --- */
         .menu-list { display: flex; flex-direction: column; gap: 12px; width: 100%; }
         .btn-grunge {
-            background: var(--primary); color: #FFFFFF; border: none; font-family: 'Impact', sans-serif; font-size: 22px; padding: 13px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; width: 100%; text-align: center; transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1); clip-path: polygon(1% 3%, 99% 0%, 100% 95%, 0% 100%); position: relative;
+            background: var(--primary); color: #FFFFFF; border: none; font-family: 'Impact', sans-serif; font-size: 21px; padding: 13px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; width: 100%; text-align: center; transition: all 0.2s ease; clip-path: polygon(1% 2%, 99% 0%, 100% 95%, 0% 100%);
         }
-        .btn-grunge:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 20px rgba(0,0,0,0.5), 0 0 15px var(--primary-glow); }
-        .btn-grunge:active { transform: translateY(1px) scale(0.99); }
+        .btn-grunge:hover { transform: translateY(-2px); box-shadow: 0 0 15px var(--primary-glow); filter: brightness(1.1); }
         
-        .btn-grunge.secondary { background: var(--bg-panel); border: 2px solid var(--border-heavy); font-size: 15px; font-family: sans-serif; font-weight: bold; text-align: left; padding-left: 20px; letter-spacing: 0.5px; text-transform: none; clip-path: none; border-radius: 6px; }
-        .btn-grunge.secondary:hover { border-color: var(--primary); background: rgba(255,255,255,0.03); }
+        .btn-grunge.secondary { 
+            background: rgba(0,0,0,0.2); border: 2px solid var(--border-heavy); font-size: 14px; font-family: sans-serif; font-weight: bold; text-align: left; padding: 14px 20px; letter-spacing: 0.5px; text-transform: none; clip-path: none; border-radius: 8px; position: relative; overflow: hidden;
+        }
+        .btn-grunge.secondary .prefix { color: var(--primary-glow); margin-right: 10px; transition: transform 0.2s; display: inline-block; }
+        .btn-grunge.secondary:hover { border-color: var(--primary); background: var(--bg-panel); }
+        .btn-grunge.secondary:hover .prefix { transform: translateX(4px); }
 
-        /* --- REJILLA TÁCTICA DE NIVELES --- */
+        /* --- REJILLAS --- */
         .levels-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
         .level-box {
-            background: transparent; border: 2px solid var(--border-heavy); color: #FFFFFF; font-size: 20px; height: 58px; display: flex; justify-content: center; align-items: center; cursor: pointer; font-family: 'Impact', sans-serif; transition: all 0.2s ease; position: relative; border-radius: 6px;
+            background: transparent; border: 2px solid var(--border-heavy); color: #FFFFFF; font-size: 20px; height: 56px; display: flex; justify-content: center; align-items: center; cursor: pointer; font-family: 'Impact', sans-serif; transition: all 0.2s; position: relative; border-radius: 8px;
         }
-        .level-box.locked { background: rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.05); color: rgba(255,255,255,0.15); cursor: not-allowed; }
-        .level-box.locked::before { content: "🔒"; font-size: 12px; }
-        .level-box.completed { background: var(--primary); border-color: #FFFFFF; color: #FFFFFF; box-shadow: 0 0 10px var(--primary); }
-        .level-box.completed::after { content: "✔"; position: absolute; bottom: 2px; right: 4px; font-size: 9px; }
-        .level-box:not(.locked):hover { border-color: var(--primary); background: rgba(255,255,255,0.02); transform: translateY(-3px); box-shadow: 0 5px 12px rgba(0,0,0,0.3); }
+        .level-box.locked { background: rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.03); color: rgba(255,255,255,0.1); cursor: not-allowed; }
+        .level-box.completed { background: var(--primary); border-color: #FFFFFF; color: #FFFFFF; box-shadow: 0 0 8px var(--primary); }
+        .level-box:not(.locked):hover { border-color: var(--primary); transform: scale(1.05); }
 
-        /* --- JUEGO EN MATRIZ DE SOPA --- */
+        /* REJILLA SOPA CON ESQUINAS REFORZADAS */
         .wordsearch-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 15px auto; max-width: 240px; }
-        .letter-cell { background: rgba(0,0,0,0.3); border: 2px solid var(--border-heavy); color: #FFFFFF; font-size: 20px; height: 48px; display: flex; justify-content: center; align-items: center; cursor: pointer; user-select: none; border-radius: 6px; transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .letter-cell:hover { border-color: var(--primary); transform: scale(1.03); }
-        .letter-cell.selected { background: linear-gradient(135deg, var(--primary), var(--border-heavy)); color: #FFFFFF; border-color: #FFFFFF; transform: scale(1.08); box-shadow: 0 0 12px var(--primary-glow); }
-
-        /* --- CONTROL DE VOLUMEN (AJUSTES) --- */
-        .setting-row { display: flex; align-items: center; margin-bottom: 20px; font-family: sans-serif; font-weight: bold; font-size: 13px; }
-        .setting-label { width: 80px; color: var(--text-accent); text-transform: uppercase; letter-spacing: 1px; }
-        .slider-container { flex-grow: 1; height: 12px; background: rgba(0,0,0,0.4); border: 1px solid var(--border-heavy); position: relative; cursor: pointer; border-radius: 3px; }
-        .slider-bar { height: 100%; background: var(--primary); width: 60%; pointer-events: none; border-radius: 2px; }
-        .slider-handle { position: absolute; top: -4px; width: 12px; height: 18px; background: #FFFFFF; border-radius: 2px; transform: translateX(-50%); pointer-events: none; }
-
-        .timer-container { width: 100%; background: rgba(0,0,0,0.4); height: 6px; margin-bottom: 20px; border-radius: 3px; overflow: hidden; border: 1px solid var(--border-heavy); }
-        .timer-bar { width: 100%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--primary-glow)); transition: width 1s linear; }
+        .letter-cell { background: rgba(0,0,0,0.3); border: 1px solid var(--border-heavy); color: #FFFFFF; font-size: 19px; height: 46px; display: flex; justify-content: center; align-items: center; cursor: pointer; user-select: none; border-radius: 4px; transition: all 0.15s; }
+        .letter-cell.selected { background: linear-gradient(135deg, var(--primary), var(--border-heavy)); border-color: #FFFFFF; transform: scale(1.05); box-shadow: 0 0 10px var(--primary-glow); animation: cellPulse 0.2s ease; }
         
-        .feedback-banner { font-family: sans-serif; margin-bottom: 15px; padding: 12px; font-size: 12px; font-weight: bold; display: none; text-align: center; border: 1px solid #FF1744; color: #FF8A9F; background: rgba(255, 23, 68, 0.15); border-radius: 6px; animation: structuralShake 0.35s both; }
-        .btn-back-menu { font-family: sans-serif; font-size: 11px; text-transform: uppercase; color: var(--primary-glow); background: none; border: none; font-weight: bold; margin-top: 25px; display: block; text-align: center; width: 100%; letter-spacing: 1px; cursor: pointer; transition: color 0.2s; }
-        .btn-back-menu:hover { color: #FFFFFF; }
+        @keyframes cellPulse { 0% { transform: scale(0.9); } 100% { transform: scale(1.05); } }
+
+        /* --- SELECTORES DE TEMA EN AJUSTES --- */
+        .theme-selector-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 25px; }
+        .theme-btn-card {
+            border: 2px solid var(--border-heavy); background: rgba(0,0,0,0.2); border-radius: 8px; padding: 12px 5px; cursor: pointer; text-align: center; font-family: sans-serif; font-size: 11px; font-weight: bold; transition: all 0.2s;
+        }
+        .theme-btn-card.active { border-color: var(--primary); background: var(--primary); box-shadow: 0 0 12px var(--primary); }
+        .swatch { width: 18px; height: 18px; border-radius: 50%; margin: 0 auto 6px auto; border: 1px solid rgba(255,255,255,0.2); }
+
+        /* SLIDERS */
+        .setting-row { display: flex; align-items: center; margin-bottom: 20px; font-family: sans-serif; font-weight: bold; font-size: 13px; }
+        .setting-label { width: 80px; color: var(--text-accent); letter-spacing: 1px; }
+        .slider-container { flex-grow: 1; height: 10px; background: rgba(0,0,0,0.4); border: 1px solid var(--border-heavy); position: relative; cursor: pointer; border-radius: 4px; }
+        .slider-bar { height: 100%; background: var(--primary); width: 60%; pointer-events: none; }
+        .slider-handle { position: absolute; top: -5px; width: 10px; height: 18px; background: #FFFFFF; border-radius: 2px; transform: translateX(-50%); pointer-events: none; }
+
+        .timer-container { width: 100%; background: rgba(0,0,0,0.4); height: 6px; margin-bottom: 20px; border-radius: 3px; overflow: hidden; }
+        .timer-bar { width: 100%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--primary-glow)); transition: width 1s linear; }
+        .feedback-banner { font-family: sans-serif; margin-bottom: 15px; padding: 12px; font-size: 12px; font-weight: bold; display: none; text-align: center; border: 1px solid #FF1744; color: #FF8A9F; background: rgba(255, 23, 68, 0.1); border-radius: 6px; }
+        .btn-back-menu { font-family: sans-serif; font-size: 11px; text-transform: uppercase; color: var(--primary-glow); background: none; border: none; font-weight: bold; margin-top: 25px; display: block; text-align: center; width: 100%; letter-spacing: 1px; cursor: pointer; }
         
         .hidden { display: none !important; }
     </style>
@@ -224,14 +235,22 @@
             <div class="vio-orbit-zone">
                 <div class="vio-particle p1"></div>
                 <div class="vio-particle p2"></div>
-                <div id="vio-menu" class="vio-spirit">
-                    <div class="vio-eyes"><div class="vio-eye"></div><div class="vio-eye"></div></div>
-                </div>
+                
+                <!-- DIBUJO VECTORIAL COMPLETO DE VIO -->
+                <svg id="vio-menu" class="vio-svg-body" viewBox="0 0 100 100">
+                    <path class="main-core" d="M50,15 C25,15 15,35 15,60 C15,78 30,85 50,85 C70,85 85,78 85,60 C85,35 75,15 50,15 Z" />
+                    <circle class="glow-core" cx="50" cy="50" r="22" opacity="0.3"/>
+                    <g class="normal-eyes">
+                        <circle class="eyes" cx="38" cy="50" r="5" />
+                        <circle class="eyes" cx="62" cy="50" r="5" />
+                    </g>
+                </svg>
+
             </div>
             <div class="vio-shadow"></div>
         </div>
 
-        <h1 class="title-game">PATRONES<br><span style="color:var(--primary-glow); transition:color 0.3s;">DE CRIANZA</span></h1>
+        <h1 class="title-game">PATRONES<br><span style="color:var(--primary-glow);">DE CRIANZA</span></h1>
         <div class="menu-list">
             <button class="btn-grunge" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-levels'); refreshLevelsInterface();">Iniciar Juego</button>
             <button class="btn-grunge" style="filter: brightness(0.85);" onclick="initAudioEngine(); changeModule('m-main-menu', 'm-howtoplay');">Cómo Jugar</button>
@@ -307,16 +326,30 @@
     <!-- MÓDULO 6: MOTOR DE JUEGO PRINCIPAL -->
     <div id="m-gameplay" class="panel-grunge hidden">
         <div class="character-container" style="margin-bottom: 12px;">
-            <div class="vio-orbit-zone" style="width:75px; height:75px;">
-                <div id="vio-gameplay" class="vio-spirit">
-                    <div class="vio-eyes"><div class="vio-eye"></div><div class="vio-eye"></div></div>
-                </div>
+            <div class="vio-orbit-zone" style="width:80px; height:80px;">
+                
+                <svg id="vio-gameplay" class="vio-svg-body" viewBox="0 0 100 100">
+                    <path class="main-core" d="M50,15 C25,15 15,35 15,60 C15,78 30,85 50,85 C70,85 85,78 85,60 C85,35 75,15 50,15 Z" />
+                    <g class="normal-eyes">
+                        <circle class="eyes" cx="38" cy="50" r="5" />
+                        <circle class="eyes" cx="62" cy="50" r="5" />
+                    </g>
+                    <g class="happy-eyes">
+                        <path d="M33,52 Q38,46 43,52" stroke="#FFFFFF" stroke-width="4" fill="none" stroke-linecap="round"/>
+                        <path d="M57,52 Q62,46 67,52" stroke="#FFFFFF" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    </g>
+                    <g class="sad-eyes">
+                        <path d="M33,48 Q38,54 43,48" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round"/>
+                        <path d="M57,48 Q62,54 67,48" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    </g>
+                </svg>
+
             </div>
         </div>
 
         <div id="game-feedback" class="feedback-banner"></div>
 
-        <!-- MODO: QUIZ KAHOOT -->
+        <!-- MODO: QUIZ -->
         <div id="mech-kahoot" class="hidden">
             <div class="timer-container"><div id="kahoot-bar" class="timer-bar"></div></div>
             <p class="desc-text" id="kahoot-text" style="font-weight: bold; color: #FFFFFF;"></p>
@@ -347,13 +380,15 @@
         <div class="character-container">
             <div class="vio-orbit-zone">
                 <div class="vio-particle p1"></div>
-                <div class="vio-spirit happy">
-                    <div class="vio-eyes"><div class="vio-eye"></div><div class="vio-eye"></div></div>
-                </div>
+                <svg class="vio-svg-body happy" viewBox="0 0 100 100">
+                    <path class="main-core" d="M50,15 C25,15 15,35 15,60 C15,78 30,85 50,85 C70,85 85,78 85,60 C85,35 75,15 50,15 Z" />
+                    <path d="M33,52 Q38,46 43,52" stroke="#FFFFFF" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <path d="M57,52 Q62,46 67,52" stroke="#FFFFFF" stroke-width="4" fill="none" stroke-linecap="round"/>
+                </svg>
             </div>
         </div>
         <h2 class="section-header" style="background:var(--primary); color:#FFFFFF;">ÉXITO</h2>
-        <h3 class="victory-title" style="color:var(--primary-glow);">¡NÚCLEO SANO!</h3>
+        <h3 style="color:var(--primary-glow); text-align: center;">¡NÚCLEO SANO!</h3>
         <p class="desc-text" id="clear-level-summary" style="text-align:center;"></p>
         <button class="btn-grunge" onclick="procederSiguienteNivel()">SIGUIENTE ENTORNO ➔</button>
     </div>
@@ -361,16 +396,16 @@
     <!-- MÓDULO 8: PANTALLA FIN DEL JUEGO -->
     <div id="m-game-over" class="panel-grunge hidden">
         <div class="character-container">
-            <div class="vio-orbit-zone" style="transform: scale(1.25);">
-                <div class="vio-particle p1"></div>
-                <div class="vio-particle p2"></div>
-                <div class="vio-spirit happy">
-                    <div class="vio-eyes"><div class="vio-eye"></div><div class="vio-eye"></div></div>
-                </div>
+            <div class="vio-orbit-zone" style="transform: scale(1.2);">
+                <svg class="vio-svg-body happy" viewBox="0 0 100 100">
+                    <path class="main-core" d="M50,15 C25,15 15,35 15,60 C15,78 30,85 50,85 C70,85 85,78 85,60 C85,35 75,15 50,15 Z" />
+                    <path d="M33,52 Q38,46 43,52" stroke="#FFFFFF" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <path d="M57,52 Q62,46 67,52" stroke="#FFFFFF" stroke-width="4" fill="none" stroke-linecap="round"/>
+                </svg>
             </div>
         </div>
         <h2 class="section-header" style="background:#FFFFFF; color:#000000;">COMPLETO</h2>
-        <h3 class="victory-title">¡VICTORIA ABSOLUTA!</h3>
+        <h3 style="text-align:center;">¡VICTORIA ABSOLUTA!</h3>
         <p class="desc-text" style="text-align:center;">Felicidades. Has completado exitosamente la calibración conductual de los 10 cuadrantes críticos familiares.</p>
         <button class="btn-grunge" onclick="reiniciarTodoAlMenu()">VOLVER AL PANEL PRINCIPAL</button>
     </div>
@@ -402,11 +437,8 @@
 
     function updateAppTheme(themeName) {
         document.body.removeAttribute('data-theme');
-        if (themeName !== 'mystic') {
-            document.body.setAttribute('data-theme', themeName);
-        }
+        if (themeName !== 'mystic') document.body.setAttribute('data-theme', themeName);
         
-        // Actualizar UI del selector
         document.querySelectorAll('.theme-btn-card').forEach(c => c.classList.remove('active'));
         if(themeName === 'mystic') document.getElementById('t-card-mystic').classList.add('active');
         if(themeName === 'cyber') document.getElementById('t-card-cyber').classList.add('active');
@@ -523,7 +555,7 @@
         document.getElementById('mech-kahoot').classList.add('hidden');
         document.getElementById('mech-sopa').classList.add('hidden');
         document.getElementById('mech-binary').classList.add('hidden');
-        document.getElementById('vio-gameplay').className = "vio-spirit"; 
+        document.getElementById('vio-gameplay').className.baseVal = "vio-svg-body"; 
         clearInterval(intervaloKahoot);
 
         let data = dbNiveles[currentLevel];
@@ -534,8 +566,7 @@
             let optZone = document.getElementById('kahoot-options'); optZone.innerHTML = "";
             data.opt.forEach((o, i) => {
                 let btn = document.createElement('button'); btn.className = "btn-grunge secondary";
-                btn.style.animationDelay = (i * 0.06) + "s";
-                btn.innerText = `[${i + 1}]  ` + o;
+                btn.innerHTML = `<span class="prefix">[${i + 1}]</span> ` + o;
                 btn.onclick = () => { if(i === data.ans) triggClearScreen(); else failAction(); };
                 optZone.appendChild(btn);
             });
@@ -553,7 +584,7 @@
     function runKahootTimer() {
         let barra = document.getElementById('kahoot-bar'); tiempoKahoot = 20; barra.style.width = "100%";
         intervaloKahoot = setInterval(() => {
-            tiempoKahoot--; barra.style.width = (tiempoKahoot * 5) + "%";
+            tiempoKeep = tiempoKahoot--; barra.style.width = (tiempoKeep * 5) + "%";
             if(tiempoKahoot <= 0) { clearInterval(intervaloKahoot); failAction(); }
         }, 1000);
     }
@@ -611,7 +642,7 @@
         let playPanel = document.getElementById('m-gameplay');
         let feed = document.getElementById('game-feedback');
         
-        document.getElementById('vio-gameplay').className = "vio-spirit sad";
+        document.getElementById('vio-gameplay').className.baseVal = "vio-svg-body sad";
         playPanel.classList.remove('interface-error');
         void playPanel.offsetWidth;
         playPanel.classList.add('interface-error');
