@@ -1,1074 +1,456 @@
 ```html
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<title>PATRONES DE CRIANZA - ULTIMATE EDITION</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<!-- REEMPLAZA SOLO ESTA PARTE EN TU CSS ORIGINAL -->
 
 <style>
 
-:root{
-    --bg:#090013;
-    --panel:rgba(17,10,31,.78);
-    --primary:#8A2BE2;
-    --secondary:#00e5ff;
-    --text:#fff;
-    --border:rgba(255,255,255,.12);
-    --danger:#ff2e63;
-    --success:#00ff9f;
-    --warning:#ffc857;
-    --shadow:0 0 25px rgba(138,43,226,.5);
-}
+/* ====== BLOQUEO TOTAL A FORMATO VERTICAL ====== */
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+html, body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
 }
 
 body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:'Plus Jakarta Sans',sans-serif;
-    width:100vw;
-    height:100vh;
-    overflow:hidden;
     display:flex;
     justify-content:center;
     align-items:center;
-    position:relative;
+    background:#05010d;
 }
 
-body::before{
-    content:'';
-    position:absolute;
-    inset:0;
-    background:
-    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.03) 1px, transparent 1px);
-    background-size:25px 25px;
-    pointer-events:none;
-}
-
-.orb{
-    position:absolute;
-    border-radius:50%;
-    filter:blur(80px);
-    opacity:.3;
-    animation:float 12s infinite alternate ease-in-out;
-}
-
-.orb1{
-    width:280px;
-    height:280px;
-    background:#8A2BE2;
-    top:-60px;
-    left:-60px;
-}
-
-.orb2{
-    width:260px;
-    height:260px;
-    background:#00e5ff;
-    bottom:-80px;
-    right:-80px;
-}
-
-@keyframes float{
-    from{transform:translateY(0px);}
-    to{transform:translateY(40px);}
-}
-
-#app{
+/* CONTENEDOR PRINCIPAL */
+.wrapper-layout{
     width:100%;
     max-width:430px;
     height:100vh;
+    margin:auto;
     position:relative;
     overflow:hidden;
-    z-index:2;
-}
-
-.screen{
-    position:absolute;
-    inset:0;
-    padding:22px;
-    overflow-y:auto;
-    display:none;
-    animation:fade .4s ease;
-}
-
-.screen.active{
-    display:block;
-}
-
-@keyframes fade{
-    from{
-        opacity:0;
-        transform:translateY(10px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0px);
-    }
-}
-
-.panel{
-    background:var(--panel);
-    border:1px solid var(--border);
-    border-radius:28px;
-    padding:22px;
-    backdrop-filter:blur(18px);
-    box-shadow:var(--shadow);
-}
-
-.loading{
     display:flex;
-    flex-direction:column;
     justify-content:center;
-    align-items:center;
-    height:100%;
-    gap:25px;
-}
-
-.loading h1{
-    font-size:42px;
-    text-align:center;
-    line-height:1;
-    font-family:'Orbitron',sans-serif;
-}
-
-.loading h1 span{
-    color:var(--secondary);
-}
-
-.loader{
-    width:80px;
-    height:80px;
-    border:5px solid rgba(255,255,255,.1);
-    border-top:5px solid var(--secondary);
-    border-radius:50%;
-    animation:spin 1s linear infinite;
-}
-
-@keyframes spin{
-    to{
-        transform:rotate(360deg);
-    }
-}
-
-.progress{
-    width:100%;
-    height:12px;
-    border-radius:20px;
-    overflow:hidden;
-    background:rgba(255,255,255,.08);
-}
-
-.progressFill{
-    width:0%;
-    height:100%;
-    background:linear-gradient(90deg,var(--primary),var(--secondary));
-    transition:.2s;
-}
-
-.title{
-    font-size:34px;
-    font-family:'Orbitron',sans-serif;
-    text-align:center;
-    margin-top:10px;
-    margin-bottom:20px;
-}
-
-.title span{
-    color:var(--secondary);
-}
-
-.character{
-    width:120px;
-    height:120px;
-    border-radius:50%;
-    background:radial-gradient(circle,var(--secondary),var(--primary));
-    margin:0 auto 18px;
-    position:relative;
-    animation:bounce 3s infinite ease-in-out;
-    box-shadow:0 0 35px rgba(0,229,255,.7);
-}
-
-.character::before,
-.character::after{
-    content:'';
-    position:absolute;
-    width:12px;
-    height:12px;
-    background:#fff;
-    border-radius:50%;
-    top:40px;
-}
-
-.character::before{
-    left:34px;
-}
-
-.character::after{
-    right:34px;
-}
-
-@keyframes bounce{
-    0%,100%{
-        transform:translateY(0px);
-    }
-    50%{
-        transform:translateY(-12px);
-    }
-}
-
-.btn{
-    width:100%;
-    border:none;
-    border-radius:18px;
-    padding:16px;
-    margin-top:14px;
-    background:linear-gradient(135deg,var(--primary),var(--secondary));
-    color:#fff;
-    font-size:18px;
-    font-weight:700;
-    cursor:pointer;
-    transition:.25s;
-}
-
-.btn:hover{
-    transform:scale(1.03);
-}
-
-.btn.secondary{
-    background:rgba(255,255,255,.05);
-    border:1px solid var(--border);
-}
-
-.sectionTitle{
-    font-size:18px;
-    font-family:'Orbitron',sans-serif;
-    margin-bottom:16px;
-    text-align:center;
-}
-
-.stats{
-    display:grid;
-    gap:14px;
-}
-
-.stat{
-    background:rgba(255,255,255,.04);
-    border-radius:16px;
-    padding:12px;
-}
-
-.statTop{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:8px;
-}
-
-.bar{
-    height:10px;
-    background:rgba(255,255,255,.08);
-    border-radius:20px;
-    overflow:hidden;
-}
-
-.barFill{
-    height:100%;
-    width:50%;
-    background:linear-gradient(90deg,var(--secondary),var(--success));
-}
-
-.coinBox{
-    margin-top:18px;
-    display:flex;
-    justify-content:space-between;
     align-items:center;
     padding:14px;
-    border-radius:18px;
-    background:rgba(255,255,255,.05);
 }
 
-.levelGrid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:12px;
-}
-
-.level{
-    aspect-ratio:1/1;
-    border-radius:20px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:24px;
-    font-weight:700;
-    background:rgba(255,255,255,.05);
-    border:1px solid var(--border);
-    cursor:pointer;
-}
-
-.level.done{
-    background:linear-gradient(135deg,var(--success),#00c27a);
-}
-
-.level.lock{
-    opacity:.3;
-}
-
-.question{
-    font-size:18px;
-    line-height:1.5;
-    margin-bottom:20px;
-}
-
-.shopItem{
-    background:rgba(255,255,255,.05);
-    border-radius:18px;
-    padding:16px;
-    margin-bottom:14px;
-}
-
-.shopItem h3{
-    margin-bottom:10px;
-}
-
-.themePreview{
+/* TODOS LOS PANELES */
+.panel-grunge{
     width:100%;
-    height:50px;
-    border-radius:12px;
-    margin-bottom:10px;
+    max-width:390px;
+    max-height:96vh;
+    overflow-y:auto;
+    overflow-x:hidden;
+    border-radius:28px;
 }
 
-.gameArea{
-    width:100%;
-    height:300px;
-    border-radius:20px;
-    background:rgba(0,0,0,.35);
-    border:1px solid var(--border);
-    position:relative;
-    overflow:hidden;
-}
-
-.note{
-    width:70px;
-    height:70px;
-    border-radius:50%;
-    position:absolute;
-    background:radial-gradient(circle,var(--secondary),var(--primary));
-    animation:shrink 1.2s linear forwards;
-    cursor:pointer;
-}
-
-@keyframes shrink{
-    from{
-        transform:scale(1);
-        opacity:1;
-    }
-    to{
-        transform:scale(0);
-        opacity:0;
-    }
-}
-
-.topHUD{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:16px;
-    font-weight:700;
-}
-
-.storeTag{
-    background:rgba(255,255,255,.08);
-    padding:8px 12px;
-    border-radius:12px;
-}
-
-.finalScreen{
-    text-align:center;
-    padding-top:80px;
-}
-
-.finalScreen h2{
-    font-size:36px;
-    margin-bottom:20px;
-}
-
-.credit{
-    text-align:center;
-    opacity:.7;
-    margin-top:18px;
-    font-size:12px;
-}
-
-::-webkit-scrollbar{
+/* SCROLL INVISIBLE */
+.panel-grunge::-webkit-scrollbar{
     width:0;
 }
 
+/* TÍTULOS */
+.title-game{
+    font-size:30px !important;
+}
+
+/* BOTONES */
+.btn-grunge{
+    min-height:58px;
+    font-size:18px;
+    border-radius:18px;
+}
+
+/* MODO RITMO */
+.osu-playfield{
+    height:320px !important;
+}
+
+/* PERSONAJE */
+.vio-orbit-zone{
+    transform:scale(1.08);
+}
+
+/* GRID NIVELES */
+.levels-grid{
+    grid-template-columns:repeat(3,1fr) !important;
+    gap:12px;
+}
+
+/* CAJAS NIVELES */
+.level-box{
+    height:72px !important;
+    border-radius:16px;
+    font-size:20px;
+}
+
+/* PANTALLA DE CARGA */
+.loading-title-zone h1{
+    font-size:42px !important;
+}
+
+.loading-vertical-panel{
+    max-width:360px;
+}
+
+/* AJUSTES */
+.theme-selector-grid{
+    grid-template-columns:repeat(2,1fr) !important;
+}
+
+/* MASCOTA */
+.stat-card{
+    border-radius:18px;
+}
+
+/* ANIMACIÓN EXTRA */
+.panel-grunge{
+    animation:ultimateEntrance .5s cubic-bezier(.19,1,.22,1);
+}
+
+@keyframes ultimateEntrance{
+    from{
+        opacity:0;
+        transform:translateY(20px) scale(.96);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0px) scale(1);
+    }
+}
+
+/* GLOW PREMIUM */
+.panel-grunge{
+    box-shadow:
+    0 20px 60px rgba(0,0,0,.55),
+    0 0 25px rgba(177,70,255,.35),
+    inset 0 0 20px rgba(255,255,255,.02);
+}
+
+/* EFECTO BOTONES */
+.btn-grunge:hover{
+    transform:translateY(-3px) scale(1.02);
+}
+
+.btn-grunge:active{
+    transform:scale(.98);
+}
+
+/* EFECTOS PREMIUM MODO RITMO */
+.osu-target-node{
+    animation:
+    nodeShrink 1.4s linear forwards,
+    pulseGlow 1s infinite alternate;
+}
+
+@keyframes pulseGlow{
+    from{
+        box-shadow:0 0 10px var(--primary-glow);
+    }
+    to{
+        box-shadow:
+        0 0 25px var(--primary-glow),
+        0 0 45px var(--primary-glow);
+    }
+}
+
+/* PARTÍCULAS FONDO */
+body::after{
+    animation:gridMove 10s linear infinite;
+}
+
+@keyframes gridMove{
+    from{
+        background-position:0 0,0 0;
+    }
+    to{
+        background-position:30px 30px,30px 30px;
+    }
+}
+
+/* RESPONSIVE MÓVIL */
+@media(max-width:480px){
+
+    .panel-grunge{
+        padding:24px 18px;
+    }
+
+    .title-game{
+        font-size:26px !important;
+    }
+
+    .btn-grunge{
+        font-size:16px;
+        min-height:54px;
+    }
+
+    .osu-playfield{
+        height:280px !important;
+    }
+}
+
+/* BLOQUEAR HORIZONTAL */
+@media screen and (orientation:landscape){
+
+    body{
+        background:#000;
+    }
+
+    body *{
+        display:none !important;
+    }
+
+    body::before{
+        content:"GIRA EL DISPOSITIVO 📱";
+        display:flex !important;
+        position:fixed;
+        inset:0;
+        justify-content:center;
+        align-items:center;
+        color:#fff;
+        font-size:28px;
+        font-family:'Orbitron',sans-serif;
+        letter-spacing:2px;
+        z-index:999999;
+    }
+}
+
 </style>
-</head>
-<body>
 
-<div class="orb orb1"></div>
-<div class="orb orb2"></div>
 
-<div id="app">
 
-<!-- LOADING -->
-
-<div class="screen active" id="loadingScreen">
-
-<div class="loading">
-
-<h1>PATRONES<br><span>DE CRIANZA</span></h1>
-
-<div class="loader"></div>
-
-<div class="progress">
-<div class="progressFill" id="loadFill"></div>
-</div>
-
-<div id="loadText">0%</div>
-
-<div class="credit">
-Desarrollado por<br>
-<b>Lucia Carolina Barcenas Rodriguez</b>
-</div>
-
-</div>
-
-</div>
-
-<!-- MENU -->
-
-<div class="screen" id="menuScreen">
-
-<div class="panel">
-
-<div class="character" onclick="petCharacter()"></div>
-
-<div class="title">
-PATRONES<br><span>DE CRIANZA</span>
-</div>
-
-<button class="btn" onclick="showScreen('mapScreen')">
-🎮 Modo Historia
-</button>
-
-<button class="btn" onclick="showScreen('rhythmScreen')">
-⚡ Modo Ritmo
-</button>
-
-<button class="btn" onclick="showScreen('petScreen')">
-🐾 Mascota Vio
-</button>
-
-<button class="btn" onclick="showScreen('shopScreen')">
-🛒 Tienda
-</button>
-
-<button class="btn secondary" onclick="showScreen('settingsScreen')">
-⚙️ Ajustes
-</button>
-
-<div class="coinBox">
-<div>🪙 Monedas</div>
-<div id="coinDisplay">0</div>
-</div>
-
-</div>
-
-</div>
-
-<!-- PET -->
-
-<div class="screen" id="petScreen">
-
-<div class="panel">
-
-<div class="sectionTitle">
-SANTUARIO VIO
-</div>
-
-<div class="character" onclick="feedPet()"></div>
-
-<div class="stats">
-
-<div class="stat">
-<div class="statTop">
-<span>❤️ Amor</span>
-<span id="loveText">50%</span>
-</div>
-<div class="bar">
-<div class="barFill" id="loveBar"></div>
-</div>
-</div>
-
-<div class="stat">
-<div class="statTop">
-<span>⚡ Energía</span>
-<span id="energyText">70%</span>
-</div>
-<div class="bar">
-<div class="barFill" id="energyBar"></div>
-</div>
-</div>
-
-</div>
-
-<button class="btn" onclick="feedPet()">
-🍔 Alimentar
-</button>
-
-<button class="btn" onclick="sleepPet()">
-😴 Dormir
-</button>
-
-<button class="btn secondary" onclick="showScreen('menuScreen')">
-⬅ Regresar
-</button>
-
-</div>
-
-</div>
-
-<!-- MAP -->
-
-<div class="screen" id="mapScreen">
-
-<div class="panel">
-
-<div class="sectionTitle">
-MAPA DE NIVELES
-</div>
-
-<div class="levelGrid" id="levelGrid"></div>
-
-<button class="btn secondary" onclick="showScreen('menuScreen')">
-⬅ Regresar
-</button>
-
-</div>
-
-</div>
-
-<!-- QUIZ -->
-
-<div class="screen" id="quizScreen">
-
-<div class="panel">
-
-<div class="topHUD">
-<div>⭐ Nivel <span id="currentLevel">1</span></div>
-<div>🪙 <span id="coinHUD">0</span></div>
-</div>
-
-<div class="question" id="questionText"></div>
-
-<div id="answers"></div>
-
-<button class="btn secondary" onclick="showScreen('mapScreen')">
-Salir
-</button>
-
-</div>
-
-</div>
-
-<!-- RHYTHM -->
-
-<div class="screen" id="rhythmScreen">
-
-<div class="panel">
-
-<div class="topHUD">
-<div>Puntos: <span id="scoreText">0</span></div>
-<div>Tiempo: <span id="timeText">20</span></div>
-</div>
-
-<div class="gameArea" id="gameArea"></div>
-
-<button class="btn" onclick="startRhythm()">
-▶ Iniciar
-</button>
-
-<button class="btn secondary" onclick="endRhythm()">
-⬅ Salir
-</button>
-
-</div>
-
-</div>
-
-<!-- SHOP -->
-
-<div class="screen" id="shopScreen">
-
-<div class="panel">
-
-<div class="sectionTitle">
-TIENDA
-</div>
-
-<div class="shopItem">
-<div class="themePreview" style="background:linear-gradient(135deg,#8A2BE2,#00e5ff);"></div>
-<h3>Tema Neon</h3>
-<p>Precio: 50 monedas</p>
-<button class="btn" onclick="buyTheme('neon',50)">
-Comprar
-</button>
-</div>
-
-<div class="shopItem">
-<div class="themePreview" style="background:linear-gradient(135deg,#ff2e63,#ff9a3c);"></div>
-<h3>Tema Sunset</h3>
-<p>Precio: 100 monedas</p>
-<button class="btn" onclick="buyTheme('sunset',100)">
-Comprar
-</button>
-</div>
-
-<button class="btn secondary" onclick="showScreen('menuScreen')">
-⬅ Regresar
-</button>
-
-</div>
-
-</div>
-
-<!-- SETTINGS -->
-
-<div class="screen" id="settingsScreen">
-
-<div class="panel">
-
-<div class="sectionTitle">
-AJUSTES
-</div>
-
-<button class="btn" onclick="applyTheme('default')">
-💜 Tema Default
-</button>
-
-<button class="btn" onclick="applyTheme('dark')">
-🌑 Tema Dark
-</button>
-
-<button class="btn" onclick="applyTheme('cyan')">
-💠 Tema Cyan
-</button>
-
-<button class="btn" onclick="toggleMusic()">
-🎵 Música ON/OFF
-</button>
-
-<button class="btn secondary" onclick="showScreen('menuScreen')">
-⬅ Regresar
-</button>
-
-</div>
-
-</div>
-
-<!-- FINAL -->
-
-<div class="screen" id="finalScreen">
-
-<div class="panel finalScreen">
-
-<h2>🏆</h2>
-
-<h2>¡COMPLETADO!</h2>
-
-<p>
-Has terminado todos los niveles del juego.
-</p>
-
-<button class="btn" onclick="resetGame()">
-🔄 Reiniciar Juego
-</button>
-
-</div>
-
-</div>
-
-</div>
+<!-- AGREGA ESTO ANTES DE </script> -->
 
 <script>
 
-let coins = localStorage.getItem("coins")
-? parseInt(localStorage.getItem("coins"))
-: 0;
+/* ===== SISTEMA MONEDAS ===== */
 
-let love = localStorage.getItem("love")
-? parseInt(localStorage.getItem("love"))
-: 50;
+let monedas = parseInt(localStorage.getItem("monedas")) || 0;
 
-let energy = localStorage.getItem("energy")
-? parseInt(localStorage.getItem("energy"))
-: 70;
-
-let completedLevels = localStorage.getItem("completed")
-? JSON.parse(localStorage.getItem("completed"))
-: [];
-
-const questions = [
-
-{
-q:"¿Qué patrón usa castigos severos y poca comunicación?",
-a:["Democrático","Autoritario","Negligente"],
-c:1
-},
-
-{
-q:"¿Qué patrón equilibra amor y límites?",
-a:["Democrático","Autoritario","Negligente"],
-c:0
-},
-
-{
-q:"¿Qué patrón ignora necesidades del hijo?",
-a:["Negligente","Democrático","Protector"],
-c:0
-},
-
-{
-q:"¿El diálogo es importante en la crianza?",
-a:["Sí","No"],
-c:0
-},
-
-{
-q:"¿La violencia mejora la educación?",
-a:["Sí","No"],
-c:1
+function guardarMonedas(){
+    localStorage.setItem("monedas", monedas);
 }
 
-];
-
-function saveGame(){
-    localStorage.setItem("coins",coins);
-    localStorage.setItem("love",love);
-    localStorage.setItem("energy",energy);
-    localStorage.setItem("completed",JSON.stringify(completedLevels));
+function sumarMonedas(cantidad){
+    monedas += cantidad;
+    guardarMonedas();
+    actualizarMonedasUI();
 }
 
-function updateHUD(){
-
-    document.getElementById("coinDisplay").innerText = coins;
-    document.getElementById("coinHUD").innerText = coins;
-
-    document.getElementById("loveText").innerText = love + "%";
-    document.getElementById("energyText").innerText = energy + "%";
-
-    document.getElementById("loveBar").style.width = love + "%";
-    document.getElementById("energyBar").style.width = energy + "%";
-
-    saveGame();
-}
-
-function showScreen(id){
-
-    document.querySelectorAll(".screen").forEach(s=>{
-        s.classList.remove("active");
-    });
-
-    document.getElementById(id).classList.add("active");
-
-    if(id === "mapScreen"){
-        buildLevels();
-    }
-
-    updateHUD();
-}
-
-let load = 0;
-
-let interval = setInterval(()=>{
-
-    load += 4;
-
-    if(load > 100){
-        load = 100;
-    }
-
-    document.getElementById("loadFill").style.width = load + "%";
-    document.getElementById("loadText").innerText = load + "%";
-
-    if(load >= 100){
-
-        clearInterval(interval);
-
-        setTimeout(()=>{
-            showScreen("menuScreen");
-        },700);
-    }
-
-},70);
-
-function petCharacter(){
-
-    coins += 1;
-    updateHUD();
-}
-
-function feedPet(){
-
-    love += 5;
-    energy += 3;
-
-    if(love > 100) love = 100;
-    if(energy > 100) energy = 100;
-
-    updateHUD();
-
-    alert("🐾 Vio está feliz.");
-}
-
-function sleepPet(){
-
-    energy += 10;
-
-    if(energy > 100) energy = 100;
-
-    updateHUD();
-
-    alert("😴 Vio descansó.");
-}
-
-function buildLevels(){
-
-    let grid = document.getElementById("levelGrid");
-
-    grid.innerHTML = "";
-
-    for(let i=0;i<questions.length;i++){
-
-        let level = document.createElement("div");
-
-        level.className = "level";
-
-        if(completedLevels.includes(i)){
-            level.classList.add("done");
-        }
-
-        level.innerText = i + 1;
-
-        level.onclick = ()=>{
-            startLevel(i);
-        };
-
-        grid.appendChild(level);
-    }
-
-}
-
-function startLevel(index){
-
-    showScreen("quizScreen");
-
-    document.getElementById("currentLevel").innerText = index + 1;
-
-    let q = questions[index];
-
-    document.getElementById("questionText").innerText = q.q;
-
-    let ans = document.getElementById("answers");
-
-    ans.innerHTML = "";
-
-    q.a.forEach((text,i)=>{
-
-        let btn = document.createElement("button");
-
-        btn.className = "btn";
-
-        btn.innerText = text;
-
-        btn.onclick = ()=>{
-
-            if(i === q.c){
-
-                coins += 20;
-
-                if(!completedLevels.includes(index)){
-                    completedLevels.push(index);
-                }
-
-                updateHUD();
-
-                if(completedLevels.length === questions.length){
-
-                    showScreen("finalScreen");
-
-                }else{
-
-                    alert("✅ Correcto");
-                    showScreen("mapScreen");
-                }
-
-            }else{
-
-                alert("❌ Incorrecto");
-            }
-
-        };
-
-        ans.appendChild(btn);
-
-    });
-
-}
-
-let rhythmInterval;
-let time = 20;
-let score = 0;
-
-function startRhythm(){
-
-    score = 0;
-    time = 20;
-
-    document.getElementById("scoreText").innerText = score;
-    document.getElementById("timeText").innerText = time;
-
-    let area = document.getElementById("gameArea");
-
-    area.innerHTML = "";
-
-    clearInterval(rhythmInterval);
-
-    rhythmInterval = setInterval(()=>{
-
-        time--;
-
-        document.getElementById("timeText").innerText = time;
-
-        spawnNote();
-
-        if(time <= 0){
-
-            clearInterval(rhythmInterval);
-
-            coins += score;
-
-            updateHUD();
-
-            alert("🎵 Juego terminado. Ganaste " + score + " monedas.");
-
-        }
-
-    },1000);
-
-}
-
-function spawnNote(){
-
-    let area = document.getElementById("gameArea");
-
-    let note = document.createElement("div");
-
-    note.className = "note";
-
-    note.style.left = Math.random() * 75 + "%";
-    note.style.top = Math.random() * 75 + "%";
-
-    note.onclick = ()=>{
-
-        score += 5;
-
-        document.getElementById("scoreText").innerText = score;
-
-        note.remove();
-    };
-
-    area.appendChild(note);
-
-    setTimeout(()=>{
-        note.remove();
-    },1200);
-
-}
-
-function endRhythm(){
-
-    clearInterval(rhythmInterval);
-
-    showScreen("menuScreen");
-}
-
-function applyTheme(theme){
-
-    if(theme === "default"){
-
-        document.documentElement.style.setProperty('--bg','#090013');
-        document.documentElement.style.setProperty('--primary','#8A2BE2');
-        document.documentElement.style.setProperty('--secondary','#00e5ff');
-
-    }
-
-    if(theme === "dark"){
-
-        document.documentElement.style.setProperty('--bg','#000');
-        document.documentElement.style.setProperty('--primary','#444');
-        document.documentElement.style.setProperty('--secondary','#999');
-
-    }
-
-    if(theme === "cyan"){
-
-        document.documentElement.style.setProperty('--bg','#001219');
-        document.documentElement.style.setProperty('--primary','#005f73');
-        document.documentElement.style.setProperty('--secondary','#0a9396');
-
-    }
-
-}
-
-function buyTheme(name,price){
-
-    if(coins >= price){
-
-        coins -= price;
-
-        updateHUD();
-
-        alert("🎨 Tema desbloqueado: " + name);
+function actualizarMonedasUI(){
+
+    let hud = document.getElementById("hud-coins");
+
+    if(!hud){
+
+        const box = document.createElement("div");
+
+        box.id = "hud-coins";
+
+        box.style.position = "fixed";
+        box.style.top = "12px";
+        box.style.left = "50%";
+        box.style.transform = "translateX(-50%)";
+        box.style.zIndex = "9999";
+        box.style.padding = "8px 16px";
+        box.style.borderRadius = "14px";
+        box.style.background = "rgba(0,0,0,.45)";
+        box.style.backdropFilter = "blur(12px)";
+        box.style.border = "1px solid rgba(255,255,255,.1)";
+        box.style.fontWeight = "bold";
+        box.style.fontFamily = "Orbitron";
+        box.style.color = "white";
+        box.innerHTML = "🪙 " + monedas;
+
+        document.body.appendChild(box);
 
     }else{
+        hud.innerHTML = "🪙 " + monedas;
+    }
+}
 
-        alert("❌ No tienes suficientes monedas.");
+actualizarMonedasUI();
+
+/* ===== GUARDADO AUTOMÁTICO ===== */
+
+function guardarProgreso(){
+
+    localStorage.setItem(
+        "nivelesCompletados",
+        JSON.stringify(nivelesCompletados)
+    );
+
+    localStorage.setItem(
+        "mascotaState",
+        JSON.stringify(mascotaState)
+    );
+}
+
+function cargarProgreso(){
+
+    const nivelesGuardados =
+        localStorage.getItem("nivelesCompletados");
+
+    const mascotaGuardada =
+        localStorage.getItem("mascotaState");
+
+    if(nivelesGuardados){
+        nivelesCompletados =
+        JSON.parse(nivelesGuardados);
     }
 
+    if(mascotaGuardada){
+        mascotaState =
+        JSON.parse(mascotaGuardada);
+    }
+
+    refreshMascotaUI();
+    refreshLevelsInterface();
 }
 
-function toggleMusic(){
+window.onload = () => {
+    cargarProgreso();
+};
 
-    alert("🎵 Sistema de música listo para añadir audios.");
+/* ===== RECOMPENSAS ===== */
+
+const oldClear = triggClearScreen;
+
+triggClearScreen = function(){
+
+    sumarMonedas(25);
+
+    oldClear();
+
+    guardarProgreso();
+};
+
+/* ===== BONUS MODO RITMO ===== */
+
+const oldEnd = endOsuGame;
+
+endOsuGame = function(aborted){
+
+    if(!aborted){
+
+        sumarMonedas(
+            Math.floor(osuScore / 2)
+        );
+    }
+
+    oldEnd(aborted);
+};
+
+/* ===== PARTÍCULAS PREMIUM ===== */
+
+function crearParticula(x,y){
+
+    const p = document.createElement("div");
+
+    p.style.position = "fixed";
+    p.style.left = x + "px";
+    p.style.top = y + "px";
+    p.style.width = "8px";
+    p.style.height = "8px";
+    p.style.borderRadius = "50%";
+    p.style.background = "white";
+    p.style.pointerEvents = "none";
+    p.style.zIndex = "99999";
+    p.style.boxShadow = "0 0 12px white";
+
+    document.body.appendChild(p);
+
+    const angle = Math.random() * Math.PI * 2;
+    const dist = 40 + Math.random() * 40;
+
+    const tx = Math.cos(angle) * dist;
+    const ty = Math.sin(angle) * dist;
+
+    p.animate([
+        {
+            transform:"translate(0,0) scale(1)",
+            opacity:1
+        },
+        {
+            transform:`translate(${tx}px,${ty}px) scale(0)`,
+            opacity:0
+        }
+    ],{
+        duration:700
+    });
+
+    setTimeout(()=>p.remove(),700);
 }
 
-function resetGame(){
+/* ===== CLICK FX ===== */
 
-    localStorage.clear();
-    location.reload();
+document.addEventListener("click",(e)=>{
+
+    for(let i=0;i<6;i++){
+        crearParticula(
+            e.clientX,
+            e.clientY
+        );
+    }
+
+});
+
+/* ===== TIENDA SIMPLE ===== */
+
+function abrirTienda(){
+
+    alert(
+`🛒 TIENDA
+
+Próximamente:
+- skins
+- nuevos temas
+- mascotas
+- efectos
+- sonidos premium`
+    );
 }
 
-updateHUD();
+/* ===== LOGROS ===== */
+
+function verificarLogros(){
+
+    const completados =
+    Object.values(nivelesCompletados)
+    .filter(Boolean).length;
+
+    if(completados >= 5){
+
+        alert("🏆 LOGRO: Explorador");
+    }
+
+    if(completados >= 10){
+
+        alert("👑 LOGRO: Maestro");
+    }
+}
+
+/* ===== MÚSICA AMBIENTE ===== */
+
+let ambientStarted = false;
+
+function iniciarMusica(){
+
+    if(ambientStarted) return;
+
+    ambientStarted = true;
+
+    if(!audioCtx) initAudioEngine();
+
+    mainOsc.frequency.setValueAtTime(
+        90,
+        audioCtx.currentTime
+    );
+}
+
+document.body.addEventListener(
+    "click",
+    iniciarMusica,
+    { once:true }
+);
 
 </script>
-
-</body>
-</html>
 ```
